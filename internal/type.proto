@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package tech.code0.model;
+
+import "rule.proto";
+
+message Type {
+  string name = 1;
+  string type = 2;
+  optional bool array = 3;
+  repeated Rule rules = 4;
+  optional Type parent = 5;
+}

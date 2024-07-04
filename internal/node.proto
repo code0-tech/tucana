@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package tech.code0.model;
+
+import "variable.proto";
+import "google/protobuf/struct.proto";
+
+message Node {
+  int64 node_id = 1;
+  repeated Parameter parameter = 2;
+  optional string returnType = 3;
+  optional Node nextNode = 4;
+  repeated Variable context = 5;
+}
+
+message Parameter {
+  int64 parameter_id = 1;
+  string name = 2;
+  string type = 3;
+  optional google.protobuf.Struct value = 4;
+  optional Node subNode = 5;
+  optional int32 typeRef = 6;
+}

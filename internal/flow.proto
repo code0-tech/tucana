@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package tech.code0.model;
+
+import "node.proto";
+import "type.proto";
+import "variable.proto";
+
+message Flow {
+  int64 flow_id = 1;
+  Node startingNode = 2;
+  repeated Type types = 3;
+  repeated Variable context = 4;
+  int64 lastUpdated = 5;
+}

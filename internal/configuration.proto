@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package tech.code0.model;
+
+import "flow.proto";
+
+message Configuration {
+  int64 configuration_id = 1;
+  int64 lastEdited = 2;
+  repeated Flow flows = 3;
+}
+
+message UpdateConfigurationRequest {
+  Configuration configuration = 1;
+}
+
+message UpdateConfigurationResponse {
+  bool success = 1;
+}
+
+message DeleteConfigurationRequest {
+  Configuration configuration = 1;
+}
+
+message DeleteConfigurationResponse {
+  bool success = 1;
+}
+
+service ConfigurationService {
+  rpc Update (UpdateConfigurationRequest) returns (UpdateConfigurationResponse) {}
+  rpc Delete (DeleteConfigurationRequest) returns (DeleteConfigurationResponse) {}
+}

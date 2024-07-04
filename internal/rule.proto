@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package tech.code0.model;
+
+import "google/protobuf/struct.proto";
+
+enum RuleType {
+  REGEX = 0;
+  NUMBER_RANGE = 1;
+  ITEM_OF_COLLECTION = 2;
+}
+
+message Rule {
+  RuleType type = 1;
+  google.protobuf.Struct config = 2;
+}
