@@ -1,3 +1,4 @@
 build/java/build
 build/java/.gradle
 .idea
+build/rust/target
