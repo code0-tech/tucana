@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-package tech.code0.model;
-
 import "flow.proto";
 
 message Configuration {
