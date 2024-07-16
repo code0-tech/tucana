@@ -3,8 +3,11 @@ use prost_build::*;
 
 fn main() -> Result<()> {
     let internal_prefix = "../../internal";
+    let mut config = Config::new();
 
-    compile_protos(&[
+    config.protoc_arg("--proto_path=../../internal");
+
+    config.compile_protos(&[
         format!("{internal_prefix}/configuration.proto"), 
         format!("{internal_prefix}/flow.proto"), 
         format!("{internal_prefix}/node.proto"), 
