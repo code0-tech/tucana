@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option ruby_package = "Tucana::Internal";
+
 message Variable {
   string name = 1;
   string type = 2;

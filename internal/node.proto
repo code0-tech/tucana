@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option ruby_package = "Tucana::Internal";
+
 import "variable.proto";
 import "google/protobuf/struct.proto";
 

@@ -1,0 +1,38 @@
+# frozen_string_literal: true
+
+require "fileutils"
+
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+
+RSpec::Core::RakeTask.new(:spec)
+
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
+PROJECT_ROOT = File.expand_path("../..", __dir__)
+RUBY_ROOT = "#{PROJECT_ROOT}/build/ruby".freeze
+INPUT_INTERNAL_DIR = "#{PROJECT_ROOT}/internal".freeze
+OUTPUT_INTERNAL_DIR = "#{RUBY_ROOT}/lib/tucana/internal".freeze
+
+def system!(*args)
+  system(*args, exception: true)
+end
+
+namespace :generate_ruby do
+  desc "Generate ruby files for the internal protocol"
+  task :internal do
+    FileUtils.rm_rf(OUTPUT_INTERNAL_DIR)
+    FileUtils.mkdir_p(OUTPUT_INTERNAL_DIR)
+    FileUtils.chdir RUBY_ROOT do
+      Dir["#{INPUT_INTERNAL_DIR}/*.proto"].each do |file|
+        # rubocop:disable Layout/LineLength
+        system!("bundle exec grpc_tools_ruby_protoc -I #{INPUT_INTERNAL_DIR} --ruby_out=#{OUTPUT_INTERNAL_DIR} --grpc_out=#{OUTPUT_INTERNAL_DIR} #{file}")
+        # rubocop:enable Layout/LineLength
+      end
+    end
+  end
+end
+
+task default: %i[spec rubocop]
