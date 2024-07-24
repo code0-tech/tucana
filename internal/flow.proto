@@ -8,8 +8,8 @@ import "variable.proto";
 
 message Flow {
   int64 flow_id = 1;
-  Node startingNode = 2;
+  Node starting_node = 2;
   repeated Type types = 3;
   repeated Variable context = 4;
-  int64 lastUpdated = 5;
+  int64 last_updated = 5;
 }
