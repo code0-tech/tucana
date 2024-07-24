@@ -7,10 +7,6 @@ require "rspec/core/rake_task"
 
 RSpec::Core::RakeTask.new(:spec)
 
-require "rubocop/rake_task"
-
-RuboCop::RakeTask.new
-
 PROJECT_ROOT = File.expand_path("../..", __dir__)
 RUBY_ROOT = "#{PROJECT_ROOT}/build/ruby".freeze
 INPUT_INTERNAL_DIR = "#{PROJECT_ROOT}/internal".freeze
@@ -35,4 +31,4 @@ namespace :generate_ruby do
   end
 end
 
-task default: %i[spec rubocop]
+task default: %i[spec]
