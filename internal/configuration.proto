@@ -6,7 +6,7 @@ import "flow.proto";
 
 message Configuration {
   int64 configuration_id = 1;
-  int64 lastEdited = 2;
+  int64 last_edited = 2;
   repeated Flow flows = 3;
 }
 
