@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option ruby_package = "Tucana::Internal";
+
 import "flow.proto";
 
 message Configuration {
