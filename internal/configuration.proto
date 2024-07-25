@@ -10,6 +10,10 @@ message Configuration {
   repeated Flow flows = 3;
 }
 
+message GetConfigurationRequest {
+  int64 configuration_id = 1;
+}
+
 message UpdateConfigurationRequest {
   Configuration configuration = 1;
 }
@@ -27,6 +31,7 @@ message DeleteConfigurationResponse {
 }
 
 service ConfigurationService {
+  rpc Get (GetConfigurationRequest) returns (UpdateConfigurationRequest) {}
   rpc Update (UpdateConfigurationRequest) returns (UpdateConfigurationResponse) {}
   rpc Delete (DeleteConfigurationRequest) returns (DeleteConfigurationResponse) {}
 }
