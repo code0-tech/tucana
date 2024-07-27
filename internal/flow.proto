@@ -47,8 +47,11 @@ message FlowGetResponse {
   repeated int64 deleted_flow_ids = 2;
 }
 
-service FlowService {
+service FlowAquilaService {
   rpc Update (FlowUpdateRequest) returns (FlowUpdateResponse) {}
   rpc Delete (FlowDeleteRequest) returns (FlowDeleteResponse) {}
+}
+
+service FlowSagittariusService {
   rpc Get (FlowGetRequest) returns (FlowGetResponse) {}
 }
