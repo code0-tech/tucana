@@ -12,5 +12,5 @@ enum RuleType {
 
 message Rule {
   RuleType type = 1;
-  google.protobuf.Struct config = 2;
+  string config = 2;
 }

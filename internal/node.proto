@@ -17,7 +17,7 @@ message Parameter {
   int64 parameter_id = 1;
   string name = 2;
   string type = 3;
-  optional google.protobuf.Struct value = 4;
+  optional string value = 4;
   optional Node sub_node = 5;
   optional int32 type_ref = 6;
 }
