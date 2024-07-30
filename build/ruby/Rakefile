@@ -31,4 +31,22 @@ namespace :generate_ruby do
   end
 end
 
+namespace :release do
+  desc "Set the version for the gem"
+  task :version, [:version] do |_, args|
+    File.write("#{RUBY_ROOT}/lib/tucana/version.rb", <<~RUBY)
+    # frozen_string_literal: true
+
+    # this file is managed with the "release:version" task.
+    # to update the version, run "bundle exec rake release:version[NEW_VERSION]".
+
+    module Tucana
+      VERSION = "#{args[:version]}"
+    end
+    RUBY
+
+    system!("bundle")
+  end
+end
+
 task default: %i[spec]
