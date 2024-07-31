@@ -45,5 +45,6 @@ jobs:
         run: cargo build
         env:
           PROTOC: ${{ runner.temp }}/proto/bin/protoc
+          RUST_BACKTRACE: '1'
       - name: Package crate
         run: cargo package
