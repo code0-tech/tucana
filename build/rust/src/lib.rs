@@ -1,1 +1,3 @@
-include!(concat!(env!("OUT_DIR"), "/_.rs"));
+pub mod internal {
+    tonic::include_proto!("internal");
+}
