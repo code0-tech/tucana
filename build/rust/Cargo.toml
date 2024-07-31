@@ -21,4 +21,3 @@ tonic-build = "0.12.1"
 
 [lib]
 name = "tucana_internal"
-path = "src/lib.rs"
