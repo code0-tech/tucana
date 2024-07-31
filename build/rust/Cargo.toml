@@ -6,6 +6,7 @@ description = "The rust crate for the internal gRPC communication of Code0"
 repository = "https://github.com/code0-tech/tucana"
 homepage = "https://code0.tech"
 license = "Apache-2.0"
+include = ["src/internal/*"]
 
 [dependencies]
 tonic = "0.12.1"

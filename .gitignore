@@ -2,3 +2,4 @@ build/java/build
 build/java/.gradle
 .idea
 build/rust/target
+build/rust/src/internal/*

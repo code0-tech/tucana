@@ -1,15 +1,8 @@
 use std::io::Result;
 
 fn main() -> Result<()> {
-    let paths = &[
-        "flow.proto",
-        "node.proto",
-        "rule.proto",
-        "type.proto",
-        "variable.proto"
-    ];
-
     tonic_build::configure()
+        .out_dir("src/internal")
         .build_server(true)
         .build_client(true)
         .type_attribute("Variable", "#[derive(serde::Serialize, serde::Deserialize)]")
@@ -19,7 +12,13 @@ fn main() -> Result<()> {
         .type_attribute("Parameter", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Node", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Flow", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .compile(paths, &["../../internal"])
+        .compile(&[
+            "variable.proto",
+            "rule.proto",
+            "type.proto",
+            "node.proto",
+            "flow.proto",
+        ], &["../../internal"])
         .expect("Cannot compile protos");
 
     Ok(())

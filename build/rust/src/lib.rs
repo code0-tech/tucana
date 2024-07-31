@@ -1,3 +1,3 @@
 pub mod internal {
-    tonic::include_proto!("internal");
+    include!("internal/internal.rs");
 }
