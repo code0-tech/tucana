@@ -1,0 +1,43 @@
+name: Build packages
+
+on:
+  push:
+
+jobs:
+  rubygems:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: build/ruby
+
+    steps:
+      # Set up
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2'
+      - name: Install gems
+        run: bundle install
+      - name: Generate ruby
+        run: bundle exec rake generate_ruby:all
+      - name: Run tests
+        run: bundle exec rspec
+
+  crates:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: build/rust
+
+    steps:
+      # Set up
+      - uses: actions/checkout@v4
+      - name: Setup rust
+        run: rustup update --no-self-update stable
+      - name: Build create
+        run: cargo package
