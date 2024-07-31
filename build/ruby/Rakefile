@@ -29,6 +29,9 @@ namespace :generate_ruby do
       end
     end
   end
+
+  desc "Generate ruby files for all protocols"
+  task all: ["generate_ruby:internal"]
 end
 
 namespace :release do

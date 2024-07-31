@@ -1,0 +1,41 @@
+name: Publish packages
+
+on:
+  push:
+    tags:
+      - *
+
+jobs:
+  rubygems:
+    runs-on: ubuntu-latest
+
+    environment: packages
+
+    permissions:
+      id-token: write
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: build/ruby
+
+    steps:
+      # Set up
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.2'
+      - name: Install gems
+        run: bundle install
+      - name: Set version
+        run: bundle exec rake release:version[${{ github.ref_name }}]
+      - name: Generate ruby
+        run: bundle exec rake generate_ruby:all
+
+      # Release
+      - uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - name: Publish gem
+        run: bundle exec rake release:rubygem_push
+      - name: Wait for release
+        run: gem exec rubygems-await pkg/*.gem
