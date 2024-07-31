@@ -40,7 +40,7 @@ jobs:
       - name: Setup rust
         run: rustup update --no-self-update stable
       - name: Install protoc
-        run: apt-get update && apt-get install protobuf-compiler
+        run: sudo apt-get update && sudo apt-get install protobuf-compiler -y
       - name: Build crate
         run: cargo build
       - name: Package crate
