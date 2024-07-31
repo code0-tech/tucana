@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option ruby_package = "Tucana::Internal";
 
-import "google/protobuf/struct.proto";
+package internal;
 
 enum RuleType {
   REGEX = 0;
