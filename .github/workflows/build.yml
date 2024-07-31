@@ -40,7 +40,7 @@ jobs:
       - name: Setup rust
         run: rustup update --no-self-update stable
       - name: Install protoc
-        run: curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v28.0-rc1/protoc-28.0-linux-x86_64.zip && unzip protoc-28.0-linux-x86_64.zip -d /proto-bin && chmod +x /proto-bin/bin/protoc && /proto-bin/bin/protoc --version
+        run: curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v28.0-rc1/protoc-28.0-rc-1-linux-x86_64.zip && unzip protoc-28.0-rc-1-linux-x86_64.zip -d /proto-bin && chmod +x /proto-bin/bin/protoc && /proto-bin/bin/protoc --version
       - name: Build crate
         run: cargo build
         env:
