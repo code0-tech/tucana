@@ -43,5 +43,7 @@ jobs:
         run: curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v28.0-rc1/protoc-28.0-rc-1-linux-x86_64.zip && unzip protoc-28.0-rc-1-linux-x86_64.zip -d ${{ runner.temp }}/proto && chmod +x ${{ runner.temp }}/proto/bin/protoc && ${{ runner.temp }}/proto/bin/protoc --version
       - name: Build crate
         run: PATH=${{ runner.temp }}/proto/bin:$PATH cargo build
+        env:
+          RUST_BACKTRACE: 'full'
       - name: Package crate
         run: cargo package
