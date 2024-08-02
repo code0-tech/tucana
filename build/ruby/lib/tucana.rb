@@ -5,7 +5,7 @@ require_relative "tucana/version"
 module Tucana
   class Error < StandardError; end
 
-  def self.require_protos(protocol)
+  def self.load_protocol(protocol)
     this_dir = File.expand_path(File.dirname(__FILE__))
     protocol_dir = File.join(this_dir, "tucana/#{protocol}")
     $LOAD_PATH.unshift(protocol_dir) unless $LOAD_PATH.include?(protocol_dir)
