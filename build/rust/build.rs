@@ -18,6 +18,7 @@ fn main() -> Result<()> {
             "type.proto",
             "node.proto",
             "flow.proto",
+            "ping.proto",
         ], &["../../internal"])
         .expect("Cannot compile protos");
 

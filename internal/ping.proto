@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Internal";
+
+package internal;
+
+message PingMessage {
+  int64 ping_id = 1;
+}
+
+service PingService {
+  rpc Ping (PingMessage) returns (PingMessage) {}
+}
