@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
 
-  spec.add_dependency "grpc", "~> 1.65"
+  spec.add_dependency "grpc", "~> 1.64"
 
   spec.add_development_dependency "grpc-tools", "~> 1.65"
   spec.add_development_dependency "rake", "~> 13.0"
