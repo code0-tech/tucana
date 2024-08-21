@@ -60,9 +60,11 @@ jobs:
         run: sed -i "s/version = \"0.0.0\"/version = \"${{ github.ref_name }}\"/" Cargo.toml
       - name: Cargo Login
         run: cargo login ${{secrets.CARGO_REGISTRY_TOKEN}}
+      - name: Build crate
+        run: PATH=${{ runner.temp }}/proto/bin:$PATH cargo build
+        env:
+          RUST_BACKTRACE: 'full'
 
       # Release
       - name: Publish crate
-        run: PATH=${{ runner.temp }}/proto/bin:$PATH cargo publish --allow-dirty
-        env:
-          RUST_BACKTRACE: 'full'
+        run: cargo publish --allow-dirty
