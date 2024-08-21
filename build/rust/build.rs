@@ -1,8 +1,16 @@
+use std::fs::create_dir;
 use std::io::Result;
 
 fn main() -> Result<()> {
+
+    let path = "src/internal";
+
+    if !std::path::Path::new(&path).exists() {
+        create_dir(path)?;
+    }
+
     tonic_build::configure()
-        .out_dir("src/internal")
+        .out_dir(path)
         .build_server(true)
         .build_client(true)
         .type_attribute("Variable", "#[derive(serde::Serialize, serde::Deserialize)]")
