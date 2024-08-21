@@ -46,4 +46,4 @@ jobs:
         env:
           RUST_BACKTRACE: 'full'
       - name: Package crate
-        run: cargo package
+        run: cargo package --allow-dirty
