@@ -16,11 +16,8 @@ message ActionLogoffRequest {
 message ActionLogoffResponse {}
 
 message ActionTransferRequest {
-  repeated Runtime2RuntimeFunctionDefinition runtime2runtimeFunctionDefinition = 1;
-  repeated RuntimeFunctionDefinition runtimeFunctionDefinition = 2;
-  repeated RuntimeParameterDefinition runtimeParameterDefinition = 3;
-  repeated FunctionDefinition functionDefinition = 4;
-  repeated ParameterDefinition parameterDefinition = 5;
+  repeated RuntimeFunctionDefinition function_definition = 2;
+  repeated RuntimeParameterDefinition parameter_definition = 3;
 }
 
 message ActionTransferResponse {
