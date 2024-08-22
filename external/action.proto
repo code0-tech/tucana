@@ -16,6 +16,7 @@ message ActionLogoffRequest {
 message ActionLogoffResponse {}
 
 message ActionTransferRequest {
+  string identifier = 1;
   repeated RuntimeFunctionDefinition function_definition = 2;
   repeated RuntimeParameterDefinition parameter_definition = 3;
 }
