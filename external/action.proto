@@ -1,0 +1,34 @@
+syntax = "proto3";
+import "definitions.proto";
+
+package external;
+
+message ActionLogonRequest {
+  string identifier = 1;
+}
+
+message ActionLogonResponse {}
+
+message ActionLogoffRequest {
+  string identifier = 1;
+}
+
+message ActionLogoffResponse {}
+
+message ActionTransferRequest {
+  repeated Runtime2RuntimeFunctionDefinition runtime2runtimeFunctionDefinition = 1;
+  repeated RuntimeFunctionDefinition runtimeFunctionDefinition = 2;
+  repeated RuntimeParameterDefinition runtimeParameterDefinition = 3;
+  repeated FunctionDefinition functionDefinition = 4;
+  repeated ParameterDefinition parameterDefinition = 5;
+}
+
+message ActionTransferResponse {
+  bool success = 1;
+}
+
+service ActionService {
+  rpc Logon (ActionLogonRequest) returns (ActionLogonResponse);
+  rpc Logoff (ActionLogoffRequest) returns (ActionLogoffResponse);
+  rpc Transfer (ActionTransferRequest) returns (ActionTransferResponse);
+}
