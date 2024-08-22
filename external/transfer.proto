@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+import "definitions.proto";
+
+package external;
+
+message Information {
+  string identifier = 1;
+
+  oneof message_type {
+    Runtime2RuntimeFunctionDefinition runtime2RuntimeFunctionDefinition = 2;
+    RuntimeFunctionDefinition runtimeFunctionDefinition = 3;
+    RuntimeParameterDefinition runtimeParameterDefinition = 4;
+    FunctionDefinition functionDefinition = 5;
+    ParameterDefinition parameterDefinition = 6;
+  }
+}
+
+service ActionTransferService {
+  rpc TransferInformation(stream Information) returns (stream Information);
+}

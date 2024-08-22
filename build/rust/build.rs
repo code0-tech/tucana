@@ -4,7 +4,7 @@ use std::io::Result;
 fn main() -> Result<()> {
 
     let internal_path = "src/internal";
-    let external_path = "src/internal";
+    let external_path = "src/external";
 
     let internal_proto = &[
         "variable.proto",
