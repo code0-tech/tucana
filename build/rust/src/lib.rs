@@ -1,7 +1,11 @@
 pub mod internal {
-    include!("internal/internal.rs");
+    include!("generated/internal.rs");
 }
 
 pub mod external {
-    include!("external/external.rs");
+    include!("generated/external.rs");
+}
+
+pub mod shared {
+    include!("generated/shared.rs");
 }
