@@ -27,6 +27,11 @@ namespace :generate_ruby do
         system!("bundle exec grpc_tools_ruby_protoc -I #{INPUT_INTERNAL_DIR} --ruby_out=#{OUTPUT_INTERNAL_DIR} --grpc_out=#{OUTPUT_INTERNAL_DIR} #{file}")
         # rubocop:enable Layout/LineLength
       end
+      Dir["#{OUTPUT_INTERNAL_DIR}/*_pb.rb"].each do |file|
+        code = File.read(file)
+        code = code.gsub(/require '(\S+)_pb'/, "require_relative '\\1_pb'")
+          File.write(file, code)
+      end
     end
   end
 

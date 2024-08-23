@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Code0 GRPC Protocol."
   spec.homepage = "https://github.com/code0-tech/tucana"
-  spec.license = ""
+  spec.license = "Apache-2.0"
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
 
-  spec.add_dependency "grpc", "~> 1.65"
+  spec.add_dependency "grpc", "~> 1.64"
 
   spec.add_development_dependency "grpc-tools", "~> 1.65"
   spec.add_development_dependency "rake", "~> 13.0"
