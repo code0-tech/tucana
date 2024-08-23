@@ -15,5 +15,5 @@ message InformationResponse {
 }
 
 service ActionTransferService {
-  rpc Transfer (stream InformationRequest) returns (InformationRequest);
+  rpc Transfer (stream InformationRequest) returns (InformationResponse);
 }
