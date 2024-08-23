@@ -6,8 +6,8 @@ package external;
 
 message InformationRequest {
   string identifier = 1;
-  repeated RuntimeFunctionDefinition function_definition = 2;
-  repeated RuntimeParameterDefinition parameter_definition = 3;
+  repeated shared.RuntimeFunctionDefinition function_definition = 2;
+  repeated shared.RuntimeParameterDefinition parameter_definition = 3;
 }
 
 message InformationResponse {

@@ -1,10 +1,12 @@
 syntax = "proto3";
 import "definitions.proto";
 
-package external;
+package internal;
 
 message ActionLogonRequest {
   string identifier = 1;
+  repeated shared.RuntimeFunctionDefinition function_definition = 2;
+  repeated shared.RuntimeParameterDefinition parameter_definition = 3;
 }
 
 message ActionLogonResponse {}
