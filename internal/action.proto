@@ -17,18 +17,7 @@ message ActionLogoffRequest {
 
 message ActionLogoffResponse {}
 
-message ActionTransferRequest {
-  string identifier = 1;
-  repeated RuntimeFunctionDefinition function_definition = 2;
-  repeated RuntimeParameterDefinition parameter_definition = 3;
-}
-
-message ActionTransferResponse {
-  bool success = 1;
-}
-
 service ActionService {
   rpc Logon (ActionLogonRequest) returns (ActionLogonResponse);
   rpc Logoff (ActionLogoffRequest) returns (ActionLogoffResponse);
-  rpc Transfer (ActionTransferRequest) returns (ActionTransferResponse);
 }
