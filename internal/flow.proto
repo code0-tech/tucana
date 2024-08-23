@@ -16,23 +16,19 @@ message Flow {
   int64 last_updated = 5;
 }
 
+enum FlowCommandType {
+  INSERT = 0;
+  DELETE = 1;
+}
+
 //Sagittarius sends flow to be updated
-message FlowUpdateRequest {
+message FlowRequest {
   Flow updated_flow = 1;
+  FlowCommandType type = 2;
 }
 
-//Aquila response with success or retry of update
-message FlowUpdateResponse {
-  bool success = 1;
-}
-
-//Sagittarius sends flow_id to be updated
-message FlowDeleteRequest {
-  int64 flow_id = 1;
-}
-
-//Aquila response with success or retry of deletion
-message FlowDeleteResponse {
+//Aquila response with success or failure
+message FlowResponse {
   bool success = 1;
 }
 
@@ -50,8 +46,7 @@ message FlowGetResponse {
 }
 
 service FlowAquilaService {
-  rpc Update (FlowUpdateRequest) returns (FlowUpdateResponse) {}
-  rpc Delete (FlowDeleteRequest) returns (FlowDeleteResponse) {}
+  rpc Update (stream FlowRequest) returns (stream FlowResponse) {}
 }
 
 service FlowSagittariusService {
