@@ -1,0 +1,15 @@
+syntax = "proto3";
+import "function_definition.proto";
+
+option ruby_package = "Tucana::Internal";
+
+package internal;
+
+import "definitions.proto";
+
+message ParameterDefinition {
+  int32 id = 1;
+  FunctionDefinition function_definition = 2;
+  shared.DataType type = 3;
+  string name = 4;
+}

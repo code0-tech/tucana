@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Internal";
+
+package internal;
+
+message FlowDefinition {
+  int32 id = 1;
+}

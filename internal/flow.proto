@@ -5,15 +5,12 @@ option ruby_package = "Tucana::Internal";
 package internal;
 
 import "node.proto";
-import "type.proto";
-import "variable.proto";
+import "flow_type.proto";
 
 message Flow {
   int64 flow_id = 1;
   Node starting_node = 2;
-  repeated Type types = 3;
-  repeated Variable context = 4;
-  int64 last_updated = 5;
+  FlowType type = 3;
 }
 
 enum FlowCommandType {
