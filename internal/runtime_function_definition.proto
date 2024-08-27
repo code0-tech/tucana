@@ -2,11 +2,8 @@ syntax = "proto3";
 
 option ruby_package = "Tucana::Internal";
 
-import "definitions.proto";
-
 package internal;
 
 message RuntimeFunctionDefinition {
-  int32 id = 1;
-  shared.DataType return_type = 2;
+  string id = 1;
 }

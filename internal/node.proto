@@ -4,19 +4,17 @@ option ruby_package = "Tucana::Internal";
 
 package internal;
 
-import "function_definition.proto";
-import "parameter_definition.proto";
+import "runtime_function_definition.proto";
+import "runtime_parameter_definition.proto";
 
 message Node {
-  int64 node_id = 1;
-  FunctionDefinition function_definition = 2;
-  optional Node next_node = 3;
+  RuntimeFunctionDefinition definition = 1;
+  optional Node next_node = 2;
+  repeated Parameter parameters = 3;
 }
 
 message Parameter {
-  int64 id = 1;
-  Node parent = 2;
-  ParameterDefinition parameter_definition = 3;
-  string name = 4;
-  optional Node sub_node = 5;
+  RuntimeParameterDefinition definition = 1;
+  optional string value = 2;
+  optional Node sub_node = 3;
 }

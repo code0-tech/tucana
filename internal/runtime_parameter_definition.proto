@@ -4,7 +4,6 @@ option ruby_package = "Tucana::Internal";
 
 package internal;
 
-message Variable {
+message RuntimeParameterDefinition {
   string name = 1;
-  string type = 2;
 }
