@@ -6,8 +6,6 @@ fn main() -> Result<()> {
     let proto = &[
         "definitions.proto",
         "flow_definition.proto",
-        "runtime_function_definition.proto",
-        "runtime_parameter_definition.proto",
         "node.proto",
         "flow.proto",
         "action.proto",
