@@ -5,12 +5,11 @@ option ruby_package = "Tucana::Internal";
 package internal;
 
 import "node.proto";
-import "flow_type.proto";
+import "flow_definition.proto";
 
 message Flow {
-  int64 flow_id = 1;
   Node starting_node = 2;
-  FlowType type = 3;
+  FlowDefinition definition = 3;
 }
 
 enum FlowCommandType {
@@ -18,15 +17,14 @@ enum FlowCommandType {
   DELETE = 1;
 }
 
-//Sagittarius sends flow to be updated
-message FlowRequest {
-  Flow updated_flow = 1;
-  FlowCommandType type = 2;
+//Aquila sends a request to initialise stream to Sagittarius
+message FlowLogonRequest {
 }
 
-//Aquila response with success or failure
+//Sagittarius sends flow to be updated
 message FlowResponse {
-  bool success = 1;
+  Flow updated_flow = 1;
+  FlowCommandType type = 2;
 }
 
 //All ids of flows that Aquila holds
@@ -42,10 +40,7 @@ message FlowGetResponse {
   repeated int64 deleted_flow_ids = 2;
 }
 
-service FlowAquilaService {
-  rpc Update (stream FlowRequest) returns (stream FlowResponse) {}
-}
-
-service FlowSagittariusService {
+service FlowService {
   rpc Get (FlowGetRequest) returns (FlowGetResponse) {}
+  rpc Update (FlowLogonRequest) returns (stream FlowResponse) {}
 }

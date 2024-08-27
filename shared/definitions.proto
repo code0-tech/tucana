@@ -3,28 +3,9 @@ syntax = "proto3";
 package shared;
 
 message RuntimeFunctionDefinition {
-  int32 id = 1;
-  int32 return_type = 2;
+  string id = 1;
 }
 
 message RuntimeParameterDefinition {
-  int32 id = 1;
-  int32 runtime_function_id = 2;
-  int32 type = 3;
-  string name = 4;
-}
-
-message DataType {
-  int32 id = 1;
-  EDataType type = 2;
-  int32 return_type = 3;
-  int32 parent = 4;
-}
-
-enum EDataType {
-  PRIMITIVE = 0;
-  TYPE = 1;
-  OBJECT = 2;
-  DATATYPE = 3;
-  FUNCTION = 4;
+  string name = 1;
 }
