@@ -1,6 +1,8 @@
 syntax = "proto3";
 import "definitions.proto";
 
+option ruby_package = "Tucana::Internal";
+
 package internal;
 
 message ActionLogonRequest {

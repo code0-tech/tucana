@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option ruby_package = "Tucana::Shared";
+
 package shared;
 
 message RuntimeFunctionDefinition {
