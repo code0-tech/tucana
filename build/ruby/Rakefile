@@ -9,48 +9,77 @@ RSpec::Core::RakeTask.new(:spec)
 
 PROJECT_ROOT = File.expand_path("../..", __dir__)
 RUBY_ROOT = "#{PROJECT_ROOT}/build/ruby".freeze
-INPUT_INTERNAL_DIR = "#{PROJECT_ROOT}/internal".freeze
+PROTO_ROOT = "#{PROJECT_ROOT}/proto".freeze
+INPUT_ACTIONS_DIR = "#{PROTO_ROOT}/actions".freeze
+INPUT_INTERNAL_DIR = "#{PROTO_ROOT}/internal".freeze
+INPUT_SHARED_DIR = "#{PROTO_ROOT}/shared".freeze
+OUTPUT_ACTIONS_DIR = "#{RUBY_ROOT}/lib/tucana/actions".freeze
 OUTPUT_INTERNAL_DIR = "#{RUBY_ROOT}/lib/tucana/internal".freeze
+OUTPUT_SHARED_DIR = "#{RUBY_ROOT}/lib/tucana/shared".freeze
 
 def system!(*args)
   system(*args, exception: true)
 end
 
 namespace :generate_ruby do
-  desc "Generate ruby files for the internal protocol"
-  task :internal do
-    FileUtils.rm_rf(OUTPUT_INTERNAL_DIR)
-    FileUtils.mkdir_p(OUTPUT_INTERNAL_DIR)
+  def compile_protos!(input_dir, output_dir)
+    FileUtils.rm_rf(output_dir)
+    FileUtils.mkdir_p(output_dir)
     FileUtils.chdir RUBY_ROOT do
-      Dir["#{INPUT_INTERNAL_DIR}/*.proto"].each do |file|
+      Dir["#{input_dir}/*.proto"].each do |file|
         # rubocop:disable Layout/LineLength
-        system!("bundle exec grpc_tools_ruby_protoc -I #{INPUT_INTERNAL_DIR} --ruby_out=#{OUTPUT_INTERNAL_DIR} --grpc_out=#{OUTPUT_INTERNAL_DIR} #{file}")
+        system!("bundle exec grpc_tools_ruby_protoc -I #{input_dir} -I #{INPUT_SHARED_DIR} --ruby_out=#{output_dir} --grpc_out=#{output_dir} #{file}")
         # rubocop:enable Layout/LineLength
       end
-      Dir["#{OUTPUT_INTERNAL_DIR}/*_pb.rb"].each do |file|
+
+      Dir["#{OUTPUT_SHARED_DIR}/*_pb.rb"].each do |shared_file|
+        shared_file_name = File.basename(shared_file).delete_suffix('.rb')
+        Dir["#{output_dir}/*_pb.rb"].each do |file|
+          code = File.read(file)
+          code = code.gsub("require '#{shared_file_name}'", "require_relative '../shared/#{shared_file_name}'")
+          File.write(file, code)
+        end
+      end
+
+      Dir["#{output_dir}/*_pb.rb"].each do |file|
         code = File.read(file)
         code = code.gsub(/require '(\S+)_pb'/, "require_relative '\\1_pb'")
-          File.write(file, code)
+        File.write(file, code)
       end
     end
   end
 
+  desc "Generate ruby files for shared files between protocols"
+  task :shared do
+    compile_protos!(INPUT_SHARED_DIR, OUTPUT_SHARED_DIR)
+  end
+
+  desc "Generate ruby files for the internal protocol"
+  task internal: "generate_ruby:shared" do
+    compile_protos!(INPUT_INTERNAL_DIR, OUTPUT_INTERNAL_DIR)
+  end
+
+  desc "Generate ruby files for the actions protocol"
+  task actions: "generate_ruby:shared" do
+    compile_protos!(INPUT_ACTIONS_DIR, OUTPUT_ACTIONS_DIR)
+  end
+
   desc "Generate ruby files for all protocols"
-  task all: ["generate_ruby:internal"]
+  task all: %w[generate_ruby:internal generate_ruby:actions]
 end
 
 namespace :release do
   desc "Set the version for the gem"
   task :version, [:version] do |_, args|
     File.write("#{RUBY_ROOT}/lib/tucana/version.rb", <<~RUBY)
-    # frozen_string_literal: true
+      # frozen_string_literal: true
 
-    # this file is managed with the "release:version" task.
-    # to update the version, run "bundle exec rake release:version[NEW_VERSION]".
+      # this file is managed with the "release:version" task.
+      # to update the version, run "bundle exec rake release:version[NEW_VERSION]".
 
-    module Tucana
-      VERSION = "#{args[:version]}"
-    end
+      module Tucana
+        VERSION = "#{args[:version]}"
+      end
     RUBY
 
     system!("bundle")

@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Internal";
+
+package internal;
+
+import "node.proto";
+import "flow_definition.proto";
+
+message Flow {
+  Node start_node = 2;
+  FlowDefinition definition = 3;
+}
+
+enum FlowCommandType {
+  INSERT = 0;
+  DELETE = 1;
+}
+
+//Aquila sends a request to initialise stream to Sagittarius
+message FlowLogonRequest {
+}
+
+//Sagittarius sends flow to be updated
+message FlowResponse {
+  Flow updated_flow = 1;
+  FlowCommandType type = 2;
+}
+
+//All ids of flows that Aquila holds
+message FlowGetRequest {
+  repeated int64 flow_ids = 1;
+}
+
+//Sagittarius checks if he holds the flow_ids that Aquila sent
+//If id is present --> sends flow
+//If id is not present --> returns id to be deleted
+message FlowGetResponse {
+  repeated Flow updated_flows = 1;
+  repeated int64 deleted_flow_ids = 2;
+}
+
+service FlowService {
+  rpc Get (FlowGetRequest) returns (FlowGetResponse) {}
+  rpc Update (FlowLogonRequest) returns (stream FlowResponse) {}
+}

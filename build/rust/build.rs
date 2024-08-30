@@ -3,32 +3,40 @@ use std::io::Result;
 
 fn main() -> Result<()> {
 
-    let path = "src/internal";
+    let proto = &[
+        "definitions.proto",
+        "flow_definition.proto",
+        "node.proto",
+        "flow.proto",
+        "action.proto",
+        "transfer.proto",
+        "ping.proto"
+    ];
 
-    if !std::path::Path::new(&path).exists() {
-        create_dir(path)?;
+    let inclusions = &[
+        "../../proto/shared",
+        "../../proto/internal",
+        "../../proto/actions",
+    ];
+
+    let out_path = "src/generated";
+
+    if !std::path::Path::new(&out_path).exists() {
+        create_dir(out_path)?;
     }
 
     tonic_build::configure()
-        .out_dir(path)
+        .out_dir(out_path)
         .build_server(true)
         .build_client(true)
-        .type_attribute("Variable", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("RuleType", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("Rule", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("Type", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("FlowDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("RuntimeFunctionDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("RuntimeParameterDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Parameter", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Node", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Flow", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .compile(&[
-            "variable.proto",
-            "rule.proto",
-            "type.proto",
-            "node.proto",
-            "flow.proto",
-            "ping.proto",
-        ], &["../../internal"])
-        .expect("Cannot compile protos");
+        .compile(proto, inclusions)
+        .expect("Cannot compile internal protos");
 
     Ok(())
 }

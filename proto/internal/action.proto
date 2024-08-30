@@ -1,0 +1,25 @@
+syntax = "proto3";
+import "definitions.proto";
+
+option ruby_package = "Tucana::Internal";
+
+package internal;
+
+message ActionLogonRequest {
+  string identifier = 1;
+  repeated shared.RuntimeFunctionDefinition function_definition = 2;
+  repeated shared.RuntimeParameterDefinition parameter_definition = 3;
+}
+
+message ActionLogonResponse {}
+
+message ActionLogoffRequest {
+  string identifier = 1;
+}
+
+message ActionLogoffResponse {}
+
+service ActionService {
+  rpc Logon (ActionLogonRequest) returns (ActionLogonResponse);
+  rpc Logoff (ActionLogoffRequest) returns (ActionLogoffResponse);
+}

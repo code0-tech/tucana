@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+message RuntimeFunctionDefinition {
+  string id = 1;
+}
+
+message RuntimeParameterDefinition {
+  string name = 1;
+}
