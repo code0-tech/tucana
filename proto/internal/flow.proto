@@ -8,6 +8,7 @@ import "node.proto";
 import "flow_definition.proto";
 
 message Flow {
+  int64 flow_id = 1;
   Node start_node = 2;
   FlowDefinition definition = 3;
 }
