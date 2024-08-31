@@ -24,8 +24,9 @@ message FlowLogonRequest {
 
 //Sagittarius sends flow to be updated
 message FlowResponse {
-  Flow updated_flow = 1;
-  FlowCommandType type = 2;
+  optional Flow updated_flow = 1;  
+  optional int64 deleted_flow_id = 2;
+  FlowCommandType type = 3;
 }
 
 //All ids of flows that Aquila holds
