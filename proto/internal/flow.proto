@@ -8,6 +8,7 @@ import "node.proto";
 import "flow_definition.proto";
 
 message Flow {
+  int64 flow_id = 1;
   Node start_node = 2;
   FlowDefinition definition = 3;
 }
@@ -23,8 +24,9 @@ message FlowLogonRequest {
 
 //Sagittarius sends flow to be updated
 message FlowResponse {
-  Flow updated_flow = 1;
-  FlowCommandType type = 2;
+  optional Flow updated_flow = 1;  
+  optional int64 deleted_flow_id = 2;
+  FlowCommandType type = 3;
 }
 
 //All ids of flows that Aquila holds
