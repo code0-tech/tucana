@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-option ruby_package = "Tucana::Internal";
-
-package internal;
-
-message FlowDefinition {
-}

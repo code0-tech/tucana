@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option ruby_package = "Tucana::Internal";
+option ruby_package = "Tucana::Sagittarius";
 
-package internal;
+package sagittarius;
 
 message PingMessage {
   int64 ping_id = 1;

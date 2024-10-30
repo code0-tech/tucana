@@ -9,13 +9,10 @@ RSpec::Core::RakeTask.new(:spec)
 
 PROJECT_ROOT = File.expand_path("../..", __dir__)
 RUBY_ROOT = "#{PROJECT_ROOT}/build/ruby".freeze
+RUBY_LIB_ROOT = "#{RUBY_ROOT}/lib/tucana".freeze
 PROTO_ROOT = "#{PROJECT_ROOT}/proto".freeze
-INPUT_ACTIONS_DIR = "#{PROTO_ROOT}/actions".freeze
-INPUT_INTERNAL_DIR = "#{PROTO_ROOT}/internal".freeze
 INPUT_SHARED_DIR = "#{PROTO_ROOT}/shared".freeze
-OUTPUT_ACTIONS_DIR = "#{RUBY_ROOT}/lib/tucana/actions".freeze
-OUTPUT_INTERNAL_DIR = "#{RUBY_ROOT}/lib/tucana/internal".freeze
-OUTPUT_SHARED_DIR = "#{RUBY_ROOT}/lib/tucana/shared".freeze
+OUTPUT_SHARED_DIR = "#{RUBY_LIB_ROOT}/shared".freeze
 
 def system!(*args)
   system(*args, exception: true)
@@ -54,18 +51,17 @@ namespace :generate_ruby do
     compile_protos!(INPUT_SHARED_DIR, OUTPUT_SHARED_DIR)
   end
 
-  desc "Generate ruby files for the internal protocol"
-  task internal: "generate_ruby:shared" do
-    compile_protos!(INPUT_INTERNAL_DIR, OUTPUT_INTERNAL_DIR)
-  end
+  require_relative 'lib/tucana'
 
-  desc "Generate ruby files for the actions protocol"
-  task actions: "generate_ruby:shared" do
-    compile_protos!(INPUT_ACTIONS_DIR, OUTPUT_ACTIONS_DIR)
+  Tucana::AVAILABLE_PROTOCOLS.each do |protocol|
+    desc "Generate ruby files for the #{protocol} protocol"
+    task protocol => :shared do
+      compile_protos!("#{PROTO_ROOT}/#{protocol}", "#{RUBY_LIB_ROOT}/#{protocol}")
+    end
   end
 
   desc "Generate ruby files for all protocols"
-  task all: %w[generate_ruby:internal generate_ruby:actions]
+  task all: Tucana::AVAILABLE_PROTOCOLS
 end
 
 namespace :release do
