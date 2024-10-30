@@ -15,8 +15,8 @@ fn main() -> Result<()> {
 
     let inclusions = &[
         "../../proto/shared",
-        "../../proto/internal",
-        "../../proto/actions",
+        "../../proto/sagittarius",
+        "../../proto/aquila",
     ];
 
     let out_path = "src/generated";

@@ -1,9 +1,9 @@
 syntax = "proto3";
 import "definitions.proto";
 
-option ruby_package = "Tucana::Internal";
+option ruby_package = "Tucana::Sagittarius";
 
-package internal;
+package sagittarius;
 
 message ActionLogonRequest {
   string identifier = 1;

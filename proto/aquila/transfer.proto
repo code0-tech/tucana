@@ -2,9 +2,9 @@ syntax = "proto3";
 
 import "definitions.proto";
 
-option ruby_package = "Tucana::Actions";
+option ruby_package = "Tucana::Aquila";
 
-package actions;
+package aquila;
 
 message InformationRequest {
   string identifier = 1;

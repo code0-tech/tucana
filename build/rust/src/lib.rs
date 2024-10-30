@@ -1,9 +1,9 @@
-pub mod internal {
-    include!("generated/internal.rs");
+pub mod sagittarius {
+    include!("generated/sagittarius.rs");
 }
 
-pub mod actions {
-    include!("generated/actions.rs");
+pub mod aquila {
+    include!("generated/aquila.rs");
 }
 
 pub mod shared {
