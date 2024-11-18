@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+message Translation {
+  string code = 1;
+  string text = 2;
+}
