@@ -16,6 +16,17 @@ message InformationResponse {
   bool success = 1;
 }
 
+message ActionExecuteRequest {
+  string execution_identifier = 1;
+  repeated string parameters = 2;
+}
+
+message ActionExecuteResponse {
+  string execution_identifier = 1;
+  repeated string result = 2;
+}
+
 service ActionTransferService {
   rpc Transfer (stream InformationRequest) returns (InformationResponse);
+  rpc Execute (stream ActionExecuteRequest) returns (stream ActionExecuteResponse);
 }
