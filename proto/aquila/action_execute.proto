@@ -16,14 +16,11 @@ message ActionResult {
   repeated string result = 1;
 }
 
-
-message ActionResultRequest {
-  string execution_identifier = 1;
-  optional ActionResult action_result = 2;
-}
+message ActionResultRequest {}
 
 message ActionResultResponse {
-  bool successful = 1;
+  string execution_identifier = 1;
+  optional ActionResult action_result = 2;
 }
 
 service ActionCallService {
