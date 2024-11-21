@@ -10,7 +10,8 @@ fn main() -> Result<()> {
         "flow.proto",
         "action.proto",
         "transfer.proto",
-        "ping.proto"
+        "ping.proto",
+        "action_execute.proto"
     ];
 
     let inclusions = &[
