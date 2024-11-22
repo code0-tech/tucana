@@ -1,0 +1,41 @@
+syntax = "proto3";
+import "google/protobuf/any.proto";
+import "translations.proto";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+message DataType {
+  enum Variant {
+    UNKNOWN = 0;
+    PRIMITIVE = 1;
+    TYPE = 2;
+    OBJECT = 3;
+    DATATYPE = 4;
+    ARRAY = 5;
+    GENERIC = 6;
+    FUNCTION = 7;
+  }
+
+  Translation name = 1;
+  Variant variant = 2;
+  repeated DataTypeRule rules = 3;
+  repeated DataType input_types = 4;
+  optional DataType return_type = 5;
+  optional DataType parent_type = 6;
+}
+
+message DataTypeRule {
+  enum Variant {
+    UNKNOWN = 0;
+    REGEX = 1;
+    NUMBER_RANGE = 2;
+    ITEM_OF_COLLECTION = 3;
+    CONTAINS_TYPE = 4;
+    CONTAINS_KEY = 5;
+  }
+
+  Variant variant = 1;
+  map<string, google.protobuf.Any> config = 2;
+}
