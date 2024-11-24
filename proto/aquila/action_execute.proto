@@ -5,7 +5,8 @@ option ruby_package = "Tucana::Aquila";
 package aquila;
 
 message ActionCallRequest {
-  repeated string parameters = 1;
+  string identifier = 1;
+  repeated string parameters = 2;
 }
 
 message ActionCallResponse {
@@ -16,11 +17,12 @@ message ActionResult {
   repeated string result = 1;
 }
 
-message ActionResultRequest {}
+message ActionResultRequest {
+  string execution_identifier = 1;
+}
 
 message ActionResultResponse {
-  string execution_identifier = 1;
-  optional ActionResult action_result = 2;
+  optional ActionResult action_result = 1;
 }
 
 service ActionCallService {

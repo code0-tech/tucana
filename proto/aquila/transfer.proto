@@ -18,7 +18,8 @@ message InformationResponse {
 
 message ActionExecuteRequest {
   string execution_identifier = 1;
-  repeated string parameters = 2;
+  string function_identifier = 2;
+  repeated string parameters = 3;
 }
 
 message ActionExecuteResponse {
