@@ -40,7 +40,15 @@ namespace :generate_ruby do
 
       Dir["#{output_dir}/*_pb.rb"].each do |file|
         code = File.read(file)
-        code = code.gsub(/require '(\S+)_pb'/, "require_relative '\\1_pb'")
+        code = code.gsub(/require '(\S+)_pb'/) do |str|
+          match = Regexp.last_match[1]
+
+          if File.exist?("#{output_dir}/#{match}_pb.rb")
+            "require_relative '#{match}_pb'"
+          else
+            str
+          end
+        end
         File.write(file, code)
       end
     end
