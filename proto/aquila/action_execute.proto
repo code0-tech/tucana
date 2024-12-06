@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Aquila";
+
+package aquila;
+
+message ActionCallRequest {
+  string identifier = 1;
+  repeated string parameters = 2;
+}
+
+message ActionCallResponse {
+  string execution_identifier = 1;
+}
+
+message ActionResult {
+  repeated string result = 1;
+}
+
+message ActionResultRequest {
+  string execution_identifier = 1;
+}
+
+message ActionResultResponse {
+  optional ActionResult action_result = 1;
+}
+
+service ActionCallService {
+  rpc Call (ActionCallRequest) returns (ActionCallResponse);
+}
+
+service ActionResultService {
+  rpc GetResult (ActionResultRequest) returns (ActionResultResponse);
+}
