@@ -18,8 +18,8 @@ message DataType {
     FUNCTION = 7;
   }
 
-  Translation name = 1;
-  Variant variant = 2;
+  Variant variant = 1;
+  repeated Translation name = 2;
   repeated DataTypeRule rules = 3;
   repeated DataType input_types = 4;
   optional DataType return_type = 5;
