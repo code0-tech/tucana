@@ -1,5 +1,5 @@
 syntax = "proto3";
-import "google/protobuf/any.proto";
+import "google/protobuf/struct.proto";
 import "translations.proto";
 
 option ruby_package = "Tucana::Shared";
@@ -19,11 +19,12 @@ message DataType {
   }
 
   Variant variant = 1;
-  repeated Translation name = 2;
-  repeated DataTypeRule rules = 3;
-  repeated DataType input_types = 4;
-  optional DataType return_type = 5;
-  optional DataType parent_type = 6;
+  string identifier = 2;
+  repeated Translation name = 3;
+  repeated DataTypeRule rules = 4;
+  repeated DataType input_types = 5;
+  optional DataType return_type = 6;
+  optional DataType parent_type = 7;
 }
 
 message DataTypeRule {
@@ -37,5 +38,5 @@ message DataTypeRule {
   }
 
   Variant variant = 1;
-  map<string, google.protobuf.Any> config = 2;
+  google.protobuf.Struct config = 2;
 }
