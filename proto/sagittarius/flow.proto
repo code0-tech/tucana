@@ -13,9 +13,8 @@ message Flow {
   FlowDefinition definition = 3;
 }
 
-enum FlowCommandType {
-  INSERT = 0;
-  DELETE = 1;
+message Flows {
+  repeated Flow flows = 1;
 }
 
 //Aquila sends a request to initialise stream to Sagittarius
@@ -24,25 +23,16 @@ message FlowLogonRequest {
 
 //Sagittarius sends flow to be updated
 message FlowResponse {
-  optional Flow updated_flow = 1;  
-  optional int64 deleted_flow_id = 2;
-  FlowCommandType type = 3;
-}
-
-//All ids of flows that Aquila holds
-message FlowGetRequest {
-  repeated int64 flow_ids = 1;
-}
-
-//Sagittarius checks if he holds the flow_ids that Aquila sent
-//If id is present --> sends flow
-//If id is not present --> returns id to be deleted
-message FlowGetResponse {
-  repeated Flow updated_flows = 1;
-  repeated int64 deleted_flow_ids = 2;
+  oneof data {
+    // Updates a single flow
+    Flow updated_flow = 1;
+    // Deletes a single flow
+    int64 deleted_flow_id = 2;
+    // Replaces all flows in Aquila (only on startup and for releases)
+    Flows flows = 3;
+  }
 }
 
 service FlowService {
-  rpc Get (FlowGetRequest) returns (FlowGetResponse) {}
   rpc Update (FlowLogonRequest) returns (stream FlowResponse) {}
 }
