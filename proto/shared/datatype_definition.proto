@@ -24,7 +24,7 @@ message DataType {
   repeated DataTypeRule rules = 4;
   repeated DataType input_types = 5;
   optional DataType return_type = 6;
-  optional DataType parent_type = 7;
+  optional string parent_type_identifier = 7;
 }
 
 message DataTypeRule {
