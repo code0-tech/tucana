@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+import "runtime_function_definition.proto";
+
+option ruby_package = "Tucana::Aquila";
+
+package aquila;
+
+// Event that gets admitted by an action
+message Event {
+  // Id of Event type
+  string event_type = 1;
+  // Payload (JSON) of event params
+  string payload = 2;
+}
+
+// Action flow/event configuration
+message Configuration {
+  // Action identifier
+  string identifier = 1;
+  // Configuration
+  repeated shared.RuntimeFunctionDefinition function_definition = 2;
+}
+
+// Request to execute a request a flow
+message ExecutionRequest {
+  // Execution identifier of execution
+  string execution_identifier = 1;
+  // Function identifier of flow to execute
+  string function_identifier = 2;
+  // Parameters of flow required to execute
+  repeated string parameters = 3;
+}
+
+// Result from executed flows by an action
+message ExecutionResult {
+  // Identifier of flow to execute
+  string execution_identifier = 1;
+  // Result of executed flow
+  repeated string result = 2;
+}
+
+message TransferRequest {
+  oneof data {
+    // Configuration of action that will be send to sagittarius
+    //
+    // Expected behavior:
+    // Aquila will abort if the first request is not a configuration
+    Configuration configuration = 1;
+    // Event that got admitted
+    Event event = 2;
+    // Result of execution that was triggered by a execution request
+    ExecutionResult result = 3;
+  }
+}
+
+message TransferResponse {
+  // Execution request
+  ExecutionRequest execution = 1;
+}
+
+service ActionTransferService {
+  // This behavior achieves a bi-directional stream so that both services aren't required to be a server & client on their own
+  rpc Transfer (stream TransferRequest) returns (stream TransferResponse);
+}
