@@ -11,7 +11,8 @@ fn main() -> Result<()> {
         "action.proto",
         "transfer.proto",
         "ping.proto",
-        "action_execute.proto"
+        "action_execute.proto",
+        "event.proto"
     ];
 
     let inclusions = &[
