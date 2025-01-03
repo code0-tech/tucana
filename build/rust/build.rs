@@ -2,17 +2,21 @@ use std::fs::create_dir;
 use std::io::Result;
 
 fn main() -> Result<()> {
-
     let proto = &[
-        "definitions.proto",
+        // aquila
+        "action.proto",
+        "action_execute.proto",
+        // sagittarius
+        "action.proto",
+        "datatype.proto",
+        "flow.proto",
         "flow_definition.proto",
         "node.proto",
-        "flow.proto",
-        "action.proto",
-        "transfer.proto",
         "ping.proto",
-        "action_execute.proto",
-        "event.proto"
+        // shared
+        "datatype_definition.proto",
+        "runtime_function_definition.proto",
+        "translations.proto",
     ];
 
     let inclusions = &[
