@@ -7,7 +7,7 @@ package aquila;
 // Event that gets admitted by an action
 message Event {
   // Id of Event type
-  int32 event_type = 1;
+  string event_type = 1;
   // Payload (JSON) of event params
   string payload = 2;
 }
