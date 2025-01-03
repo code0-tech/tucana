@@ -19,6 +19,7 @@ message Flows {
 
 //Aquila sends a request to initialise stream to Sagittarius
 message FlowLogonRequest {
+  string runtime_token = 1;
 }
 
 //Sagittarius sends flow to be updated
