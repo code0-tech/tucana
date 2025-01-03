@@ -1,5 +1,5 @@
 syntax = "proto3";
-import "definitions.proto";
+import "runtime_function_definition.proto";
 
 option ruby_package = "Tucana::Sagittarius";
 
@@ -8,7 +8,6 @@ package sagittarius;
 message ActionLogonRequest {
   string identifier = 1;
   repeated shared.RuntimeFunctionDefinition function_definition = 2;
-  repeated shared.RuntimeParameterDefinition parameter_definition = 3;
 }
 
 message ActionLogonResponse {}
