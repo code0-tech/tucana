@@ -4,7 +4,7 @@ use std::io::Result;
 fn main() -> Result<()> {
     let proto = &[
         // aquila
-        "action.proto",
+        "action_communication.proto",
         "action_execute.proto",
         // sagittarius
         "action.proto",
