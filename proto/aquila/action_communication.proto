@@ -1,6 +1,10 @@
 syntax = "proto3";
 
+import "google/protobuf/struct.proto";
 import "runtime_function_definition.proto";
+import "datatype_definition.proto";
+import "translations.proto";
+import "event.proto";
 
 option ruby_package = "Tucana::Aquila";
 
@@ -11,15 +15,26 @@ message Event {
   // Id of Event type
   string event_type = 1;
   // Payload (JSON) of event params
-  string payload = 2;
+  google.protobuf.Value payload = 2;
 }
 
 // Action flow/event configuration
 message Configuration {
   // Action identifier
   string identifier = 1;
-  // Configuration
-  repeated shared.RuntimeFunctionDefinition function_definition = 2;
+  // Flow Configuration
+  repeated shared.RuntimeFunctionDefinition function_definitions = 2;
+  // Event Configuration
+  repeated shared.EventType event_types = 3;
+  // Application Configuration
+  repeated ActionConfiguration action_configurations = 4;
+}
+
+message ActionConfiguration {
+  repeated shared.Translation name = 1;
+  repeated shared.Translation description = 2;
+  shared.DataType type = 3;
+  optional google.protobuf.Value default_value = 4;
 }
 
 // Request to execute a request a flow
@@ -28,8 +43,8 @@ message ExecutionRequest {
   string execution_identifier = 1;
   // Function identifier of flow to execute
   string function_identifier = 2;
-  // Parameters of flow required to execute
-  repeated string parameters = 3;
+  // Parameters (JSON) of flow required to execute
+  google.protobuf.Struct parameters = 3;
 }
 
 // Result from executed flows by an action
@@ -37,7 +52,7 @@ message ExecutionResult {
   // Identifier of flow to execute
   string execution_identifier = 1;
   // Result of executed flow
-  repeated string result = 2;
+  google.protobuf.Value result = 2;
 }
 
 message TransferRequest {

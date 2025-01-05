@@ -17,6 +17,7 @@ fn main() -> Result<()> {
         "datatype_definition.proto",
         "runtime_function_definition.proto",
         "translations.proto",
+        "event.proto"
     ];
 
     let inclusions = &[
