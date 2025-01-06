@@ -4,7 +4,10 @@ option ruby_package = "Tucana::Shared";
 
 package shared;
 
+// Translation to translate flows, description etc...
 message Translation {
+  // Language code (e.g. de_DE)
   string code = 1;
+  // Translated content
   string content = 2;
 }
