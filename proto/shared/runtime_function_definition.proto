@@ -7,16 +7,12 @@ option ruby_package = "Tucana::Shared";
 package shared;
 
 message RuntimeFunctionDefinition {
-  string runtime_id = 1;
-  optional RuntimeParameterDefinitions runtime_parameter_definitions = 2;
-  optional DataType return_type = 3;
-}
-
-message RuntimeParameterDefinitions {
-  repeated RuntimeFunctionDefinition parameters = 1;
+  string runtime_name = 1;
+  repeated RuntimeParameterDefinition runtime_parameter_definitions = 2;
+  optional string return_type_identifier = 3;
 }
 
 message RuntimeParameterDefinition {
-  DataType type = 1;
+  string data_type_identifier = 1;
   string name = 2;
 }
