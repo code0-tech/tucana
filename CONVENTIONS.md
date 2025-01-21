@@ -50,5 +50,5 @@ The file of a service should always contain the service name as its prefix. This
 │   └── service_one.file_two.proto (file)
 └── service_two (folder)
     ├── service_two.file_one.proto (file)
-    └── service_one.file_two.proto (file)
+    └── service_two.file_two.proto (file)
 ```
