@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-import "google/protobuf/struct.proto";
-import "translations.proto";
-import "datatype_definition.proto";
-
 option ruby_package = "Tucana::Shared";
 
 package shared;
+
+import "google/protobuf/struct.proto";
+import "shared.translation.proto";
+import "shared.datatype.proto";
 
 message EventDefinitionSettings {
   repeated Translation name = 1;

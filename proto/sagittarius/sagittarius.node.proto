@@ -4,7 +4,7 @@ option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
-import "runtime_function_definition.proto";
+import "shared.runtime_function.proto";
 
 message Node {
   shared.RuntimeFunctionDefinition definition = 1;

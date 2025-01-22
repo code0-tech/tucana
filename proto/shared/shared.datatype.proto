@@ -1,11 +1,16 @@
 syntax = "proto3";
-import "google/protobuf/struct.proto";
-import "translations.proto";
 
 option ruby_package = "Tucana::Shared";
 
 package shared;
 
+import "google/protobuf/struct.proto";
+import "shared.translation.proto";
+
+/*
+    A data type is a custom implementation that could be compared to an object
+    It could be as simple as a primitive but can be as complex as a structured object with rules
+ */
 message DataType {
   enum Variant {
     UNKNOWN = 0;
@@ -18,12 +23,18 @@ message DataType {
     FUNCTION = 7;
   }
 
+  // Variant of the data type
   Variant variant = 1;
+  // Unique identifier of the data type
   string identifier = 2;
   repeated Translation name = 3;
+  // Rules of the data type (e.g. Regex, contains...)
   repeated DataTypeRule rules = 4;
+  // List of input types that are used to be constructed for the given data type
   repeated DataType input_types = 5;
+  // Optional return type of the given data type after construction
   optional DataType return_type = 6;
+  // Optional identifier it the given data type is a child of another
   optional string parent_type_identifier = 7;
 }
 
@@ -38,5 +49,6 @@ message DataTypeRule {
   }
 
   Variant variant = 1;
+  // Configuration (json) that defines the rule. Changes by the variant
   google.protobuf.Struct config = 2;
 }

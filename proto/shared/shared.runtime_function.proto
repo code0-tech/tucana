@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-import "translations.proto";
-
 option ruby_package = "Tucana::Shared";
 
 package shared;
+
+import "shared.translation.proto";
 
 message RuntimeFunctionDefinition {
   string runtime_name = 1;
