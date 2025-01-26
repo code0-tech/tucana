@@ -52,3 +52,22 @@ The file of a service should always contain the service name as its prefix. This
     ├── service_two.file_one.proto (file)
     └── service_two.file_two.proto (file)
 ```
+
+## File Header
+Keep the following structure for the header of a proto file!
+
+`syntax` -> we use proto3 (version 3)
+`option ruby_package` -> required for ruby build
+`package` -> required for rust build & proto itself
+`imports` required inputs
+
+### Example:
+```protobuf
+syntax = "proto3";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+import "google/protobuf/struct.proto";
+```

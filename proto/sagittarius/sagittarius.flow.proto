@@ -4,8 +4,8 @@ option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
-import "node.proto";
-import "flow_definition.proto";
+import "sagittarius.node.proto";
+import "sagittarius.flow_definition.proto";
 
 message Flow {
   int64 flow_id = 1;

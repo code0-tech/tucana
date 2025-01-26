@@ -1,18 +1,20 @@
 syntax = "proto3";
 
-import "runtime_function_definition.proto";
-
-
 option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
+import "shared.runtime_function.proto";
 
+// Request for updating a list of runtime function definitions
 message RuntimeFunctionDefinitionUpdateRequest {
+  // List of runtime function definitions
   repeated shared.RuntimeFunctionDefinition runtime_functions = 1;
 }
 
+// Response of updating runtime function definitions
 message RuntimeFunctionDefinitionUpdateResponse {
+  // True if was successful, false if not
   bool success = 1;
 }
 

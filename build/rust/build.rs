@@ -4,20 +4,20 @@ use std::io::Result;
 fn main() -> Result<()> {
     let proto = &[
         // aquila
-        "action_communication.proto",
-        "action_execute.proto",
+        "aquila.action.proto",
+        "aquila.execution.proto",
         // sagittarius
-        "action.proto",
-        "datatype.proto",
-        "flow.proto",
-        "flow_definition.proto",
-        "node.proto",
-        "ping.proto",
+        "sagittarius.action.proto",
+        "sagittarius.datatype.proto",
+        "sagittarius.flow.proto",
+        "sagittarius.flow_definition.proto",
+        "sagittarius.node.proto",
+        "sagittarius.ping.proto",
         // shared
-        "datatype_definition.proto",
-        "runtime_function_definition.proto",
-        "translations.proto",
-        "event.proto"
+        "shared.datatype.proto",
+        "shared.runtime_function.proto",
+        "shared.translation.proto",
+        "shared.event.proto"
     ];
 
     let inclusions = &[

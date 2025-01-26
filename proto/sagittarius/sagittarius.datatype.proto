@@ -1,15 +1,20 @@
 syntax = "proto3";
-import "datatype_definition.proto";
 
 option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
+import "shared.datatype.proto";
+
+// Request for updating a data type
 message DataTypeUpdateRequest {
+  // List of data types that should be updated
   repeated shared.DataType data_types = 1;
 }
 
+// Response of updating a data type
 message DataTypeUpdateResponse {
+  // True if was successful, false if not
   bool success = 1;
 }
 
