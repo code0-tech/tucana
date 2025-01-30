@@ -1,6 +1,6 @@
 syntax = "proto3";
-import "google/protobuf/struct.proto";
 import "translations.proto";
+import "shared.struct.proto";
 
 option ruby_package = "Tucana::Shared";
 
@@ -38,5 +38,5 @@ message DataTypeRule {
   }
 
   Variant variant = 1;
-  google.protobuf.Struct config = 2;
+  shared.Struct config = 2;
 }
