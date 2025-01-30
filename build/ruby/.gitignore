@@ -11,6 +11,4 @@
 .rspec_status
 
 # generated ruby files
-lib/tucana/aquila/*.rb
-lib/tucana/sagittarius/*.rb
-lib/tucana/shared/*.rb
+lib/tucana/generated/
