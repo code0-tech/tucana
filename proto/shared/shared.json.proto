@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+message Json {
+  map<string, Object> fields = 1;
+}
+
+message Object {
+  oneof kind {
+    NullValue null_value = 1;
+    double number_value = 2;
+    string string_value = 3;
+    bool bool_value = 4;
+    Json json_value = 5;
+    ObjectList list_value = 6;
+  }
+}
+
+enum NullValue {
+  NULL_VALUE = 0;
+}
+
+message ObjectList {
+  repeated Object objects = 1;
+}
