@@ -9,15 +9,13 @@ license = "Apache-2.0"
 include = ["src/*"]
 
 [dependencies]
-tonic = "0.12.1"
-prost = "0.13.1"
-prost-types = "0.13.1"
-prost-serde-derive = "0.1.5"
-serde = { version = "1.0.204", features = ["derive"] }
-serde_json = "1.0.120"
+serde = { version = "1.0.217", features = ["derive"] }
+prost-types = "0.13.4"
+prost = "0.13.4"
+tonic = "0.12.3"
 
 [build-dependencies]
-tonic-build = "0.12.1"
+tonic-build = "0.12.3"
 
 [lib]
 name = "tucana"

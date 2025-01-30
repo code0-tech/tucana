@@ -32,13 +32,21 @@ fn main() -> Result<()> {
         create_dir(out_path)?;
     }
 
+
     tonic_build::configure()
         .out_dir(out_path)
         .build_server(true)
         .build_client(true)
+        .type_attribute("NullValue", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("Object", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("ObjectList", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("Json", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("Translation", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("DataTypeRule", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("DataType", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("FlowDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("RuntimeFunctionDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("RuntimeParameterDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
+        .type_attribute("RuntimeFunctionDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Parameter", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Node", "#[derive(serde::Serialize, serde::Deserialize)]")
         .type_attribute("Flow", "#[derive(serde::Serialize, serde::Deserialize)]")
