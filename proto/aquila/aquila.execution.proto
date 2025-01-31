@@ -4,31 +4,42 @@ option ruby_package = "Tucana::Aquila";
 
 package aquila;
 
+// Request to call an action with param. Request will be routed over Aquila
 message ActionCallRequest {
+  // Function identifier
   string identifier = 1;
+  // List of parameters (json format --> also can just be a primitive)
   repeated string parameters = 2;
 }
 
+// Response of execution call
 message ActionCallResponse {
+  // Identifier of the execution id given by Aquila for the parameter
   string execution_identifier = 1;
 }
 
+// List of results
 message ActionResult {
   repeated string result = 1;
 }
 
+// Request to check if there are results for the given identifier
 message ActionResultRequest {
+  // Identifier that is connected to the parameter
   string execution_identifier = 1;
 }
 
 message ActionResultResponse {
+  // Result of the given parameter!
   optional ActionResult action_result = 1;
 }
 
+// Service for calling an execution with the given parameter
 service ActionCallService {
   rpc Call (ActionCallRequest) returns (ActionCallResponse);
 }
 
+// Service for getting a result of an execution
 service ActionResultService {
   rpc GetResult (ActionResultRequest) returns (ActionResultResponse);
 }

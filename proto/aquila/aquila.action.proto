@@ -1,14 +1,14 @@
 syntax = "proto3";
 
-import "google/protobuf/struct.proto";
-import "runtime_function_definition.proto";
-import "datatype_definition.proto";
-import "translations.proto";
-import "event.proto";
-
 option ruby_package = "Tucana::Aquila";
 
 package aquila;
+
+import "google/protobuf/struct.proto";
+import "shared.runtime_function.proto";
+import "shared.datatype.proto";
+import "shared.translation.proto";
+import "shared.event.proto";
 
 // Event that gets admitted by an action
 message Event {

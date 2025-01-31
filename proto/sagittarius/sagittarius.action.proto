@@ -1,23 +1,29 @@
 syntax = "proto3";
-import "runtime_function_definition.proto";
 
 option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
+import "shared.runtime_function.proto";
+
+// Request for communicating that an action went online
 message ActionLogonRequest {
+  // Unique identifier of action
   string identifier = 1;
+  // All function definitions the action holds
   repeated shared.RuntimeFunctionDefinition function_definition = 2;
 }
 
 message ActionLogonResponse {}
 
+// Request for communication that an action went offline
 message ActionLogoffRequest {
   string identifier = 1;
 }
 
 message ActionLogoffResponse {}
 
+// Service from Sagittarius to get called by Aquila to get informed of any action behavior & availability
 service ActionService {
   rpc Logon (ActionLogonRequest) returns (ActionLogonResponse);
   rpc Logoff (ActionLogoffRequest) returns (ActionLogoffResponse);
