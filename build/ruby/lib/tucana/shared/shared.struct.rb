@@ -15,7 +15,7 @@ module Tucana
   module Shared
     UnexpectedStructType = Class.new(Tucana::Error)
 
-    class Struct
+    Struct.class_eval do
       def [](key)
         self.fields[key].to_ruby
       rescue NoMethodError
@@ -47,7 +47,7 @@ module Tucana
       end
     end
 
-    class Value
+    Value.class_eval do
       def to_ruby(recursive = false)
         case self.kind
         when :struct_value
@@ -107,7 +107,7 @@ module Tucana
       end
     end
 
-    class ListValue
+    ListValue.class_eval do
       include Enumerable
 
       def length
