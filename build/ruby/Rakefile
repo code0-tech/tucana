@@ -9,7 +9,7 @@ RSpec::Core::RakeTask.new(:spec)
 
 PROJECT_ROOT = File.expand_path("../..", __dir__)
 RUBY_ROOT = "#{PROJECT_ROOT}/build/ruby".freeze
-RUBY_LIB_ROOT = "#{RUBY_ROOT}/lib/tucana".freeze
+RUBY_LIB_ROOT = "#{RUBY_ROOT}/lib/tucana/generated".freeze
 PROTO_ROOT = "#{PROJECT_ROOT}/proto".freeze
 INPUT_SHARED_DIR = "#{PROTO_ROOT}/shared".freeze
 OUTPUT_SHARED_DIR = "#{RUBY_LIB_ROOT}/shared".freeze

@@ -4,7 +4,7 @@ option ruby_package = "Tucana::Aquila";
 
 package aquila;
 
-import "google/protobuf/struct.proto";
+import "shared.struct.proto";
 import "shared.runtime_function.proto";
 import "shared.datatype.proto";
 import "shared.translation.proto";
@@ -15,7 +15,7 @@ message Event {
   // Id of Event type
   string event_type = 1;
   // Payload (JSON) of event params
-  google.protobuf.Value payload = 2;
+  shared.Value payload = 2;
 }
 
 // Action flow/event configuration
@@ -34,7 +34,7 @@ message ActionConfiguration {
   repeated shared.Translation name = 1;
   repeated shared.Translation description = 2;
   shared.DataType type = 3;
-  optional google.protobuf.Value default_value = 4;
+  optional shared.Value default_value = 4;
 }
 
 // Request to execute a request a flow
@@ -44,7 +44,7 @@ message ExecutionRequest {
   // Function identifier of flow to execute
   string function_identifier = 2;
   // Parameters (JSON) of flow required to execute
-  google.protobuf.Struct parameters = 3;
+  shared.Struct parameters = 3;
 }
 
 // Result from executed flows by an action
@@ -52,7 +52,7 @@ message ExecutionResult {
   // Identifier of flow to execute
   string execution_identifier = 1;
   // Result of executed flow
-  google.protobuf.Value result = 2;
+  shared.Value result = 2;
 }
 
 message TransferRequest {

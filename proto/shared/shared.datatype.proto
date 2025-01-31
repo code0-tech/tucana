@@ -4,7 +4,7 @@ option ruby_package = "Tucana::Shared";
 
 package shared;
 
-import "google/protobuf/struct.proto";
+import "shared.struct.proto";
 import "shared.translation.proto";
 
 /*
@@ -50,5 +50,5 @@ message DataTypeRule {
 
   Variant variant = 1;
   // Configuration (json) that defines the rule. Changes by the variant
-  google.protobuf.Struct config = 2;
+  shared.Struct config = 2;
 }

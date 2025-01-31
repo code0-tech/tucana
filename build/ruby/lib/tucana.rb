@@ -8,9 +8,16 @@ module Tucana
   AVAILABLE_PROTOCOLS = %i[aquila sagittarius]
 
   def self.load_protocol(protocol)
-    this_dir = File.expand_path(File.dirname(__FILE__))
-    protocol_dir = File.join(this_dir, "tucana/#{protocol}")
+    if protocol != :shared
+      load_protocol(:shared)
+    end
 
-    Dir["#{protocol_dir}/*_pb.rb"].each { |file| require file }
+    this_dir = File.expand_path(File.dirname(__FILE__))
+
+    generated_protocol_dir = File.join(this_dir, "tucana/generated/#{protocol}")
+    Dir["#{generated_protocol_dir}/*_pb.rb"].each { |file| require file }
+
+    protocol_dir = File.join(this_dir, "tucana/#{protocol}")
+    Dir["#{protocol_dir}/*.rb"].each { |file| require file }
   end
 end
