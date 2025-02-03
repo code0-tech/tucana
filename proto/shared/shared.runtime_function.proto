@@ -37,4 +37,5 @@ message ParameterDefinition {
   optional Struct default_value = 2;
   repeated Translation name = 3;
   repeated Translation description = 4;
+  repeated Translation documentation = 5;
 }
