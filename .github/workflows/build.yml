@@ -46,6 +46,8 @@ jobs:
         env:
           RUST_BACKTRACE: 'full'
       - name: Test De/Serialization from/to json
-        run: cargo test --features sagittarius
+        run: PATH=${{ runner.temp }}/proto/bin:$PATH cargo test --features sagittarius
+        env:
+          RUST_BACKTRACE: 'full'
       - name: Package crate
         run: cargo package --allow-dirty
