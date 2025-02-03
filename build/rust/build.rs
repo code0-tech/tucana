@@ -11,13 +11,14 @@ fn main() -> Result<()> {
         "sagittarius.datatype.proto",
         "sagittarius.flow.proto",
         "sagittarius.flow_definition.proto",
-        "sagittarius.node.proto",
         "sagittarius.ping.proto",
+        "sagittarius.runtime_function.proto",
         // shared
         "shared.datatype.proto",
         "shared.runtime_function.proto",
         "shared.translation.proto",
-        "shared.event.proto"
+        "shared.struct.proto",
+        "shared.event.proto",
     ];
 
     let inclusions = &[
@@ -27,31 +28,40 @@ fn main() -> Result<()> {
     ];
 
     let out_path = "src/generated";
+    let serde_attribute = "#[derive(serde::Serialize, serde::Deserialize)]";
 
     if !std::path::Path::new(&out_path).exists() {
-        create_dir(out_path)?;
+        match create_dir(out_path) {
+            Err(error) => panic!("Cannot create the `generated` folder! Reason: {:?}", error),
+            _ => {}
+        };
     }
 
-
-    tonic_build::configure()
+    let build_result = tonic_build::configure()
         .out_dir(out_path)
         .build_server(true)
         .build_client(true)
-        .type_attribute("NullValue", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("Value", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("ValueList", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("Struct", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("Translation", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("DataTypeRule", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("DataType", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("FlowDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("RuntimeParameterDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("RuntimeFunctionDefinition", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("Parameter", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("Node", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .type_attribute("Flow", "#[derive(serde::Serialize, serde::Deserialize)]")
-        .compile(proto, inclusions)
-        .expect("Cannot compile internal protos");
+        .type_attribute("kind", serde_attribute)
+        .type_attribute("NullValue", serde_attribute)
+        .type_attribute("Value", serde_attribute)
+        .type_attribute("ListValue", serde_attribute)
+        .type_attribute("Struct", serde_attribute)
+        .type_attribute("Translation", serde_attribute)
+        .type_attribute("DataTypeRule", serde_attribute)
+        .type_attribute("DataType", serde_attribute)
+        .type_attribute("RuntimeParameterDefinition", serde_attribute)
+        .type_attribute("RuntimeFunctionDefinition", serde_attribute)
+        .type_attribute("FlowSetting", serde_attribute)
+        .type_attribute("NodeParameterDefinition", serde_attribute)
+        .type_attribute("NodeFunctionDefinition", serde_attribute)
+        .type_attribute("NodeParameter", serde_attribute)
+        .type_attribute("NodeFunction", serde_attribute)
+        .type_attribute("Flow", serde_attribute)
+        .type_attribute("Flows", serde_attribute)
+        .compile_protos(proto, inclusions);
 
-    Ok(())
+    match build_result {
+        Ok(_) => Ok(()),
+        Err(error) => panic!("Cannot build the proto files! Reason: {:?}", error),
+    }
 }

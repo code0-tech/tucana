@@ -4,5 +4,25 @@ option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
+import "shared.translation.proto";
+import "shared.datatype.proto";
+import "shared.struct.proto";
+
+message FlowType {
+  FlowDefinition definition = 1;
+  repeated shared.Translation name = 2;
+}
+
+message FlowDefinitionSetting {
+  bool unique = 1;
+  shared.DataType type = 2;
+  optional shared.Struct default_value = 3;
+  repeated shared.Translation name = 4;
+  repeated shared.Translation description = 5;
+}
+
 message FlowDefinition {
+  repeated FlowDefinitionSetting settings = 1;
+  shared.DataType input_type = 2;
+  bool editable = 3;
 }
