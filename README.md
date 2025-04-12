@@ -44,14 +44,14 @@ Tucana.load_protocol(:aquila)
 The project is organized with services functioning as servers. Each protocol in the Sagittarius folder corresponds to
 services that Sagittarius must implement as a server.
 
-```ascii-tree 
+```ascii-tree
 .
 ├── aquila
 │   ├── action - Action service (emits events, manages configs, and handles executions)
 │   └── execution - Execution service (handles internal execution calls)
 ├── sagittarius
 │   ├── action - Action service (manages logon/logoff requests for action configurations)
-│   ├── datatype - DataType service 
+│   ├── datatype - DataType service
 │   ├── flow - Flow service & Flow types (handles flow updates)
 │   ├── flow_definition - Defines a definition for a Flow
 │   ├── ping - Ping service (performs life checks)
@@ -61,5 +61,6 @@ services that Sagittarius must implement as a server.
     ├── event - Defines types for events
     ├── runtime_function_definition - Defines types for runtime functions
     ├── struct - Defines types for json representations
+    ├── test_execution - Defines types test execution
     └── translation - Contains translations with country codes and translated messages
 ```
