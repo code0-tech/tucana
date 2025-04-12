@@ -10,7 +10,7 @@ import "shared.struct.proto";
 import "shared.flow.proto";
 
 message FlowType {
-  shared.FlowDefinition definition = 1;
+  FlowDefinition definition = 1;
   repeated shared.Translation name = 2;
 }
 
@@ -23,7 +23,7 @@ message FlowDefinitionSetting {
 }
 
 message FlowDefinition {
-  repeated shared.FlowDefinitionSetting settings = 1;
+  repeated FlowDefinitionSetting settings = 1;
   shared.DataType input_type = 2;
   bool editable = 3;
 }

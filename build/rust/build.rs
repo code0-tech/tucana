@@ -52,6 +52,7 @@ fn main() -> Result<()> {
         .type_attribute("DataType", serde_attribute)
         .type_attribute("RuntimeParameterDefinition", serde_attribute)
         .type_attribute("RuntimeFunctionDefinition", serde_attribute)
+        .type_attribute("FlowSettingDefinition", serde_attribute)
         .type_attribute("FlowSetting", serde_attribute)
         .type_attribute("NodeParameterDefinition", serde_attribute)
         .type_attribute("NodeFunctionDefinition", serde_attribute)

@@ -4,7 +4,6 @@ option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
-import "shared.struct.proto";
 import "shared.flow.proto";
 
 //Aquila sends a request to initialise stream to Sagittarius
