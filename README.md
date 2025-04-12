@@ -62,5 +62,6 @@ services that Sagittarius must implement as a server.
     ├── flow - Defines types for flows
     ├── runtime_function_definition - Defines types for runtime functions
     ├── struct - Defines types for json representations
+    ├── test_execution - Defines types test execution
     └── translation - Contains translations with country codes and translated messages
 ```
