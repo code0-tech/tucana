@@ -5,6 +5,7 @@ option ruby_package = "Tucana::Shared";
 package shared;
 
 import "shared.struct.proto";
+import "shared.datatype.proto";
 
 message Flow {
   // Database ID -> req. for Aquila to identify in FlowStore
