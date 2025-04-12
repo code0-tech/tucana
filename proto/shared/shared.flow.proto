@@ -10,13 +10,20 @@ message Flow {
   // Database ID -> req. for Aquila to identify in FlowStore
   int64 flow_id = 1;
   string type = 2;
-  repeated FlowSetting settings = 3;
-  NodeFunction starting_node = 4;
+  repeated shared.DataType data_types = 3;
+  shared.DataType input_type = 4;
+  repeated FlowSetting settings = 5;
+  NodeFunction starting_node = 6;
 }
 
 message FlowSetting {
-  string definition = 1;
+  FlowSettingDefinition definition = 1;
   shared.Struct object = 2;
+}
+
+message FlowSettingDefinition {
+    string id = 1;
+    string key = 2;
 }
 
 message NodeFunction {
