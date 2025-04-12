@@ -5,45 +5,7 @@ option ruby_package = "Tucana::Sagittarius";
 package sagittarius;
 
 import "shared.struct.proto";
-
-message Flow {
-  // Database ID -> req. for Aquila to identify in FlowStore
-  int64 flow_id = 1;
-  string type = 2;
-  repeated FlowSetting settings = 3;
-  NodeFunction starting_node = 4;
-}
-
-message FlowSetting {
-  string definition = 1;
-  shared.Struct object = 2;
-}
-
-message NodeFunction {
-  NodeFunctionDefinition definition = 1;
-  repeated NodeParameter parameters = 2;
-  optional NodeFunction next_node = 3;
-}
-
-message NodeParameter {
-  NodeParameterDefinition definition = 1;
-  shared.Struct object = 2;
-  NodeFunction sub_node = 3;
-}
-
-message NodeParameterDefinition {
-  string parameter_id = 1;
-  string runtime_parameter_id = 2;
-}
-
-message NodeFunctionDefinition {
-  string function_id = 1;
-  string runtime_function_id = 2;
-}
-
-message Flows {
-  repeated Flow flows = 1;
-}
+import "shared.flow.proto";
 
 //Aquila sends a request to initialise stream to Sagittarius
 message FlowLogonRequest {
@@ -53,11 +15,11 @@ message FlowLogonRequest {
 message FlowResponse {
   oneof data {
     // Updates a single flow
-    Flow updated_flow = 1;
+    shared.Flow updated_flow = 1;
     // Deletes a single flow
     int64 deleted_flow_id = 2;
     // Replaces all flows in Aquila (only on startup and for releases)
-    Flows flows = 3;
+    shared.Flows flows = 3;
   }
 }
 

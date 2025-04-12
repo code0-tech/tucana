@@ -7,9 +7,10 @@ package sagittarius;
 import "shared.translation.proto";
 import "shared.datatype.proto";
 import "shared.struct.proto";
+import "shared.flow.proto";
 
 message FlowType {
-  FlowDefinition definition = 1;
+  shared.FlowDefinition definition = 1;
   repeated shared.Translation name = 2;
 }
 
@@ -22,7 +23,7 @@ message FlowDefinitionSetting {
 }
 
 message FlowDefinition {
-  repeated FlowDefinitionSetting settings = 1;
+  repeated shared.FlowDefinitionSetting settings = 1;
   shared.DataType input_type = 2;
   bool editable = 3;
 }
