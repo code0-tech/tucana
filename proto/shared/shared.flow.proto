@@ -12,7 +12,7 @@ message Flow {
   int64 flow_id = 1;
   string type = 2;
   repeated shared.DataType data_types = 3;
-  shared.DataType input_type = 4;
+  optional shared.DataType input_type = 4;
   repeated FlowSetting settings = 5;
   NodeFunction starting_node = 6;
 }
