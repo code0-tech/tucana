@@ -7,6 +7,7 @@ package sagittarius;
 import "shared.translation.proto";
 import "shared.datatype.proto";
 import "shared.struct.proto";
+import "shared.flow.proto";
 
 message FlowType {
   FlowDefinition definition = 1;

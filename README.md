@@ -52,13 +52,14 @@ services that Sagittarius must implement as a server.
 ├── sagittarius
 │   ├── action - Action service (manages logon/logoff requests for action configurations)
 │   ├── datatype - DataType service
-│   ├── flow - Flow service & Flow types (handles flow updates)
+│   ├── flow - Flow service (handles flow updates)
 │   ├── flow_definition - Defines a definition for a Flow
 │   ├── ping - Ping service (performs life checks)
 │   └── runtime_function - Service for updating the runtime functions
 └── shared
     ├── datatype - Defines types for data types
     ├── event - Defines types for events
+    ├── flow - Defines types for flows
     ├── runtime_function_definition - Defines types for runtime functions
     ├── struct - Defines types for json representations
     ├── test_execution - Defines types test execution

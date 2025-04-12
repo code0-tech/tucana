@@ -15,6 +15,7 @@ fn main() -> Result<()> {
         "sagittarius.runtime_function.proto",
         // shared
         "shared.datatype.proto",
+        "shared.flow.proto",
         "shared.runtime_function.proto",
         "shared.translation.proto",
         "shared.struct.proto",
@@ -42,6 +43,7 @@ fn main() -> Result<()> {
         .build_server(true)
         .build_client(true)
         .type_attribute("kind", serde_attribute)
+        .type_attribute("value", serde_attribute)
         .type_attribute("NullValue", serde_attribute)
         .type_attribute("Value", serde_attribute)
         .type_attribute("ListValue", serde_attribute)
@@ -51,6 +53,7 @@ fn main() -> Result<()> {
         .type_attribute("DataType", serde_attribute)
         .type_attribute("RuntimeParameterDefinition", serde_attribute)
         .type_attribute("RuntimeFunctionDefinition", serde_attribute)
+        .type_attribute("FlowSettingDefinition", serde_attribute)
         .type_attribute("FlowSetting", serde_attribute)
         .type_attribute("NodeParameterDefinition", serde_attribute)
         .type_attribute("NodeFunctionDefinition", serde_attribute)
