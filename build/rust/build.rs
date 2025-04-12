@@ -15,6 +15,7 @@ fn main() -> Result<()> {
         "sagittarius.runtime_function.proto",
         // shared
         "shared.datatype.proto",
+        "shared.flow.proto",
         "shared.runtime_function.proto",
         "shared.translation.proto",
         "shared.struct.proto",
