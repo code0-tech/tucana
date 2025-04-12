@@ -43,6 +43,7 @@ fn main() -> Result<()> {
         .build_server(true)
         .build_client(true)
         .type_attribute("kind", serde_attribute)
+        .type_attribute("value", serde_attribute)
         .type_attribute("NullValue", serde_attribute)
         .type_attribute("Value", serde_attribute)
         .type_attribute("ListValue", serde_attribute)

@@ -1,30 +1,35 @@
 #[cfg(feature = "sagittarius")]
 pub mod sagittarius {
-    include!("generated/sagittarius.rs");
+    include!("generated/shared.rs");
 
     #[cfg(test)]
     pub mod tests {
-        use crate::sagittarius::Flow;
+        use crate::shared::Flow;
         use serde_json;
 
         #[test]
         fn test_serialize() {
             let flow = Flow {
                 flow_id: 0,
+                data_types: vec![],
+                input_type: None,
                 r#type: "no".to_string(),
                 settings: vec![],
                 starting_node: None,
             };
 
             let str_flow = serde_json::to_string(&flow).expect("Serialization failed");
-            let json_flow: serde_json::Value = serde_json::from_str(&str_flow).expect("Failed to parse JSON");
+            let json_flow: serde_json::Value =
+                serde_json::from_str(&str_flow).expect("Failed to parse JSON");
 
             let expected_json: serde_json::Value = serde_json::json!({
-            "flow_id": 0,
-            "type": "no",
-            "settings": [],
-            "starting_node": null
-        });
+                "flow_id": 0,
+                "type": "no",
+                "input_type": null,
+                "data_types": [],
+                "settings": [],
+                "starting_node": null
+            });
 
             assert_eq!(json_flow, expected_json);
         }
@@ -34,6 +39,8 @@ pub mod sagittarius {
             let json_data = r#"{
             "flow_id": 0,
             "type": "no",
+            "input_type": null,
+            "data_types": [],
             "settings": [],
             "starting_node": null
         }"#;
@@ -45,13 +52,14 @@ pub mod sagittarius {
                 flow_id: 0,
                 r#type: "no".to_string(),
                 settings: vec![],
+                data_types: vec![],
+                input_type: None,
                 starting_node: None,
             };
 
             assert_eq!(deserialized.unwrap(), expected_flow);
         }
     }
-
 }
 
 #[cfg(feature = "aquila")]
