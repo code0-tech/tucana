@@ -1,5 +1,5 @@
-#[cfg(feature = "sagittarius")]
-pub mod sagittarius {
+#[cfg(feature = "shared")]
+pub mod shared {
     include!("generated/shared.rs");
 
     #[cfg(test)]
@@ -67,7 +67,7 @@ pub mod aquila {
     include!("generated/aquila.rs");
 }
 
-#[cfg(feature = "shared")]
-pub mod shared {
-    include!("generated/shared.rs");
+#[cfg(feature = "sagittarius")]
+pub mod sagittarius {
+    include!("generated/sagittarius.rs");
 }
