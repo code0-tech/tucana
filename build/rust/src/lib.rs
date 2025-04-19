@@ -1,5 +1,7 @@
 #[cfg(feature = "shared")]
 pub mod shared {
+    pub mod helper;
+
     include!("generated/shared.rs");
 
     #[cfg(test)]
