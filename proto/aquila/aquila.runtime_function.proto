@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option ruby_package = "Tucana::Sagittarius";
+option ruby_package = "Tucana::Aquila";
 
-package sagittarius;
+package aquila;
 
 import "shared.runtime_function.proto";
 
@@ -18,7 +18,7 @@ message RuntimeFunctionDefinitionUpdateResponse {
   bool success = 1;
 }
 
-//This service will be implemented as a server by Sagittarius and as a client by Aquila.
+//This service will be implemented as a server by Aquila and as a client by Taurus. 
 service RuntimeFunctionDefinitionService {
   rpc Update(RuntimeFunctionDefinitionUpdateRequest) returns (RuntimeFunctionDefinitionUpdateResponse) {}
 }
