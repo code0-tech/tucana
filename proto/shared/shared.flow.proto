@@ -10,11 +10,12 @@ import "shared.datatype.proto";
 message Flow {
   // Database ID -> req. for Aquila to identify in FlowStore
   int64 flow_id = 1;
-  string type = 2;
-  repeated shared.DataType data_types = 3;
-  optional shared.DataType input_type = 4;
-  repeated FlowSetting settings = 5;
-  NodeFunction starting_node = 6;
+  int64 project_id = 2;
+  string type = 3;
+  repeated shared.DataType data_types = 4;
+  optional shared.DataType input_type = 5;
+  repeated FlowSetting settings = 6;
+  NodeFunction starting_node = 7;
 }
 
 message FlowSetting {
