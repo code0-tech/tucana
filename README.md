@@ -48,6 +48,7 @@ services that Sagittarius must implement as a server.
 .
 ├── aquila
 │   ├── action - Action service (emits events, manages configs, and handles executions)
+│   ├── runtime_function - Service for updating the runtime functions
 │   └── execution - Execution service (handles internal execution calls)
 ├── sagittarius
 │   ├── action - Action service (manages logon/logoff requests for action configurations)
