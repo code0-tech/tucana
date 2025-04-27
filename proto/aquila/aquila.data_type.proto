@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Aquila";
+
+package aquila;
+
+import "shared.data_type.proto";
+
+// Request for updating a data type
+message DataTypeUpdateRequest {
+  // List of data types that should be updated
+  repeated shared.DataType data_types = 1;
+}
+
+// Response of updating a data type
+message DataTypeUpdateResponse {
+  // True if was successful, false if not
+  bool success = 1;
+}
+
+service DataTypeService {
+  rpc Update(DataTypeUpdateRequest) returns (DataTypeUpdateResponse) {}
+}
