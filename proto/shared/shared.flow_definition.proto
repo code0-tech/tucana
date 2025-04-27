@@ -25,5 +25,6 @@ message FlowDefinitionSetting {
 message FlowDefinition {
   repeated FlowDefinitionSetting settings = 1;
   shared.DataType input_type = 2;
-  bool editable = 3;
+  optional shared.DataType return_type = 3;
+  bool editable = 4;
 }
