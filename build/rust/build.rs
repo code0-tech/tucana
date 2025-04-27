@@ -6,6 +6,7 @@ fn main() -> Result<()> {
         // aquila
         "aquila.action.proto",
         "aquila.execution.proto",
+        "aquila.runtime_function.proto",
         // sagittarius
         "sagittarius.action.proto",
         "sagittarius.datatype.proto",
