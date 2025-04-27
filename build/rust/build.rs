@@ -1,33 +1,53 @@
 use std::fs::create_dir;
 use std::io::Result;
 
-fn main() -> Result<()> {
-    let proto = &[
-        // aquila
-        "aquila.action.proto",
-        "aquila.execution.proto",
-        "aquila.runtime_function.proto",
-        // sagittarius
-        "sagittarius.action.proto",
-        "sagittarius.datatype.proto",
-        "sagittarius.flow.proto",
-        "sagittarius.flow_definition.proto",
-        "sagittarius.ping.proto",
-        "sagittarius.runtime_function.proto",
-        // shared
-        "shared.datatype.proto",
-        "shared.flow.proto",
-        "shared.runtime_function.proto",
-        "shared.translation.proto",
-        "shared.struct.proto",
-        "shared.event.proto",
-    ];
+fn read_proto_folders(path: &str) -> (Vec<String>, Vec<String>) {
+    let mut proto_folders: Vec<String> = Vec::new();
+    let mut proto_files: Vec<String> = Vec::new();
 
-    let inclusions = &[
-        "../../proto/shared",
-        "../../proto/sagittarius",
-        "../../proto/aquila",
-    ];
+    let proto_folder = match std::fs::read_dir(path) {
+        Ok(entries) => entries,
+        Err(error) => panic!("Cannot read the `proto` folder! Reason: {:?}", error),
+    };
+
+    for entry in proto_folder {
+        let real_entry = match entry {
+            Ok(entry) => entry,
+            Err(_) => continue,
+        };
+
+        let meta = match real_entry.metadata() {
+            Ok(metadata) => metadata,
+            Err(_) => continue,
+        };
+
+        if meta.is_dir() {
+            let new_path = match real_entry.path().into_os_string().into_string() {
+                Ok(path) => path,
+                Err(_) => continue,
+            };
+
+            proto_folders.push(new_path.clone());
+            let (new_folders, new_files) = read_proto_folders(new_path.as_str());
+
+            proto_folders.extend(new_folders);
+            proto_files.extend(new_files);
+        } else {
+            let file_name = match real_entry.file_name().into_string() {
+                Ok(name) => name,
+                Err(_) => continue,
+            };
+
+            proto_files.push(file_name);
+        }
+    }
+
+    (proto_folders, proto_files)
+}
+
+fn main() -> Result<()> {
+    let path = "../../proto";
+    let (proto_folders, proto_files) = read_proto_folders(path);
 
     let out_path = "src/generated";
     let serde_attribute = "#[derive(serde::Serialize, serde::Deserialize)]";
@@ -62,7 +82,7 @@ fn main() -> Result<()> {
         .type_attribute("NodeFunction", serde_attribute)
         .type_attribute("Flow", serde_attribute)
         .type_attribute("Flows", serde_attribute)
-        .compile_protos(proto, inclusions);
+        .compile_protos(&proto_files, &proto_folders);
 
     match build_result {
         Ok(_) => Ok(()),
