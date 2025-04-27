@@ -5,7 +5,7 @@ option ruby_package = "Tucana::Shared";
 package shared;
 
 import "shared.translation.proto";
-import "shared.datatype.proto";
+import "shared.data_type.proto";
 import "shared.struct.proto";
 import "shared.flow.proto";
 

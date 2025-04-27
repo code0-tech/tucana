@@ -4,7 +4,7 @@ option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
-import "shared.datatype.proto";
+import "shared.data_type.proto";
 
 // Request for updating a data type
 message DataTypeUpdateRequest {
