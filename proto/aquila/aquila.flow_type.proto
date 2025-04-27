@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Aquila";
+
+package aquila;
+
+import "shared.flow_definition.proto";
+
+// Request for updating a list of adapter flow types
+message FlowTypeUpdateRequest {
+  // List of adapter flow types
+  repeated shared.FlowType flow_types = 1;
+}
+
+// Response of updating adapter flow types
+message FlowTypeUpdateResponse {
+  // True if was successful, false if not
+  bool success = 1;
+}
+
+//This service will be implemented as a server by Aquila and as a client by Draco.
+service FlowTypeService {
+  rpc Update(FlowTypeUpdateRequest) returns (FlowTypeUpdateResponse) {}
+}
