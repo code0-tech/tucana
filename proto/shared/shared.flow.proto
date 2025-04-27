@@ -39,7 +39,8 @@ message NodeParameter {
   NodeParameterDefinition definition = 1;
   oneof value {
     shared.Value literal_value = 2;
-    NodeFunction function_value = 3;
+    string reference_value = 3;
+    NodeFunction function_value = 4;
   }
 }
 
