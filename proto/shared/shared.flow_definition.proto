@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option ruby_package = "Tucana::Sagittarius";
+option ruby_package = "Tucana::Shared";
 
-package sagittarius;
+package shared;
 
 import "shared.translation.proto";
 import "shared.datatype.proto";
