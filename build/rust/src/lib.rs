@@ -15,7 +15,8 @@ pub mod shared {
                 flow_id: 0,
                 project_id: 0,
                 data_types: vec![],
-                input_type: None,
+                input_type_identifier: None,
+                return_type_identifier: None,
                 r#type: "no".to_string(),
                 settings: vec![],
                 starting_node: None,
@@ -29,7 +30,8 @@ pub mod shared {
                 "flow_id": 0,
                 "project_id": 0,
                 "type": "no",
-                "input_type": null,
+                "input_type_identifier": null,
+                "return_type_identifier": null,
                 "data_types": [],
                 "settings": [],
                 "starting_node": null
@@ -44,7 +46,8 @@ pub mod shared {
             "flow_id": 0,
             "project_id": 0,
             "type": "no",
-            "input_type": null,
+            "input_type_identifier": null,
+            "return_type_identifier": null,
             "data_types": [],
             "settings": [],
             "starting_node": null
@@ -59,7 +62,8 @@ pub mod shared {
                 r#type: "no".to_string(),
                 settings: vec![],
                 data_types: vec![],
-                input_type: None,
+                input_type_identifier: None,
+                return_type_identifier: None,
                 starting_node: None,
             };
 
