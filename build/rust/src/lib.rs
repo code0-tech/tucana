@@ -13,6 +13,7 @@ pub mod shared {
         fn test_serialize() {
             let flow = Flow {
                 flow_id: 0,
+                project_id: 0,
                 data_types: vec![],
                 input_type: None,
                 r#type: "no".to_string(),
@@ -26,6 +27,7 @@ pub mod shared {
 
             let expected_json: serde_json::Value = serde_json::json!({
                 "flow_id": 0,
+                "project_id": 0,
                 "type": "no",
                 "input_type": null,
                 "data_types": [],
@@ -40,6 +42,7 @@ pub mod shared {
         fn test_deserialize() {
             let json_data = r#"{
             "flow_id": 0,
+            "project_id": 0,
             "type": "no",
             "input_type": null,
             "data_types": [],
@@ -52,6 +55,7 @@ pub mod shared {
 
             let expected_flow = Flow {
                 flow_id: 0,
+                project_id: 0,
                 r#type: "no".to_string(),
                 settings: vec![],
                 data_types: vec![],
