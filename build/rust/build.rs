@@ -66,6 +66,7 @@ fn main() -> Result<()> {
         .type_attribute("kind", serde_attribute)
         .type_attribute("value", serde_attribute)
         .type_attribute("config", serde_attribute)
+        .type_attribute("ReferenceValue", serde_attribute)
         .type_attribute("NullValue", serde_attribute)
         .type_attribute("Value", serde_attribute)
         .type_attribute("ListValue", serde_attribute)

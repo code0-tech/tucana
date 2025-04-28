@@ -39,10 +39,17 @@ message NodeParameter {
   NodeParameterDefinition definition = 1;
   oneof value {
     shared.Value literal_value = 2;
-    string reference_value = 3;
+    ReferenceValue reference_value = 3;
     NodeFunction function_value = 4;
   }
 }
+
+message ReferenceValue {
+    string type_identifier = 1;
+    int32 primary_level = 2;
+    int32 secondary_level = 3;
+    optional int32 tertiary_level = 4;
+ }
 
 message NodeParameterDefinition {
   string parameter_id = 1;
