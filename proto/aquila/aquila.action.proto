@@ -6,7 +6,7 @@ package aquila;
 
 import "shared.struct.proto";
 import "shared.runtime_function.proto";
-import "shared.datatype.proto";
+import "shared.data_type.proto";
 import "shared.translation.proto";
 import "shared.event.proto";
 

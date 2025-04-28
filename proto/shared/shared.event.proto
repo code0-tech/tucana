@@ -6,7 +6,7 @@ package shared;
 
 import "shared.struct.proto";
 import "shared.translation.proto";
-import "shared.datatype.proto";
+import "shared.data_type.proto";
 
 // Event configuration
 message EventDefinitionSettings {

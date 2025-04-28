@@ -39,16 +39,39 @@ message DataType {
 }
 
 message DataTypeRule {
-  enum Variant {
-    UNKNOWN = 0;
-    REGEX = 1;
-    NUMBER_RANGE = 2;
-    ITEM_OF_COLLECTION = 3;
-    CONTAINS_TYPE = 4;
-    CONTAINS_KEY = 5;
+  oneof config {
+    DataTypeContainsKeyRuleConfig contains_key = 1;
+    DataTypeContainsTypeRuleConfig contains_type = 2;
+    DataTypeItemOfCollectionRuleConfig item_of_collection = 3;
+    DataTypeNumberRangeRuleConfig number_range = 4;
+    DataTypeRegexRuleConfig regex = 5;
   }
+}
 
-  Variant variant = 1;
-  // Configuration (json) that defines the rule. Changes by the variant
-  shared.Struct config = 2;
+// Rule to check that the given key is contained in the given object
+message DataTypeContainsKeyRuleConfig {
+  string key = 1;
+  string data_type_identifier = 2;
+}
+
+// Rule to check that the given type is contained in the given array
+message DataTypeContainsTypeRuleConfig {
+  string data_type_identifier = 1;
+}
+
+// Rule to check that the given item is contained inside the array of items
+message DataTypeItemOfCollectionRuleConfig {
+    repeated shared.Value items = 1;
+}
+
+// Rule to check that the given number is contained inside the range of numbers
+message DataTypeNumberRangeRuleConfig {
+    int64 from = 1;
+    int64 to = 2;
+    optional int64 steps = 3;
+}
+
+// Rule to check that the given string matches the given regex pattern
+message DataTypeRegexRuleConfig {
+    string pattern = 1;
 }

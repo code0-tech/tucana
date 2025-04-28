@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-option ruby_package = "Tucana::Sagittarius";
+option ruby_package = "Tucana::Shared";
 
-package sagittarius;
+package shared;
 
 import "shared.translation.proto";
-import "shared.datatype.proto";
+import "shared.data_type.proto";
 import "shared.struct.proto";
 import "shared.flow.proto";
 
@@ -25,5 +25,6 @@ message FlowDefinitionSetting {
 message FlowDefinition {
   repeated FlowDefinitionSetting settings = 1;
   shared.DataType input_type = 2;
-  bool editable = 3;
+  optional shared.DataType return_type = 3;
+  bool editable = 4;
 }

@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-option ruby_package = "Tucana::Sagittarius";
+option ruby_package = "Tucana::Aquila";
 
-package sagittarius;
+package aquila;
 
-import "shared.datatype.proto";
+import "shared.data_type.proto";
 
 // Request for updating a data type
 message DataTypeUpdateRequest {

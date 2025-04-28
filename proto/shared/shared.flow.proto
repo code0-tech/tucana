@@ -5,7 +5,7 @@ option ruby_package = "Tucana::Shared";
 package shared;
 
 import "shared.struct.proto";
-import "shared.datatype.proto";
+import "shared.data_type.proto";
 
 message Flow {
   // Database ID -> req. for Aquila to identify in FlowStore
@@ -13,9 +13,10 @@ message Flow {
   int64 project_id = 2;
   string type = 3;
   repeated shared.DataType data_types = 4;
-  optional shared.DataType input_type = 5;
-  repeated FlowSetting settings = 6;
-  NodeFunction starting_node = 7;
+  optional string input_type_identifier = 5;
+  optional string return_type_identifier = 6;
+  repeated FlowSetting settings = 7;
+  NodeFunction starting_node = 8;
 }
 
 message FlowSetting {
@@ -38,9 +39,17 @@ message NodeParameter {
   NodeParameterDefinition definition = 1;
   oneof value {
     shared.Value literal_value = 2;
-    NodeFunction function_value = 3;
+    ReferenceValue reference_value = 3;
+    NodeFunction function_value = 4;
   }
 }
+
+message ReferenceValue {
+    string type_identifier = 1;
+    int32 primary_level = 2;
+    int32 secondary_level = 3;
+    optional int32 tertiary_level = 4;
+ }
 
 message NodeParameterDefinition {
   string parameter_id = 1;

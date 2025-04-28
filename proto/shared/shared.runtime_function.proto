@@ -5,7 +5,7 @@ option ruby_package = "Tucana::Shared";
 package shared;
 
 import "shared.translation.proto";
-import "shared.datatype.proto";
+import "shared.data_type.proto";
 import "shared.struct.proto";
 
 // Definition of a function used for execution
@@ -13,34 +13,19 @@ message RuntimeFunctionDefinition {
   string runtime_name = 1;
   repeated RuntimeParameterDefinition runtime_parameter_definitions = 2;
   optional string return_type_identifier = 3;
-  repeated Translation name = 4;
-  repeated Translation description = 5;
-  repeated Translation documentation = 6;
-  repeated Translation deprecation_message = 7;
+  repeated string error_type_identifiers = 4;
+  repeated Translation name = 5;
+  repeated Translation description = 6;
+  repeated Translation documentation = 7;
+  repeated Translation deprecation_message = 8;
 }
 
 // Definition of a parameter used for execution
 message RuntimeParameterDefinition {
   string data_type_identifier = 1;
   string runtime_name = 2;
-  repeated Translation name = 3;
-  repeated Translation description = 4;
-  repeated Translation documentation = 5;
-}
-
-message FunctionDefinition {
-  RuntimeFunctionDefinition runtime_function = 1;
-  optional DataType return_type = 2;
-  repeated ParameterDefinition parameters = 3;
+  optional shared.Value default_value = 3;
   repeated Translation name = 4;
   repeated Translation description = 5;
   repeated Translation documentation = 6;
-}
-
-message ParameterDefinition {
-  DataType type = 1;
-  optional Struct default_value = 2;
-  repeated Translation name = 3;
-  repeated Translation description = 4;
-  repeated Translation documentation = 5;
 }
