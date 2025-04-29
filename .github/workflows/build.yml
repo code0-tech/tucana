@@ -23,6 +23,8 @@ jobs:
         run: bundle install
       - name: Generate ruby
         run: bundle exec rake generate_ruby:all
+      - name: Run loading tests
+        run: bundle exec rspec spec/tucana_spec.rb
       - name: Run tests
         run: bundle exec rspec
 
