@@ -22,7 +22,7 @@ RSpec.describe Tucana::Shared::DataTypeRule do
 
     context "with :item_of_collection variant" do
       it "sets the item_of_collection field" do
-        config = { items: [Tucana::Shared::Value.from_ruby('item1'), Tucana::Shared::Value.from_ruby('item2')] }
+        config = { items: %w[item1 item2] }
         rule = described_class.create(:item_of_collection, config)
         expect(rule.item_of_collection).to be_a(Tucana::Shared::DataTypeItemOfCollectionRuleConfig)
       end
