@@ -1,4 +1,3 @@
-#[cfg(feature = "shared")]
 pub mod shared {
     pub mod helper;
 
