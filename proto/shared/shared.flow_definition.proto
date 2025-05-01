@@ -5,7 +5,6 @@ option ruby_package = "Tucana::Shared";
 package shared;
 
 import "shared.translation.proto";
-import "shared.data_type.proto";
 import "shared.struct.proto";
 import "shared.flow.proto";
 
@@ -17,7 +16,7 @@ message FlowType {
 
 message FlowDefinitionSetting {
   bool unique = 1;
-  shared.DataType type = 2;
+  string data_type_identifier = 2;
   optional shared.Struct default_value = 3;
   repeated shared.Translation name = 4;
   repeated shared.Translation description = 5;
@@ -25,7 +24,7 @@ message FlowDefinitionSetting {
 
 message FlowDefinition {
   repeated FlowDefinitionSetting settings = 1;
-  shared.DataType input_type = 2;
-  optional shared.DataType return_type = 3;
+  string input_type_identifier = 2;
+  optional string return_type_identifier = 3;
   bool editable = 4;
 }
