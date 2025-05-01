@@ -12,6 +12,7 @@ import "shared.flow.proto";
 message FlowType {
   FlowDefinition definition = 1;
   repeated shared.Translation name = 2;
+  string flow_type_identifier = 3;
 }
 
 message FlowDefinitionSetting {
