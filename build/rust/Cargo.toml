@@ -23,7 +23,7 @@ name = "tucana"
 path = "src/lib.rs"
 
 [features]
-shared = []
-aquila = ["shared"]
-sagittarius = ["shared"]
+default = ["aquila", "sagittarius"]
+aquila = []
+sagittarius = []
 all = ["aquila", "sagittarius"]
