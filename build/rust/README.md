@@ -3,7 +3,7 @@
 [![Crate](https://img.shields.io/crates/v/tucana.svg)](https://crates.io/crates/tucana)
 [![Documentation](https://docs.rs/tucana/badge.svg)](https://docs.rs/tucana)
 
-A Rust library providing Protobuf gRPC interfaces for internal service communication along with helper utilities for working with the generated types.
+The Rust Code0 gRPC library (for internal service communication) providing interfaces for internal service communication along with helper utilities for working with the generated types.
 
 ## Features
 
