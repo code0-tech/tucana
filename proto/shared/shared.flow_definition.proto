@@ -10,11 +10,12 @@ import "shared.flow.proto";
 
 message FlowType {
   string identifier = 1;
-  repeated shared.Translation name = 2;
-  repeated FlowDefinitionSetting settings = 3;
-  optional string input_type_identifier = 4;
-  optional string return_type_identifier = 5;
-  bool editable = 6;
+  repeated FlowDefinitionSetting settings = 2;
+  optional string input_type_identifier = 3;
+  optional string return_type_identifier = 4;
+  bool editable = 5;
+  repeated shared.Translation name = 6;
+  repeated shared.Translation description = 7;
 }
 
 message FlowTypeSetting {
