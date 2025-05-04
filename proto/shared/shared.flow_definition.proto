@@ -9,22 +9,19 @@ import "shared.struct.proto";
 import "shared.flow.proto";
 
 message FlowType {
-  FlowDefinition definition = 1;
+  string identifier = 1;
   repeated shared.Translation name = 2;
-  string flow_type_identifier = 3;
+  repeated FlowDefinitionSetting settings = 3;
+  optional string input_type_identifier = 4;
+  optional string return_type_identifier = 5;
+  bool editable = 6;
 }
 
-message FlowDefinitionSetting {
-  bool unique = 1;
-  string data_type_identifier = 2;
-  optional shared.Value default_value = 3;
-  repeated shared.Translation name = 4;
-  repeated shared.Translation description = 5;
-}
-
-message FlowDefinition {
-  repeated FlowDefinitionSetting settings = 1;
-  string input_type_identifier = 2;
-  optional string return_type_identifier = 3;
-  bool editable = 4;
+message FlowTypeSetting {
+  string identifier = 1;
+  bool unique = 2;
+  string data_type_identifier = 3;
+  optional shared.Value default_value = 4;
+  repeated shared.Translation name = 5;
+  repeated shared.Translation description = 6;
 }
