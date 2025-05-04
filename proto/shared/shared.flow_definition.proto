@@ -10,7 +10,7 @@ import "shared.flow.proto";
 
 message FlowType {
   string identifier = 1;
-  repeated FlowDefinitionSetting settings = 2;
+  repeated FlowTypeSetting settings = 2;
   optional string input_type_identifier = 3;
   optional string return_type_identifier = 4;
   bool editable = 5;
