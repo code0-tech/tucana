@@ -44,6 +44,22 @@ RSpec.describe Tucana::Shared::DataTypeRule do
       end
     end
 
+    context "with :input_types variant" do
+      it "sets the input_types field" do
+        config = { input_types: [{ data_type_identifier: "test_type", input_identifier: "test_input" }] }
+        rule = described_class.create(:input_types, config)
+        expect(rule.input_types).to be_a(Tucana::Shared::DataTypeInputTypesRuleConfig)
+      end
+    end
+
+    context "with :return_type variant" do
+      it "sets the return_type field" do
+        config = { data_type_identifier: "test_type" }
+        rule = described_class.create(:return_type, config)
+        expect(rule.return_type).to be_a(Tucana::Shared::DataTypeReturnTypeRuleConfig)
+      end
+    end
+
     context "with unknown variant" do
       it "raises UnexpectedRuleType error" do
         expect {

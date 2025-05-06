@@ -21,6 +21,10 @@ module Tucana
           self.number_range
         when :regex
           self.regex
+        when :input_types
+          self.input_types
+        when :return_type
+          self.return_type
         else
           raise UnexpectedRuleType, "Unknown rule type #{variant}"
         end
@@ -38,6 +42,10 @@ module Tucana
           self.number_range = DataTypeNumberRangeRuleConfig.new(config)
         when :regex
           self.regex = DataTypeRegexRuleConfig.new(config)
+        when :input_types
+          self.input_types = DataTypeInputTypesRuleConfig.new(config)
+        when :return_type
+          self.return_type = DataTypeReturnTypeRuleConfig.new(config)
         else
           raise UnexpectedRuleType, "Unknown rule type #{variant}"
         end
@@ -93,6 +101,31 @@ module Tucana
       def to_h
         {
           pattern: self.pattern,
+        }
+      end
+    end
+
+    DataTypeInputTypesRuleConfig.class_eval do
+      def to_h
+        {
+          input_types: self.input_types.map { |input_type| input_type.to_h }
+        }
+      end
+    end
+
+    DataTypeInputTypesRuleConfig::DataTypeInputType.class_eval do
+      def to_h
+        {
+          data_type_identifier: self.data_type_identifier,
+          input_identifier: self.input_identifier,
+        }
+      end
+    end
+
+    DataTypeReturnTypeRuleConfig.class_eval do
+      def to_h
+        {
+          data_type_identifier: self.data_type_identifier,
         }
       end
     end
