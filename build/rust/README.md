@@ -7,11 +7,8 @@ The Rust Code0 gRPC library (for internal service communication) providing inter
 
 ## Features
 
-This crate provides modular functionality through feature flags:
-
-- **shared** - Core data types and helper utilities for working with Protobuf messages (enabled by default)
-- **aquila** - gRPC services and types for Aquila component communication
-- **sagittarius** - gRPC services and types for Sagittarius component communication
+- **aquila** - gRPC services and types for Aquila (as server) component communication
+- **sagittarius** - gRPC services and types for Sagittarius (as server) component communication
 
 ## Overview
 
@@ -25,7 +22,7 @@ Tucana serves as the interface layer for internal service communication:
 
 ### Protobuf Message Handling
 
-The library provides utilities for working with the Protobuf-generated types, especially the Value and Struct types used throughout the services.
+The library provides utilities for working with the Protobuf-generated types, especially the Value and Struct (JSON representations) types used throughout the services.
 
 ### Path-based Value Access
 
@@ -70,85 +67,4 @@ let flow_json = serde_json::to_string(&flow).expect("Serialization failed");
 
 // Parse back from JSON
 let parsed_flow: Flow = serde_json::from_str(&flow_json).expect("Deserialization failed");
-```
-
-## Service Communication
-
-The library contains the generated Protobuf interfaces for the internal microservices:
-
-```rust
-// Import the service needed for your component
-#[cfg(feature = "aquila")]
-use tucana::aquila::AquilaServiceClient;
-
-#[cfg(feature = "sagittarius")]
-use tucana::sagittarius::SagittariusServiceClient;
-```
-
-## Advanced Usage
-
-### Working with Complex Protobuf Messages
-
-```rust
-use tucana::shared::helper::path;
-use tucana::shared::DataType;
-use tucana::shared::data_type::Variant;
-
-// Create a data type
-let data_type = DataType {
-    variant: Variant::Primitive as i32,
-    identifier: "string".to_string(),
-    name: vec![],
-    rules: vec![],
-    input_types: vec![],
-    return_type: None,
-    parent_type_identifier: None,
-};
-
-// Use helper functions to work with nested messages
-let struct_value = path::get_struct("settings.display", &flow_value);
-let rules_list = path::get_list("data_types.0.rules", &flow_value);
-```
-
-## Examples
-
-### Manipulating Flow Messages
-
-```rust
-use tucana::shared::{Flow, NodeFunction, Value};
-use tucana::shared::value::Kind;
-use tucana::shared::helper::{path, value};
-use serde_json;
-
-// Create a Flow message
-let flow = Flow {
-    flow_id: 1,
-    project_id: 2,
-    r#type: "standard".to_string(),
-    data_types: vec![],
-    input_type_identifier: Some("String".to_string()),
-    return_type_identifier: None,
-    settings: vec![],
-    starting_node: None,
-};
-
-// Serialize to JSON (for external API or storage)
-let json_str = serde_json::to_string(&flow).expect("Serialization failed");
-
-// Parse back from JSON
-let parsed_flow: Flow = serde_json::from_str(&json_str).expect("Deserialization failed");
-
-// Convert complex nested values
-let json_config = serde_json::json!({
-    "flow": {
-        "name": "My Flow",
-        "version": 1.0,
-        "active": true
-    }
-});
-let proto_value = value::from_json_value(json_config);
-
-// Access and modify nested properties
-let flow_name = path::get_string("flow.name", &proto_value);
-let is_active = path::get_bool("flow.active", &proto_value);
 ```
