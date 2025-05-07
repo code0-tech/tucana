@@ -49,7 +49,12 @@ message ReferenceValue {
     int32 primary_level = 2;
     int32 secondary_level = 3;
     optional int32 tertiary_level = 4;
-    string path = 5;
+    repeated ReferencePath paths = 5;
+ }
+
+ message ReferencePath {
+     optional string path = 1;
+     optional string array_index = 2;
  }
 
 message NodeParameterDefinition {
