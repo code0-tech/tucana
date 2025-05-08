@@ -1,4 +1,4 @@
-use crate::shared::{value::Kind, ListValue, Struct, Value};
+use crate::shared::{ListValue, Struct, Value, value::Kind};
 use std::collections::HashMap;
 
 /// Get the Kind at a given path from a Value
@@ -181,11 +181,11 @@ pub fn set_value(path: &str, current: &Value, new_value: Value) -> Value {
 pub mod tests {
 
     use crate::shared::{
+        Struct, Value,
         helper::path::{
             exists_path, expect_kind, get_bool, get_list, get_number, get_string, get_struct,
             set_value,
         },
-        Struct, Value,
     };
     use std::collections::HashMap;
 

@@ -1,6 +1,81 @@
-use crate::shared::value::Kind;
-use crate::shared::{ListValue, Struct, Value};
+use crate::shared::{ListValue, Struct, Value, value::Kind};
 use serde_json::{Number, Value as JsonValue};
+use std::collections::HashMap;
+
+pub trait ToValue {
+    fn to_value(&self) -> Value;
+}
+
+impl ToValue for &str {
+    fn to_value(&self) -> Value {
+        Value {
+            kind: Some(Kind::StringValue(self.to_string())),
+        }
+    }
+}
+
+impl ToValue for String {
+    fn to_value(&self) -> Value {
+        Value {
+            kind: Some(Kind::StringValue(self.to_owned())),
+        }
+    }
+}
+
+impl ToValue for bool {
+    fn to_value(&self) -> Value {
+        Value {
+            kind: Some(Kind::BoolValue(self.to_owned())),
+        }
+    }
+}
+
+impl ToValue for i64 {
+    fn to_value(&self) -> Value {
+        Value {
+            kind: Some(Kind::NumberValue(self.to_owned() as f64)),
+        }
+    }
+}
+
+impl ToValue for f64 {
+    fn to_value(&self) -> Value {
+        Value {
+            kind: Some(Kind::NumberValue(self.to_owned())),
+        }
+    }
+}
+
+impl<T: ToValue> ToValue for Vec<T> {
+    fn to_value(&self) -> Value {
+        let values = self.iter().map(|item| item.to_value()).collect();
+        Value {
+            kind: Some(Kind::ListValue(ListValue { values })),
+        }
+    }
+}
+
+impl<T: ToValue> ToValue for Option<T> {
+    fn to_value(&self) -> Value {
+        match self {
+            Some(val) => val.to_value(),
+            None => Value { kind: None }, // or Some(Kind::NullValue(...)) if supported
+        }
+    }
+}
+
+impl<T: ToValue> ToValue for HashMap<String, T> {
+    fn to_value(&self) -> Value {
+        let fields = self
+            .iter()
+            .map(|(k, v)| (k.clone(), v.to_value()))
+            .collect();
+
+        Value {
+            kind: Some(Kind::StructValue(Struct { fields })),
+        }
+    }
+}
 
 /// Converts a serde_json::Value into our internal Value type
 pub fn from_json_value(value: JsonValue) -> Value {
@@ -268,5 +343,130 @@ mod tests {
         let val = Value { kind: None };
         let json_val = to_json_value(val);
         assert!(json_val.is_null());
+    }
+
+    use crate::shared::{ListValue, Struct, Value, value::Kind};
+    use std::collections::HashMap;
+
+    #[test]
+    fn test_string_to_value() {
+        let s = "hello".to_value();
+        assert_eq!(
+            s,
+            Value {
+                kind: Some(Kind::StringValue("hello".to_string()))
+            }
+        );
+    }
+
+    #[test]
+    fn test_string_owned_to_value() {
+        let s = String::from("world").to_value();
+        assert_eq!(
+            s,
+            Value {
+                kind: Some(Kind::StringValue("world".to_string()))
+            }
+        );
+    }
+
+    #[test]
+    fn test_bool_to_value() {
+        assert_eq!(
+            true.to_value(),
+            Value {
+                kind: Some(Kind::BoolValue(true))
+            }
+        );
+    }
+
+    #[test]
+    fn test_i64_to_value() {
+        assert_eq!(
+            (42i64).to_value(),
+            Value {
+                kind: Some(Kind::NumberValue(42.0))
+            }
+        );
+    }
+
+    #[test]
+    fn test_f64_to_value() {
+        assert_eq!(
+            (3.14f64).to_value(),
+            Value {
+                kind: Some(Kind::NumberValue(3.14))
+            }
+        );
+    }
+
+    #[test]
+    fn test_vec_to_value() {
+        let v = vec![1i64, 2i64, 3i64];
+        let expected = Value {
+            kind: Some(Kind::ListValue(ListValue {
+                values: vec![
+                    Value {
+                        kind: Some(Kind::NumberValue(1.0)),
+                    },
+                    Value {
+                        kind: Some(Kind::NumberValue(2.0)),
+                    },
+                    Value {
+                        kind: Some(Kind::NumberValue(3.0)),
+                    },
+                ],
+            })),
+        };
+        assert_eq!(v.to_value(), expected);
+    }
+
+    #[test]
+    fn test_option_some_to_value() {
+        let opt = Some(10i64);
+        assert_eq!(
+            opt.to_value(),
+            Value {
+                kind: Some(Kind::NumberValue(10.0))
+            }
+        );
+    }
+
+    #[test]
+    fn test_option_none_to_value() {
+        let opt: Option<i64> = None;
+        assert_eq!(opt.to_value(), Value { kind: None });
+    }
+
+    #[test]
+    fn test_hashmap_to_value() {
+        let mut map = HashMap::new();
+        map.insert("a".to_string(), 1i64);
+        map.insert("b".to_string(), 2i64);
+
+        let expected_fields = {
+            let mut fields = HashMap::new();
+            fields.insert(
+                "a".to_string(),
+                Value {
+                    kind: Some(Kind::NumberValue(1.0)),
+                },
+            );
+            fields.insert(
+                "b".to_string(),
+                Value {
+                    kind: Some(Kind::NumberValue(2.0)),
+                },
+            );
+            fields
+        };
+
+        let expected = Value {
+            kind: Some(Kind::StructValue(Struct {
+                fields: expected_fields,
+            })),
+        };
+
+        assert_eq!(map.to_value(), expected);
     }
 }
