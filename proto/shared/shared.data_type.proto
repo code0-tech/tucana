@@ -32,6 +32,8 @@ message DataType {
   repeated DataTypeRule rules = 4;
   // Optional identifier it the given data type is a child of another
   optional string parent_type_identifier = 5;
+  // List of generic keys
+  repeated string generic_keys = 6;
 }
 
 message DataTypeRule {
@@ -85,4 +87,30 @@ message DataTypeInputTypesRuleConfig {
 
 message DataTypeReturnTypeRuleConfig {
   string data_type_identifier = 1;
+}
+
+message DataTypeIdentifier {
+  oneof type {
+    // Points to a data type without generic keys
+    string data_type_identifier = 1;
+    // Points to a data type with generic keys
+    GenericType generic_type = 2;
+    // Points to a generic key in the current function
+    string generic_key = 3;
+  }
+}
+
+message GenericType {
+  string data_type_identifier = 1;
+  repeated GenericTypeMapper generic_mapper = 2;
+}
+
+message GenericTypeMapper {
+  // can only be a generic key
+  string source = 1;
+  // can point to another generic or to a resolved data type
+  oneof target {
+    string data_type_identifier = 2;
+    string generic_key = 3;
+  }
 }
