@@ -51,12 +51,12 @@ message DataTypeRule {
 // Rule to check that the given key is contained in the given object
 message DataTypeContainsKeyRuleConfig {
   string key = 1;
-  string data_type_identifier = 2;
+  DataTypeIdentifier data_type_identifier = 2;
 }
 
 // Rule to check that the given type is contained in the given array
 message DataTypeContainsTypeRuleConfig {
-  string data_type_identifier = 1;
+  DataTypeIdentifier data_type_identifier = 1;
 }
 
 // Rule to check that the given item is contained inside the array of items
@@ -78,7 +78,7 @@ message DataTypeRegexRuleConfig {
 
 message DataTypeInputTypesRuleConfig {
   message DataTypeInputType {
-    string data_type_identifier = 1;
+    DataTypeIdentifier data_type_identifier = 1;
     string input_identifier = 2;
   }
 
@@ -86,7 +86,7 @@ message DataTypeInputTypesRuleConfig {
 }
 
 message DataTypeReturnTypeRuleConfig {
-  string data_type_identifier = 1;
+  DataTypeIdentifier data_type_identifier = 1;
 }
 
 message DataTypeIdentifier {
@@ -101,16 +101,16 @@ message DataTypeIdentifier {
 }
 
 message GenericType {
-  string data_type_identifier = 1;
-  repeated GenericTypeMapper generic_mapper = 2;
+  DataTypeIdentifier data_type_identifier = 1;
+  repeated GenericMapper generic_mapper = 2;
 }
 
-message GenericTypeMapper {
-  // can only be a generic key
-  string source = 1;
+message GenericMapper {
   // can point to another generic or to a resolved data type
-  oneof target {
-    string data_type_identifier = 2;
-    string generic_key = 3;
+  oneof source {
+    DataTypeIdentifier data_type_identifier = 1;
+    string generic_key = 2;
   }
+  // can only be a generic key
+  string target = 3;
 }
