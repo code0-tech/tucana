@@ -1,3 +1,4 @@
+use crate::shared::DataTypeIdentifier;
 use crate::shared::data_type_input_types_rule_config::DataTypeInputType;
 use crate::shared::{
     DataTypeContainsKeyRuleConfig, DataTypeContainsTypeRuleConfig, DataTypeInputTypesRuleConfig,
@@ -14,20 +15,24 @@ impl RuleBuilder {
         Self { rules: Vec::new() }
     }
 
-    pub fn add_contains_key(mut self, key: String, data_type_identifier: String) -> Self {
+    pub fn add_contains_key(
+        mut self,
+        key: String,
+        data_type_identifier: DataTypeIdentifier,
+    ) -> Self {
         self.rules.push(DataTypeRule {
             config: Some(Config::ContainsKey(DataTypeContainsKeyRuleConfig {
                 key,
-                data_type_identifier,
+                data_type_identifier: Some(data_type_identifier),
             })),
         });
         self
     }
 
-    pub fn add_contains_type(mut self, data_type_identifier: String) -> Self {
+    pub fn add_contains_type(mut self, data_type_identifier: DataTypeIdentifier) -> Self {
         self.rules.push(DataTypeRule {
             config: Some(Config::ContainsType(DataTypeContainsTypeRuleConfig {
-                data_type_identifier,
+                data_type_identifier: Some(data_type_identifier),
             })),
         });
         self
@@ -69,10 +74,10 @@ impl RuleBuilder {
         self
     }
 
-    pub fn add_return_type(mut self, data_type_identifier: String) -> Self {
+    pub fn add_return_type(mut self, data_type_identifier: DataTypeIdentifier) -> Self {
         self.rules.push(DataTypeRule {
             config: Some(Config::ReturnType(DataTypeReturnTypeRuleConfig {
-                data_type_identifier,
+                data_type_identifier: Some(data_type_identifier),
             })),
         });
         self
@@ -87,20 +92,26 @@ impl RuleBuilder {
 mod tests {
     use super::*;
     use crate::shared::{
-        data_type_input_types_rule_config::DataTypeInputType, data_type_rule::Config,
-        helper::value::ToValue,
+        data_type_identifier::Type, data_type_input_types_rule_config::DataTypeInputType,
+        data_type_rule::Config, helper::value::ToValue,
     };
+
+    fn to_data_type(str: &str) -> DataTypeIdentifier {
+        DataTypeIdentifier {
+            r#type: Some(Type::DataTypeIdentifier(str.into())),
+        }
+    }
 
     #[test]
     fn test_add_contains_key() {
         let rules = RuleBuilder::new()
-            .add_contains_key("id".into(), "User".into())
+            .add_contains_key("id".into(), to_data_type("User"))
             .build();
 
         match &rules[0].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, "User");
+                assert_eq!(cfg.data_type_identifier, Some(to_data_type("User")));
             }
             _ => panic!("Expected ContainsKey config"),
         }
@@ -108,11 +119,13 @@ mod tests {
 
     #[test]
     fn test_add_contains_type() {
-        let rules = RuleBuilder::new().add_contains_type("User".into()).build();
+        let rules = RuleBuilder::new()
+            .add_contains_type(to_data_type("User"))
+            .build();
 
         match &rules[0].config {
             Some(Config::ContainsType(cfg)) => {
-                assert_eq!(cfg.data_type_identifier, "User");
+                assert_eq!(cfg.data_type_identifier, Some(to_data_type("User")));
             }
             _ => panic!("Expected ContainsType config"),
         }
@@ -163,11 +176,11 @@ mod tests {
     fn test_add_input_types() {
         let input_types = vec![
             DataTypeInputType {
-                data_type_identifier: "Type1".into(),
+                data_type_identifier: Some(to_data_type("Type1")),
                 input_identifier: "input1".into(),
             },
             DataTypeInputType {
-                data_type_identifier: "Type2".into(),
+                data_type_identifier: Some(to_data_type("Type2")),
                 input_identifier: "input2".into(),
             },
         ];
@@ -186,11 +199,13 @@ mod tests {
 
     #[test]
     fn test_add_return_type() {
-        let rules = RuleBuilder::new().add_return_type("Result".into()).build();
+        let rules = RuleBuilder::new()
+            .add_return_type(to_data_type("Result"))
+            .build();
 
         match &rules[0].config {
             Some(Config::ReturnType(cfg)) => {
-                assert_eq!(cfg.data_type_identifier, "Result");
+                assert_eq!(cfg.data_type_identifier, Some(to_data_type("Result")));
             }
             _ => panic!("Expected ReturnType config"),
         }
@@ -199,23 +214,23 @@ mod tests {
     #[test]
     fn test_add_many_rules() {
         let rules = RuleBuilder::new()
-            .add_contains_key("id".into(), "User".into())
-            .add_return_type("Result".into())
+            .add_contains_key("id".into(), to_data_type("User"))
+            .add_return_type(to_data_type("Result"))
             .add_regex(r"^\d+$".into())
-            .add_contains_key("id".into(), "User".into())
+            .add_contains_key("id".into(), to_data_type("User"))
             .build();
 
         match &rules[0].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, "User");
+                assert_eq!(cfg.data_type_identifier, Some(to_data_type("User")));
             }
             _ => panic!("Expected ContainsKey config"),
         }
 
         match &rules[1].config {
             Some(Config::ReturnType(cfg)) => {
-                assert_eq!(cfg.data_type_identifier, "Result");
+                assert_eq!(cfg.data_type_identifier, Some(to_data_type("Result")));
             }
             _ => panic!("Expected ReturnType config"),
         }
@@ -230,7 +245,7 @@ mod tests {
         match &rules[3].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, "User");
+                assert_eq!(cfg.data_type_identifier, Some(to_data_type("User")));
             }
             _ => panic!("Expected ContainsKey config"),
         }
