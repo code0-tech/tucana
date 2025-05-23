@@ -25,8 +25,8 @@ message FlowSetting {
 }
 
 message FlowSettingDefinition {
-    string id = 1;
-    string key = 2;
+  string id = 1;
+  string key = 2;
 }
 
 message NodeFunction {
@@ -45,17 +45,17 @@ message NodeParameter {
 }
 
 message ReferenceValue {
-    string type_identifier = 1;
-    int32 primary_level = 2;
-    int32 secondary_level = 3;
-    optional int32 tertiary_level = 4;
-    repeated ReferencePath paths = 5;
- }
+  DataTypeIdentifier type_identifier = 1;
+  int32 primary_level = 2;
+  int32 secondary_level = 3;
+  optional int32 tertiary_level = 4;
+  repeated ReferencePath paths = 5;
+}
 
- message ReferencePath {
-     optional string path = 1;
-     optional string array_index = 2;
- }
+message ReferencePath {
+  optional string path = 1;
+  optional string array_index = 2;
+}
 
 message NodeParameterDefinition {
   string parameter_id = 1;
