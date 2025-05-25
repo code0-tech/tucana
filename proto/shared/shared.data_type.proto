@@ -102,7 +102,7 @@ message DataTypeIdentifier {
 
 message GenericType {
   DataTypeIdentifier data_type_identifier = 1;
-  repeated GenericMapper generic_mapper = 2;
+  repeated GenericMapper generic_mappers = 2;
 }
 
 message GenericMapper {
