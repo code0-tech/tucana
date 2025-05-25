@@ -8,21 +8,34 @@ import "shared.translation.proto";
 import "shared.data_type.proto";
 import "shared.struct.proto";
 
+message FunctionGenericMapper {
+    // can point to another generic or to a resolved data type
+    oneof source {
+      DataTypeIdentifier data_type_identifier = 1;
+      string generic_key = 2;
+    }
+    // can only be a generic key
+    string target = 3;
+    optional string paramter_id = 4;
+}
+
 // Definition of a function used for execution
 message RuntimeFunctionDefinition {
   string runtime_name = 1;
   repeated RuntimeParameterDefinition runtime_parameter_definitions = 2;
-  optional string return_type_identifier = 3;
+  optional DataTypeIdentifier return_type_identifier = 3;
   repeated string error_type_identifiers = 4;
-  repeated Translation name = 5;
-  repeated Translation description = 6;
-  repeated Translation documentation = 7;
-  repeated Translation deprecation_message = 8;
+  repeated string generic_keys = 5;
+  repeated FunctionGenericMapper generic_mappers = 6;
+  repeated Translation name = 7;
+  repeated Translation description = 8;
+  repeated Translation documentation = 9;
+  repeated Translation deprecation_message = 10;
 }
 
 // Definition of a parameter used for execution
 message RuntimeParameterDefinition {
-  string data_type_identifier = 1;
+  DataTypeIdentifier data_type_identifier = 1;
   string runtime_name = 2;
   optional shared.Value default_value = 3;
   repeated Translation name = 4;

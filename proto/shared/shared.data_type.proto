@@ -32,6 +32,8 @@ message DataType {
   repeated DataTypeRule rules = 4;
   // Optional identifier it the given data type is a child of another
   optional string parent_type_identifier = 5;
+  // List of generic keys
+  repeated string generic_keys = 6;
 }
 
 message DataTypeRule {
@@ -49,12 +51,12 @@ message DataTypeRule {
 // Rule to check that the given key is contained in the given object
 message DataTypeContainsKeyRuleConfig {
   string key = 1;
-  string data_type_identifier = 2;
+  DataTypeIdentifier data_type_identifier = 2;
 }
 
 // Rule to check that the given type is contained in the given array
 message DataTypeContainsTypeRuleConfig {
-  string data_type_identifier = 1;
+  DataTypeIdentifier data_type_identifier = 1;
 }
 
 // Rule to check that the given item is contained inside the array of items
@@ -76,7 +78,7 @@ message DataTypeRegexRuleConfig {
 
 message DataTypeInputTypesRuleConfig {
   message DataTypeInputType {
-    string data_type_identifier = 1;
+    DataTypeIdentifier data_type_identifier = 1;
     string input_identifier = 2;
   }
 
@@ -84,5 +86,31 @@ message DataTypeInputTypesRuleConfig {
 }
 
 message DataTypeReturnTypeRuleConfig {
-  string data_type_identifier = 1;
+  DataTypeIdentifier data_type_identifier = 1;
+}
+
+message DataTypeIdentifier {
+  oneof type {
+    // Points to a data type without generic keys
+    string data_type_identifier = 1;
+    // Points to a data type with generic keys
+    GenericType generic_type = 2;
+    // Points to a generic key in the current function
+    string generic_key = 3;
+  }
+}
+
+message GenericType {
+  DataTypeIdentifier data_type_identifier = 1;
+  repeated GenericMapper generic_mapper = 2;
+}
+
+message GenericMapper {
+  // can point to another generic or to a resolved data type
+  oneof source {
+    DataTypeIdentifier data_type_identifier = 1;
+    string generic_key = 2;
+  }
+  // can only be a generic key
+  string target = 3;
 }
