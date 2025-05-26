@@ -16,7 +16,7 @@ message FunctionGenericMapper {
     }
     // can only be a generic key
     string target = 3;
-    optional string paramter_id = 4;
+    optional string parameter_id = 4;
 }
 
 // Definition of a function used for execution
