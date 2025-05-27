@@ -30,17 +30,19 @@ message FlowSettingDefinition {
 }
 
 message NodeFunction {
-  NodeFunctionDefinition definition = 1;
-  repeated NodeParameter parameters = 2;
-  optional NodeFunction next_node = 3;
+  int64 database_id = 1;
+  string runtime_function_id = 2;
+  repeated NodeParameter parameters = 3;
+  optional NodeFunction next_node = 4 ;
 }
 
 message NodeParameter {
-  NodeParameterDefinition definition = 1;
+  int64 database_id = 1;
+  string runtime_parameter_id = 2;
   oneof value {
-    shared.Value literal_value = 2;
-    ReferenceValue reference_value = 3;
-    NodeFunction function_value = 4;
+    shared.Value literal_value = 3;
+    ReferenceValue reference_value = 4;
+    NodeFunction function_value = 5;
   }
 }
 
@@ -54,17 +56,7 @@ message ReferenceValue {
 
 message ReferencePath {
   optional string path = 1;
-  optional string array_index = 2;
-}
-
-message NodeParameterDefinition {
-  string parameter_id = 1;
-  string runtime_parameter_id = 2;
-}
-
-message NodeFunctionDefinition {
-  string function_id = 1;
-  string runtime_function_id = 2;
+  optional int64 array_index = 2;
 }
 
 message Flows {
