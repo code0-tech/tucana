@@ -15,6 +15,7 @@ message FlowType {
   bool editable = 5;
   repeated shared.Translation name = 6;
   repeated shared.Translation description = 7;
+  repeated shared.Translation documentation = 8;
 }
 
 message FlowTypeSetting {

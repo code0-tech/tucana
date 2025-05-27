@@ -10,13 +10,10 @@ import "shared.struct.proto";
 
 message FunctionGenericMapper {
     // can point to another generic or to a resolved data type
-    oneof source {
-      DataTypeIdentifier data_type_identifier = 1;
-      string generic_key = 2;
-    }
+    DataTypeIdentifier source = 1;
     // can only be a generic key
-    string target = 3;
-    optional string parameter_id = 4;
+    string target = 2;
+    optional string parameter_id = 3;
 }
 
 // Definition of a function used for execution

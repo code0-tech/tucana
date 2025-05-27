@@ -19,8 +19,8 @@ message DataType {
     OBJECT = 3;
     DATATYPE = 4;
     ARRAY = 5;
-    GENERIC = 6;
-    FUNCTION = 7;
+    ERROR = 6;
+    NODE = 7;
   }
 
   // Variant of the data type
@@ -101,16 +101,13 @@ message DataTypeIdentifier {
 }
 
 message GenericType {
-  DataTypeIdentifier data_type_identifier = 1;
+  string data_type_identifier = 1;
   repeated GenericMapper generic_mappers = 2;
 }
 
 message GenericMapper {
   // can point to another generic or to a resolved data type
-  oneof source {
-    DataTypeIdentifier data_type_identifier = 1;
-    string generic_key = 2;
-  }
+  DataTypeIdentifier source = 1;
   // can only be a generic key
-  string target = 3;
+  string target = 2;
 }
