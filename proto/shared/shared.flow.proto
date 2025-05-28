@@ -20,13 +20,9 @@ message Flow {
 }
 
 message FlowSetting {
-  FlowSettingDefinition definition = 1;
-  shared.Struct object = 2;
-}
-
-message FlowSettingDefinition {
-  string id = 1;
-  string key = 2;
+  int64 database_id = 1;
+  string flow_setting_id = 2;
+  shared.Struct object = 3;
 }
 
 message NodeFunction {
