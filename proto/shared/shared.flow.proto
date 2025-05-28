@@ -11,8 +11,11 @@ message Flow {
   // Database ID -> req. for Aquila to identify in FlowStore
   int64 flow_id = 1;
   int64 project_id = 2;
+  // The FlowType´s identifier
   string type = 3;
+  // All custom data types used in this flow
   repeated shared.DataType data_types = 4;
+  // These reference data_types by its identifiers, which is are string
   optional string input_type_identifier = 5;
   optional string return_type_identifier = 6;
   repeated FlowSetting settings = 7;
@@ -20,12 +23,14 @@ message Flow {
 }
 
 message FlowSetting {
+  // The database id from sagittarius
   int64 database_id = 1;
   string flow_setting_id = 2;
   shared.Struct object = 3;
 }
 
 message NodeFunction {
+  // The database id from sagittarius
   int64 database_id = 1;
   string runtime_function_id = 2;
   repeated NodeParameter parameters = 3;
@@ -33,6 +38,7 @@ message NodeFunction {
 }
 
 message NodeParameter {
+  // The database id from sagittarius
   int64 database_id = 1;
   string runtime_parameter_id = 2;
   oneof value {
@@ -44,9 +50,85 @@ message NodeParameter {
 
 message ReferenceValue {
   DataTypeIdentifier type_identifier = 1;
+
+  /*
+    {primary}:{secondary}:{tertiary}
+
+    0:0      0:1      0:2      0:3
+    Node1 -> Node2 -> Node3 -> Node4
+
+    all executed after each other (horizontal):
+    - Secondary level
+
+    0:1   0:1:0
+    Node2(NodeA):
+
+     1:0  1:0:0     1:0:1         1:1
+     NodeA(NodeX,     b)       -> NodeB
+
+      2:0    2:0:0
+      NodeX( x    )
+
+    Vertical -> primary level
+
+    tertiary level is optional and references parameter in a node
+    {vertical}:{horizontal}:{parameter}
+   */
   int32 primary_level = 2;
   int32 secondary_level = 3;
   optional int32 tertiary_level = 4;
+
+  /*
+    User:
+      name: string
+      email: string
+      housing_locations: Array[Location]
+
+    Location:
+      street: string
+      number: integer
+
+    0:1
+    Node2:
+     1:0  1:0:0
+     NodeA(user)
+
+    user is the reference 1:0:0
+
+    To reference fields in the referenced object we use reference paths.
+
+    To reference the email:
+
+    {
+      "primary_level": 1,
+      "secondary_level": 0,
+      "tertiary_level": 0,
+      paths: [
+        {
+          "path": ".email",
+        }
+      ]
+    }
+
+    ----
+
+    To reference the first street:
+
+    {
+      "primary_level": 1,
+      "secondary_level": 0,
+      "tertiary_level": 0,
+      paths: [
+        {
+          "path": ".housing_locations",
+          "array_index": 0
+        },
+        {
+          "path": ".street"
+        }
+      ]
+    }
+   */
   repeated ReferencePath paths = 5;
 }
 
@@ -55,6 +137,8 @@ message ReferencePath {
   optional int64 array_index = 2;
 }
 
+// Used in sagittarius´s FlowService because oneof can only
+// take in a single message type and not a repeated one
 message Flows {
   repeated Flow flows = 1;
 }

@@ -101,13 +101,16 @@ message DataTypeIdentifier {
 }
 
 message GenericType {
+  // References a data type by its identifier
   string data_type_identifier = 1;
   repeated GenericMapper generic_mappers = 2;
 }
 
+// target get mapped to source
 message GenericMapper {
   // can point to another generic or to a resolved data type
+  // Assigns source to this source
   DataTypeIdentifier source = 1;
-  // can only be a generic key
+  // can only be a generic key for example: 'T', 'V'
   string target = 2;
 }
