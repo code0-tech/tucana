@@ -43,11 +43,10 @@ message NodeParameter {
 }
 
 message ReferenceValue {
-  DataTypeIdentifier type_identifier = 1;
-  int32 primary_level = 2;
-  int32 secondary_level = 3;
-  optional int32 tertiary_level = 4;
-  repeated ReferencePath paths = 5;
+  int32 primary_level = 1;
+  int32 secondary_level = 2;
+  optional int32 tertiary_level = 3;
+  repeated ReferencePath paths = 4;
 }
 
 message ReferencePath {
