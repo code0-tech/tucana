@@ -108,9 +108,18 @@ message GenericType {
 
 // target get mapped to source
 message GenericMapper {
+  // Strategy to combine generic keys
+  enum GenericCombinationStrategy {
+    UNKNOWN = 0;
+    AND = 1;
+    OR = 2;
+  }
+
   // can point to another generic or to a resolved data type
   // Assigns source to this source
-  DataTypeIdentifier source = 1;
+  repeated DataTypeIdentifier source = 1;
   // can only be a generic key for example: 'T', 'V'
   string target = 2;
+
+  repeated GenericCombinationStrategy generic_combinations = 3;
 }
