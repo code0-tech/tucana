@@ -9,11 +9,14 @@ import "shared.data_type.proto";
 import "shared.struct.proto";
 
 message FunctionGenericMapper {
-    // can point to another generic or to a resolved data type
-    DataTypeIdentifier source = 1;
-    // can only be a generic key
-    string target = 2;
-    optional string parameter_id = 3;
+  // can point to another generic or to a resolved data type
+  repeated DataTypeIdentifier source = 1;
+  // can only be a generic key
+  string target = 2;
+
+  repeated shared.GenericMapper.GenericCombinationStrategy generic_combinations = 3;
+
+  optional string parameter_id = 4;
 }
 
 // Definition of a function used for execution
