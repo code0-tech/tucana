@@ -31,7 +31,7 @@ message DataType {
   // Rules of the data type (e.g. Regex, contains...)
   repeated DataTypeRule rules = 4;
   // Optional identifier it the given data type is a child of another
-  optional string parent_type_identifier = 5;
+  optional DataTypeIdentifier parent_type = 5;
   // List of generic keys
   repeated string generic_keys = 6;
 }
