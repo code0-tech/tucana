@@ -101,13 +101,25 @@ message DataTypeIdentifier {
 }
 
 message GenericType {
+  // References a data type by its identifier
   string data_type_identifier = 1;
   repeated GenericMapper generic_mappers = 2;
 }
 
+// target get mapped to source
 message GenericMapper {
+  // Strategy to combine generic keys
+  enum GenericCombinationStrategy {
+    UNKNOWN = 0;
+    AND = 1;
+    OR = 2;
+  }
+
   // can point to another generic or to a resolved data type
-  DataTypeIdentifier source = 1;
-  // can only be a generic key
+  // Assigns source to this source
+  repeated DataTypeIdentifier source = 1;
+  // can only be a generic key for example: 'T', 'V'
   string target = 2;
+
+  repeated GenericCombinationStrategy generic_combinations = 3;
 }
