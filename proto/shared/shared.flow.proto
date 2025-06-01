@@ -49,8 +49,6 @@ message NodeParameter {
 }
 
 message ReferenceValue {
-  DataTypeIdentifier type_identifier = 1;
-
   /*
     {primary}:{secondary}:{tertiary}
 
@@ -74,9 +72,9 @@ message ReferenceValue {
     tertiary level is optional and references parameter in a node
     {vertical}:{horizontal}:{parameter}
    */
-  int32 primary_level = 2;
-  int32 secondary_level = 3;
-  optional int32 tertiary_level = 4;
+  int32 primary_level = 1;
+  int32 secondary_level = 2;
+  optional int32 tertiary_level = 3;
 
   /*
     User:
@@ -129,7 +127,7 @@ message ReferenceValue {
       ]
     }
    */
-  repeated ReferencePath paths = 5;
+  repeated ReferencePath paths = 4;
 }
 
 message ReferencePath {
