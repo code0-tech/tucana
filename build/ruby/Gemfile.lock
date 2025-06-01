@@ -7,18 +7,21 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    bigdecimal (3.1.8)
+    bigdecimal (3.2.1)
     diff-lcs (1.5.1)
-    google-protobuf (4.27.2-x86_64-linux)
+    google-protobuf (4.31.1-x86_64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
+    google-protobuf (4.31.1-x86_64-linux-musl)
       bigdecimal
       rake (>= 13)
     googleapis-common-protos-types (1.15.0)
       google-protobuf (>= 3.18, < 5.a)
-    grpc (1.65.1-x86_64-linux)
+    grpc (1.72.0-x86_64-linux)
       google-protobuf (>= 3.25, < 5.0)
       googleapis-common-protos-types (~> 1.0)
     grpc-tools (1.65.1)
-    rake (13.2.1)
+    rake (13.3.0)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -34,7 +37,8 @@ GEM
     rspec-support (3.13.1)
 
 PLATFORMS
-  x86_64-linux
+  x86_64-linux-gnu
+  x86_64-linux-musl
 
 DEPENDENCIES
   grpc-tools (~> 1.65)
