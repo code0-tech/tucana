@@ -37,20 +37,22 @@ message NodeFunction {
   optional NodeFunction next_node = 4 ;
 }
 
+// We need this because in the oneof cant be a "repeated"
+message ManyValues {
+  repeated NodeValue values = 1;
+}
+
+message NodeValue {
+  oneof value {
+    shared.Value literal_value = 1;
+    ReferenceValue reference_value = 2;
+    NodeFunction function_value = 3;
+
+    ManyValues many_values = 4;
+  }
+}
+
 message NodeParameter {
-  message ManyValues {
-    repeated NodeValue values = 1;
-  }
-  message NodeValue {
-    oneof value {
-      shared.Value literal_value = 1;
-      ReferenceValue reference_value = 2;
-      NodeFunction function_value = 3;
-
-      ManyValues many_values = 4;
-    }
-  }
-
   // The database id from sagittarius
   int64 database_id = 1;
   string runtime_parameter_id = 2;
