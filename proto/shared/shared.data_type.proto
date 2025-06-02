@@ -11,7 +11,7 @@ import "shared.translation.proto";
     A data type is a custom implementation that could be compared to an object
     It could be as simple as a primitive but can be as complex as a structured object with rules
  */
-message DataType {
+message DefinitionDataType {
   enum Variant {
     UNKNOWN = 0;
     PRIMITIVE = 1;
@@ -29,34 +29,62 @@ message DataType {
   string identifier = 2;
   repeated Translation name = 3;
   // Rules of the data type (e.g. Regex, contains...)
-  repeated DataTypeRule rules = 4;
+  repeated DefinitionDataTypeRule rules = 4;
   // Optional identifier it the given data type is a child of another
   optional DataTypeIdentifier parent_type = 5;
   // List of generic keys
   repeated string generic_keys = 6;
 }
 
-message DataTypeRule {
+message ExecutionDataType {
+  // Unique identifier of the data type
+  string identifier = 1;
+  // Rules of the data type (e.g. Regex, contains...)
+  repeated ExecutionDataTypeRule rules = 2;
+  // Optional identifier it the given data type is a child of another
+  optional string parent_type = 3;
+}
+
+message DefinitionDataTypeRule {
   oneof config {
-    DataTypeContainsKeyRuleConfig contains_key = 1;
-    DataTypeContainsTypeRuleConfig contains_type = 2;
+    DefinitionDataTypeContainsKeyRuleConfig contains_key = 1;
+    DefinitionDataTypeContainsTypeRuleConfig contains_type = 2;
     DataTypeItemOfCollectionRuleConfig item_of_collection = 3;
     DataTypeNumberRangeRuleConfig number_range = 4;
     DataTypeRegexRuleConfig regex = 5;
-    DataTypeInputTypesRuleConfig input_types = 6;
-    DataTypeReturnTypeRuleConfig return_type = 7;
+    DefinitionDataTypeInputTypesRuleConfig input_types = 6;
+    DefinitionDataTypeReturnTypeRuleConfig return_type = 7;
+  }
+}
+
+message ExecutionDataTypeRule {
+  oneof config {
+    ExecutionDataTypeContainsKeyRuleConfig contains_key = 1;
+    ExecutionDataTypeContainsTypeRuleConfig contains_type = 2;
+    DataTypeItemOfCollectionRuleConfig item_of_collection = 3;
+    DataTypeNumberRangeRuleConfig number_range = 4;
+    DataTypeRegexRuleConfig regex = 5;
   }
 }
 
 // Rule to check that the given key is contained in the given object
-message DataTypeContainsKeyRuleConfig {
+message DefinitionDataTypeContainsKeyRuleConfig {
   string key = 1;
   DataTypeIdentifier data_type_identifier = 2;
 }
 
+message ExecutionDataTypeContainsKeyRuleConfig {
+  string key = 1;
+  string data_type_identifier = 2;
+}
+
 // Rule to check that the given type is contained in the given array
-message DataTypeContainsTypeRuleConfig {
+message DefinitionDataTypeContainsTypeRuleConfig {
   DataTypeIdentifier data_type_identifier = 1;
+}
+
+message ExecutionDataTypeContainsTypeRuleConfig {
+  string data_type_identifier = 1;
 }
 
 // Rule to check that the given item is contained inside the array of items
@@ -76,7 +104,7 @@ message DataTypeRegexRuleConfig {
     string pattern = 1;
 }
 
-message DataTypeInputTypesRuleConfig {
+message DefinitionDataTypeInputTypesRuleConfig {
   message DataTypeInputType {
     DataTypeIdentifier data_type_identifier = 1;
     string input_identifier = 2;
@@ -85,7 +113,7 @@ message DataTypeInputTypesRuleConfig {
   repeated DataTypeInputType input_types = 1;
 }
 
-message DataTypeReturnTypeRuleConfig {
+message DefinitionDataTypeReturnTypeRuleConfig {
   DataTypeIdentifier data_type_identifier = 1;
 }
 

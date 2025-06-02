@@ -7,19 +7,26 @@ package shared;
 import "shared.struct.proto";
 import "shared.data_type.proto";
 
-message Flow {
+message ValidationFlow {
   // Database ID -> req. for Aquila to identify in FlowStore
   int64 flow_id = 1;
   int64 project_id = 2;
   // The FlowType´s identifier
   string type = 3;
   // All custom data types used in this flow
-  repeated shared.DataType data_types = 4;
+  repeated shared.ExecutionDataType data_types = 4;
   // These reference data_types by its identifiers, which is are string
   optional string input_type_identifier = 5;
   optional string return_type_identifier = 6;
   repeated FlowSetting settings = 7;
   NodeFunction starting_node = 8;
+}
+
+message ExecutionFlow {
+  // Database ID -> req. for Aquila to identify in FlowStore
+  int64 flow_id = 1;
+  NodeFunction starting_node = 2;
+  optional shared.Value input_value = 3;
 }
 
 message FlowSetting {
@@ -149,5 +156,5 @@ message ReferencePath {
 // Used in sagittarius´s FlowService because oneof can only
 // take in a single message type and not a repeated one
 message Flows {
-  repeated Flow flows = 1;
+  repeated ValidationFlow flows = 1;
 }

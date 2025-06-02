@@ -9,7 +9,7 @@ import "shared.data_type.proto";
 // Request for updating a data type
 message DataTypeUpdateRequest {
   // List of data types that should be updated
-  repeated shared.DataType data_types = 1;
+  repeated shared.DefinitionDataType data_types = 1;
 }
 
 // Response of updating a data type

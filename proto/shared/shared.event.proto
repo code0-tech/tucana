@@ -17,7 +17,7 @@ message EventDefinitionSettings {
   // Description of current configuration
   repeated Translation description = 3;
   // Type of setting
-  DataType type = 4;
+  DefinitionDataType type = 4;
   // Optional default value (primitive, string, list or json)
   optional shared.Value default_value = 5;
 }
@@ -25,7 +25,7 @@ message EventDefinitionSettings {
 message EventDefinition {
   // List of settings that configures the type
   repeated EventDefinitionSettings settings = 1;
-  DataType input_type = 2;
+  DefinitionDataType input_type = 2;
   // True if the definition can be edited live
   bool editable = 3;
 }
