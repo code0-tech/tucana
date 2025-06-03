@@ -37,18 +37,15 @@ message NodeFunction {
   optional NodeFunction next_node = 4 ;
 }
 
-// We need this because in the oneof cant be a "repeated"
-message ManyValues {
-  repeated NodeValue values = 1;
+message NodeFunctions {
+  repeated NodeFunction functions = 1;
 }
 
 message NodeValue {
   oneof value {
     shared.Value literal_value = 1;
     ReferenceValue reference_value = 2;
-    NodeFunction function_value = 3;
-
-    ManyValues many_values = 4;
+    NodeFunctions node_functions = 3;
   }
 }
 
