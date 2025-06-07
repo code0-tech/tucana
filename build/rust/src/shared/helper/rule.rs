@@ -1,13 +1,11 @@
-use crate::shared::DataTypeIdentifier;
-use crate::shared::data_type_input_types_rule_config::DataTypeInputType;
 use crate::shared::{
-    DataTypeContainsKeyRuleConfig, DataTypeContainsTypeRuleConfig, DataTypeInputTypesRuleConfig,
     DataTypeItemOfCollectionRuleConfig, DataTypeNumberRangeRuleConfig, DataTypeRegexRuleConfig,
-    DataTypeReturnTypeRuleConfig, DataTypeRule, Value, data_type_rule::Config,
+    ExecutionDataTypeContainsKeyRuleConfig, ExecutionDataTypeContainsTypeRuleConfig,
+    ExecutionDataTypeRule, Value, execution_data_type_rule::Config,
 };
 
 pub struct RuleBuilder {
-    rules: Vec<DataTypeRule>,
+    rules: Vec<ExecutionDataTypeRule>,
 }
 
 impl RuleBuilder {
@@ -15,31 +13,31 @@ impl RuleBuilder {
         Self { rules: Vec::new() }
     }
 
-    pub fn add_contains_key(
-        mut self,
-        key: String,
-        data_type_identifier: DataTypeIdentifier,
-    ) -> Self {
-        self.rules.push(DataTypeRule {
-            config: Some(Config::ContainsKey(DataTypeContainsKeyRuleConfig {
-                key,
-                data_type_identifier: Some(data_type_identifier),
-            })),
+    pub fn add_contains_key(mut self, key: String, data_type_identifier: &str) -> Self {
+        self.rules.push(ExecutionDataTypeRule {
+            config: Some(Config::ContainsKey(
+                ExecutionDataTypeContainsKeyRuleConfig {
+                    key,
+                    data_type_identifier: data_type_identifier.to_string(),
+                },
+            )),
         });
         self
     }
 
-    pub fn add_contains_type(mut self, data_type_identifier: DataTypeIdentifier) -> Self {
-        self.rules.push(DataTypeRule {
-            config: Some(Config::ContainsType(DataTypeContainsTypeRuleConfig {
-                data_type_identifier: Some(data_type_identifier),
-            })),
+    pub fn add_contains_type(mut self, data_type_identifier: &str) -> Self {
+        self.rules.push(ExecutionDataTypeRule {
+            config: Some(Config::ContainsType(
+                ExecutionDataTypeContainsTypeRuleConfig {
+                    data_type_identifier: data_type_identifier.to_string(),
+                },
+            )),
         });
         self
     }
 
     pub fn add_item_of_collection(mut self, items: Vec<Value>) -> Self {
-        self.rules.push(DataTypeRule {
+        self.rules.push(ExecutionDataTypeRule {
             config: Some(Config::ItemOfCollection(
                 DataTypeItemOfCollectionRuleConfig { items },
             )),
@@ -48,7 +46,7 @@ impl RuleBuilder {
     }
 
     pub fn add_number_range(mut self, from: i64, to: i64, steps: Option<i64>) -> Self {
-        self.rules.push(DataTypeRule {
+        self.rules.push(ExecutionDataTypeRule {
             config: Some(Config::NumberRange(DataTypeNumberRangeRuleConfig {
                 from,
                 to,
@@ -59,59 +57,33 @@ impl RuleBuilder {
     }
 
     pub fn add_regex(mut self, pattern: String) -> Self {
-        self.rules.push(DataTypeRule {
+        self.rules.push(ExecutionDataTypeRule {
             config: Some(Config::Regex(DataTypeRegexRuleConfig { pattern })),
         });
         self
     }
 
-    pub fn add_input_types(mut self, input_types: Vec<DataTypeInputType>) -> Self {
-        self.rules.push(DataTypeRule {
-            config: Some(Config::InputTypes(DataTypeInputTypesRuleConfig {
-                input_types,
-            })),
-        });
-        self
-    }
-
-    pub fn add_return_type(mut self, data_type_identifier: DataTypeIdentifier) -> Self {
-        self.rules.push(DataTypeRule {
-            config: Some(Config::ReturnType(DataTypeReturnTypeRuleConfig {
-                data_type_identifier: Some(data_type_identifier),
-            })),
-        });
-        self
-    }
-
-    pub fn build(self) -> Vec<DataTypeRule> {
+    pub fn build(self) -> Vec<ExecutionDataTypeRule> {
         self.rules
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-    use crate::shared::{
-        data_type_identifier::Type, data_type_input_types_rule_config::DataTypeInputType,
-        data_type_rule::Config, helper::value::ToValue,
-    };
+    use crate::shared::helper::value::ToValue;
 
-    fn to_data_type(str: &str) -> DataTypeIdentifier {
-        DataTypeIdentifier {
-            r#type: Some(Type::DataTypeIdentifier(str.into())),
-        }
-    }
+    use super::*;
 
     #[test]
     fn test_add_contains_key() {
         let rules = RuleBuilder::new()
-            .add_contains_key("id".into(), to_data_type("User"))
+            .add_contains_key("id".into(), "User")
             .build();
 
         match &rules[0].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, Some(to_data_type("User")));
+                assert_eq!(cfg.data_type_identifier, String::from("User"));
             }
             _ => panic!("Expected ContainsKey config"),
         }
@@ -119,13 +91,11 @@ mod tests {
 
     #[test]
     fn test_add_contains_type() {
-        let rules = RuleBuilder::new()
-            .add_contains_type(to_data_type("User"))
-            .build();
+        let rules = RuleBuilder::new().add_contains_type("User").build();
 
         match &rules[0].config {
             Some(Config::ContainsType(cfg)) => {
-                assert_eq!(cfg.data_type_identifier, Some(to_data_type("User")));
+                assert_eq!(cfg.data_type_identifier, String::from("User"));
             }
             _ => panic!("Expected ContainsType config"),
         }
@@ -173,79 +143,32 @@ mod tests {
     }
 
     #[test]
-    fn test_add_input_types() {
-        let input_types = vec![
-            DataTypeInputType {
-                data_type_identifier: Some(to_data_type("Type1")),
-                input_identifier: "input1".into(),
-            },
-            DataTypeInputType {
-                data_type_identifier: Some(to_data_type("Type2")),
-                input_identifier: "input2".into(),
-            },
-        ];
-
-        let rules = RuleBuilder::new()
-            .add_input_types(input_types.clone())
-            .build();
-
-        match &rules[0].config {
-            Some(Config::InputTypes(cfg)) => {
-                assert_eq!(cfg.input_types, input_types);
-            }
-            _ => panic!("Expected InputTypes config"),
-        }
-    }
-
-    #[test]
-    fn test_add_return_type() {
-        let rules = RuleBuilder::new()
-            .add_return_type(to_data_type("Result"))
-            .build();
-
-        match &rules[0].config {
-            Some(Config::ReturnType(cfg)) => {
-                assert_eq!(cfg.data_type_identifier, Some(to_data_type("Result")));
-            }
-            _ => panic!("Expected ReturnType config"),
-        }
-    }
-
-    #[test]
     fn test_add_many_rules() {
         let rules = RuleBuilder::new()
-            .add_contains_key("id".into(), to_data_type("User"))
-            .add_return_type(to_data_type("Result"))
+            .add_contains_key("id".into(), "User")
             .add_regex(r"^\d+$".into())
-            .add_contains_key("id".into(), to_data_type("User"))
+            .add_contains_key("id".into(), "User")
             .build();
 
         match &rules[0].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, Some(to_data_type("User")));
+                assert_eq!(cfg.data_type_identifier, String::from("User"));
             }
             _ => panic!("Expected ContainsKey config"),
         }
 
         match &rules[1].config {
-            Some(Config::ReturnType(cfg)) => {
-                assert_eq!(cfg.data_type_identifier, Some(to_data_type("Result")));
-            }
-            _ => panic!("Expected ReturnType config"),
-        }
-
-        match &rules[2].config {
             Some(Config::Regex(cfg)) => {
                 assert_eq!(cfg.pattern, r"^\d+$");
             }
             _ => panic!("Expected Regex config"),
         }
 
-        match &rules[3].config {
+        match &rules[2].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, Some(to_data_type("User")));
+                assert_eq!(cfg.data_type_identifier, String::from("User"));
             }
             _ => panic!("Expected ContainsKey config"),
         }

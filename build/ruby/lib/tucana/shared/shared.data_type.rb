@@ -5,7 +5,7 @@ module Tucana
     UnexpectedRuleType = Class.new(Tucana::Error)
     UnexpectedType = Class.new(Tucana::Error)
 
-    DataTypeRule.class_eval do
+    DefinitionDataTypeRule.class_eval do
       def variant
         self.config
       end
@@ -34,9 +34,9 @@ module Tucana
       def create(variant, config)
         case variant
         when :contains_key
-          self.contains_key = DataTypeContainsKeyRuleConfig.new(config)
+          self.contains_key = DefinitionDataTypeContainsKeyRuleConfig.new(config)
         when :contains_type
-          self.contains_type = DataTypeContainsTypeRuleConfig.new(config)
+          self.contains_type = DefinitionDataTypeContainsTypeRuleConfig.new(config)
         when :item_of_collection
           self.item_of_collection = DataTypeItemOfCollectionRuleConfig.from_hash(config)
         when :number_range
@@ -44,9 +44,9 @@ module Tucana
         when :regex
           self.regex = DataTypeRegexRuleConfig.new(config)
         when :input_types
-          self.input_types = DataTypeInputTypesRuleConfig.new(config)
+          self.input_types = DefinitionDataTypeInputTypesRuleConfig.new(config)
         when :return_type
-          self.return_type = DataTypeReturnTypeRuleConfig.new(config)
+          self.return_type = DefinitionDataTypeReturnTypeRuleConfig.new(config)
         else
           raise UnexpectedRuleType, "Unknown rule type #{variant}"
         end
@@ -59,7 +59,7 @@ module Tucana
       end
     end
 
-    DataTypeContainsKeyRuleConfig.class_eval do
+    DefinitionDataTypeContainsKeyRuleConfig.class_eval do
       def to_h
         {
           key: self.key,
@@ -75,7 +75,7 @@ module Tucana
       end
     end
 
-    DataTypeContainsTypeRuleConfig.class_eval do
+    DefinitionDataTypeContainsTypeRuleConfig.class_eval do
       def to_h
         {
           data_type_identifier: self.data_type_identifier.to_h,
@@ -117,7 +117,7 @@ module Tucana
       end
     end
 
-    DataTypeInputTypesRuleConfig.class_eval do
+    DefinitionDataTypeInputTypesRuleConfig.class_eval do
       def to_h
         {
           input_types: self.input_types.map { |input_type| input_type.to_h }
@@ -131,7 +131,7 @@ module Tucana
       end
     end
 
-    DataTypeInputTypesRuleConfig::DataTypeInputType.class_eval do
+    DefinitionDataTypeInputTypesRuleConfig::DataTypeInputType.class_eval do
       def to_h
         {
           data_type_identifier: self.data_type_identifier,
@@ -147,7 +147,7 @@ module Tucana
       end
     end
 
-    DataTypeReturnTypeRuleConfig.class_eval do
+    DefinitionDataTypeReturnTypeRuleConfig.class_eval do
       def to_h
         {
           data_type_identifier: self.data_type_identifier,

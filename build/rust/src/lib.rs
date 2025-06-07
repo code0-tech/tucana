@@ -5,12 +5,12 @@ pub mod shared {
 
     #[cfg(test)]
     pub mod tests {
-        use crate::shared::Flow;
+        use crate::shared::ValidationFlow;
         use serde_json;
 
         #[test]
         fn test_serialize() {
-            let flow = Flow {
+            let flow = ValidationFlow {
                 flow_id: 0,
                 project_id: 0,
                 data_types: vec![],
@@ -52,10 +52,10 @@ pub mod shared {
             "starting_node": null
         }"#;
 
-            let deserialized: Result<Flow, _> = serde_json::from_str(json_data);
+            let deserialized: Result<ValidationFlow, _> = serde_json::from_str(json_data);
             assert!(deserialized.is_ok());
 
-            let expected_flow = Flow {
+            let expected_flow = ValidationFlow {
                 flow_id: 0,
                 project_id: 0,
                 r#type: "no".to_string(),

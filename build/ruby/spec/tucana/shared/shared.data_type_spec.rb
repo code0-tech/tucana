@@ -2,13 +2,13 @@
 
 Tucana.load_protocol(:shared)
 
-RSpec.describe Tucana::Shared::DataTypeRule do
+RSpec.describe Tucana::Shared::DefinitionDataTypeRule do
   describe "#create" do
     context "with :contains_key variant" do
       it "sets the contains_key field" do
         config = { key: "test_key", data_type_identifier: { data_type_identifier: "test_type" } }
         rule = described_class.create(:contains_key, config)
-        expect(rule.contains_key).to be_a(Tucana::Shared::DataTypeContainsKeyRuleConfig)
+        expect(rule.contains_key).to be_a(Tucana::Shared::DefinitionDataTypeContainsKeyRuleConfig)
       end
     end
 
@@ -16,7 +16,7 @@ RSpec.describe Tucana::Shared::DataTypeRule do
       it "sets the contains_type field" do
         config = { data_type_identifier: { data_type_identifier: "test_type" } }
         rule = described_class.create(:contains_type, config)
-        expect(rule.contains_type).to be_a(Tucana::Shared::DataTypeContainsTypeRuleConfig)
+        expect(rule.contains_type).to be_a(Tucana::Shared::DefinitionDataTypeContainsTypeRuleConfig)
       end
     end
 
@@ -48,7 +48,7 @@ RSpec.describe Tucana::Shared::DataTypeRule do
       it "sets the input_types field" do
         config = { input_types: [{ data_type_identifier: { data_type_identifier: "test_type" }, input_identifier: "test_input" }] }
         rule = described_class.create(:input_types, config)
-        expect(rule.input_types).to be_a(Tucana::Shared::DataTypeInputTypesRuleConfig)
+        expect(rule.input_types).to be_a(Tucana::Shared::DefinitionDataTypeInputTypesRuleConfig)
       end
     end
 
@@ -56,7 +56,7 @@ RSpec.describe Tucana::Shared::DataTypeRule do
       it "sets the return_type field" do
         config = { data_type_identifier: { data_type_identifier: "test_type" } }
         rule = described_class.create(:return_type, config)
-        expect(rule.return_type).to be_a(Tucana::Shared::DataTypeReturnTypeRuleConfig)
+        expect(rule.return_type).to be_a(Tucana::Shared::DefinitionDataTypeReturnTypeRuleConfig)
       end
     end
 

@@ -33,7 +33,7 @@ message Configuration {
 message ActionConfiguration {
   repeated shared.Translation name = 1;
   repeated shared.Translation description = 2;
-  shared.DataType type = 3;
+  shared.DefinitionDataType type = 3;
   optional shared.Value default_value = 4;
 }
 

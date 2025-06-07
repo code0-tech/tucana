@@ -14,7 +14,7 @@ message FlowLogonRequest {
 message FlowResponse {
   oneof data {
     // Updates a single flow
-    shared.Flow updated_flow = 1;
+    shared.ValidationFlow updated_flow = 1;
     // Deletes a single flow
     int64 deleted_flow_id = 2;
     // Replaces all flows in Aquila (only on startup and for releases)
