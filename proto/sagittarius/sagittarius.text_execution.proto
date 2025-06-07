@@ -4,7 +4,7 @@ option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
-import "shared.test_execution.proto";
+import "shared.struct.proto";
 
 message Logon {}
 
@@ -32,17 +32,17 @@ message Log {
 message ExecutionLogonRequest {
     oneof data {
         Logon logon = 1;
-        shared.TestExecutionResponse response = 2;
+        TestExecutionResponse response = 2;
     }
 }
 
 // Sagittarius sends execution requests
 message ExecutionLogonResponse {
   oneof data {
-      shared.TestExecutionRequest request = 1;
+      TestExecutionRequest request = 1;
   }
 }
 
-service FlowService {
+service ExecutionService {
   rpc Test (stream ExecutionLogonRequest) returns (stream ExecutionLogonResponse) {}
 }
