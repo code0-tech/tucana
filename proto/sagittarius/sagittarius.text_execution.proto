@@ -38,9 +38,7 @@ message ExecutionLogonRequest {
 
 // Sagittarius sends execution requests
 message ExecutionLogonResponse {
-  oneof data {
-      TestExecutionRequest request = 1;
-  }
+  TestExecutionRequest request = 1;
 }
 
 service ExecutionService {
