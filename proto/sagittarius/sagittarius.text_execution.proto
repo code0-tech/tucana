@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Sagittarius";
+
+package sagittarius;
+
+import "shared.struct.proto";
+
+message Logon {}
+
+message TestExecutionRequest {
+    int64 flow_id = 1;
+    string execution_uuid = 2;
+    shared.Value body = 3;
+}
+
+message TestExecutionResponse {
+    int64 flow_id = 1;
+    string execution_uuid = 2;
+    shared.Value result = 3;
+    repeated Log logs = 4;
+}
+
+message Log {
+    string message = 1;
+    string level = 2;
+    string timestamp = 3;
+}
+
+// Aquila sends a logon request to Sagittarius that initiates a stream
+// If the stream is initialized it will return the result after it received a request
+message ExecutionLogonRequest {
+    oneof data {
+        Logon logon = 1;
+        TestExecutionResponse response = 2;
+    }
+}
+
+// Sagittarius sends execution requests
+message ExecutionLogonResponse {
+  TestExecutionRequest request = 1;
+}
+
+service ExecutionService {
+  rpc Test (stream ExecutionLogonRequest) returns (stream ExecutionLogonResponse) {}
+}
