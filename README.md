@@ -58,7 +58,8 @@ services that Sagittarius must implement as a server.
 │   ├── flow - Flow service (handles flow updates)
 │   ├── flow_definition - FlowType service (handles flow_type updates)
 │   ├── ping - Ping service (performs life checks)
-│   └── runtime_function - Service for updating the runtime functions
+│   ├── runtime_function - Service for updating the runtime functions
+│   └── test_execution - Service and Types for the test execution
 └── shared
     ├── data_type - Defines types for data types
     ├── event - Defines types for events
@@ -66,6 +67,5 @@ services that Sagittarius must implement as a server.
     ├── flow_definition - Defines a definition for a Flow
     ├── runtime_function_definition - Defines types for runtime functions
     ├── struct - Defines types for json representations
-    ├── test_execution - Defines types test execution
     └── translation - Contains translations with country codes and translated messages
 ```
