@@ -18,7 +18,7 @@ message HelloWorld {
 }
 ```
 
-> Don't nest messages within messages.
+Don't nest messages within messages.
 
 *Don't*
 
