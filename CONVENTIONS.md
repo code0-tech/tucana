@@ -75,7 +75,7 @@ enum Variant {
 }
 ```
 
-Nesting for Enums is allowed
+Nesting for Enums is recomended due to Enum value scoping rules.
 
 ---
 ## Services
