@@ -24,7 +24,7 @@ message RuntimeFunctionDefinition {
   string runtime_name = 1;
   repeated RuntimeParameterDefinition runtime_parameter_definitions = 2;
   optional DataTypeIdentifier return_type_identifier = 3;
-  repeated string error_type_identifiers = 4;
+  bool throws_error = 4;
   repeated string generic_keys = 5;
   repeated FunctionGenericMapper generic_mappers = 6;
   repeated Translation name = 7;
