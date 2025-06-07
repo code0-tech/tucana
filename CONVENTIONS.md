@@ -1,4 +1,4 @@
-# Naming Conventions
+# Conventions
 
 This document outlines the required naming conventions for Protocol Buffers (Protobuf) files, messages, services, and folder structures.
 
@@ -17,12 +17,72 @@ message HelloWorld {
   int64 value_two = 2;
 }
 ```
+
+Don't nest messages within messages.
+
+*Don't*
+
+```protobuf
+message A {
+  message B {
+    int64 b = 1;
+  }
+
+  message C {
+    int64 c = 1;
+  }
+
+  B b = 1;
+  C c = 2;
+}
+```
+
+*Do*
+
+```protobuf
+
+message B {
+  int64 b = 1;
+}
+
+message C {
+  int64 c = 1;
+}
+
+message A {
+  B b = 1;
+  C c = 2;
+}
+```
+---
+
+### Enum
+
+> [_In proto3, the first value defined in an enum definition must have the value zero and should have the name ENUM_TYPE_NAME_UNSPECIFIED or ENUM_TYPE_NAME_UNKNOWN_](https://protobuf.dev/programming-guides/proto3/#enum-default)
+
+In our case we just name it `UNKNOWN`
+
+```
+enum Variant {
+  UNKNOWN = 0;
+  PRIMITIVE = 1;
+  TYPE = 2;
+  OBJECT = 3;
+  DATATYPE = 4;
+  ARRAY = 5;
+  ERROR = 6;
+  NODE = 7;
+}
+```
+
+Nesting for Enums is recomended due to Enum value scoping rules.
+
 ---
 ## Services
 
 For service names, use PascalCase for both the service and RPC method names. Each service definition should clearly describe the action it performs.
 
-### Example: 
+### Example:
 
 ```protobuf
 message PingRequest {
@@ -43,7 +103,7 @@ To maintain an organized file structure, each service should have its own folder
 The file of a service should always contain the service name as its prefix. This is to make it possible to have duplicate file names without a build error!
 
 ### Folder Structure Example:
-```ascii-tree 
+```ascii-tree
 .
 ├── service_one (folder)
 │   ├── service_one.file_one.proto (file)
