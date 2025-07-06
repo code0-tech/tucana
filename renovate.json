@@ -4,7 +4,16 @@
     "github>code0-tech/monoceros//renovate/global.json5"
   ],
   "assignees": [
-    "raphael-goetz",
     "Taucher2003"
+  ],
+  "packageRules": [
+    {
+      "matchFileNames": [
+        "build/rust/**"
+      ],
+      "assignees": [
+        "raphael-goetz"
+      ]
+    }
   ]
 }
