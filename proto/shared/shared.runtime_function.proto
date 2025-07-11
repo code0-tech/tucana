@@ -8,17 +8,6 @@ import "shared.translation.proto";
 import "shared.data_type.proto";
 import "shared.struct.proto";
 
-message FunctionGenericMapper {
-  // can point to another generic or to a resolved data type
-  repeated DataTypeIdentifier source = 1;
-  // can only be a generic key
-  string target = 2;
-
-  repeated shared.GenericMapper.GenericCombinationStrategy generic_combinations = 3;
-
-  optional string parameter_id = 4;
-}
-
 // Definition of a function used for execution
 message RuntimeFunctionDefinition {
   string runtime_name = 1;
@@ -26,11 +15,10 @@ message RuntimeFunctionDefinition {
   optional DataTypeIdentifier return_type_identifier = 3;
   bool throws_error = 4;
   repeated string generic_keys = 5;
-  repeated FunctionGenericMapper generic_mappers = 6;
-  repeated Translation name = 7;
-  repeated Translation description = 8;
-  repeated Translation documentation = 9;
-  repeated Translation deprecation_message = 10;
+  repeated Translation name = 6;
+  repeated Translation description = 7;
+  repeated Translation documentation = 8;
+  repeated Translation deprecation_message = 9;
 }
 
 // Definition of a parameter used for execution
