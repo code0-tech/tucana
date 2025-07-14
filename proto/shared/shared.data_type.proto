@@ -61,17 +61,12 @@ message ExecutionDataTypeRule {
     DataTypeItemOfCollectionRuleConfig item_of_collection = 3;
     DataTypeNumberRangeRuleConfig number_range = 4;
     DataTypeRegexRuleConfig regex = 5;
-    ExecutionDataTypeParentTypeRuleConfig parent_type = 6;
   }
 }
 
 // Rule for defining the data type parent type
 message DefinitionDataTypeParentTypeRuleConfig {
     DataTypeIdentifier parent_type = 1;
-}
-
-message ExecutionDataTypeParentTypeRuleConfig {
-    string parent_type = 1;
 }
 
 // Rule to check that the given key is contained in the given object
