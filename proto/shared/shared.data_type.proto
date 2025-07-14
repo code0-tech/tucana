@@ -30,10 +30,8 @@ message DefinitionDataType {
   repeated Translation name = 3;
   // Rules of the data type (e.g. Regex, contains...)
   repeated DefinitionDataTypeRule rules = 4;
-  // Optional identifier it the given data type is a child of another
-  optional DataTypeIdentifier parent_type = 5;
   // List of generic keys
-  repeated string generic_keys = 6;
+  repeated string generic_keys = 5;
 }
 
 message ExecutionDataType {
@@ -41,8 +39,6 @@ message ExecutionDataType {
   string identifier = 1;
   // Rules of the data type (e.g. Regex, contains...)
   repeated ExecutionDataTypeRule rules = 2;
-  // Optional identifier it the given data type is a child of another
-  optional string parent_type = 3;
 }
 
 message DefinitionDataTypeRule {
@@ -54,6 +50,7 @@ message DefinitionDataTypeRule {
     DataTypeRegexRuleConfig regex = 5;
     DefinitionDataTypeInputTypesRuleConfig input_types = 6;
     DefinitionDataTypeReturnTypeRuleConfig return_type = 7;
+    DefinitionDataTypeParentTypeRuleConfig parent_type = 8;
   }
 }
 
@@ -65,6 +62,11 @@ message ExecutionDataTypeRule {
     DataTypeNumberRangeRuleConfig number_range = 4;
     DataTypeRegexRuleConfig regex = 5;
   }
+}
+
+// Rule for defining the data type parent type
+message DefinitionDataTypeParentTypeRuleConfig {
+    DataTypeIdentifier parent_type = 1;
 }
 
 // Rule to check that the given key is contained in the given object
