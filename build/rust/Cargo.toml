@@ -12,11 +12,11 @@ include = ["src/*"]
 serde = { version = "1.0.217", features = ["derive"] }
 prost-types = "0.13.4"
 prost = "0.13.4"
-tonic = "0.13.0"
+tonic = "0.14.0"
 serde_json = "1.0.138"
 
 [build-dependencies]
-tonic-build = "0.13.0"
+tonic-build = "0.14.0"
 
 [lib]
 name = "tucana"
