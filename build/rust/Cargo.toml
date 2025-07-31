@@ -10,13 +10,11 @@ include = ["src/*"]
 
 [dependencies]
 serde = { version = "1.0.217", features = ["derive"] }
-prost-types = "0.13.4"
-prost = "0.13.4"
-tonic = "0.13.0"
+prost-types = "0.14.0"
+prost = "0.14.0"
+tonic = "0.14.0"
 serde_json = "1.0.138"
-
-[build-dependencies]
-tonic-build = "0.13.0"
+tonic-prost = "0.14.0"
 
 [lib]
 name = "tucana"
@@ -27,3 +25,6 @@ default = ["aquila", "sagittarius"]
 aquila = []
 sagittarius = []
 all = ["aquila", "sagittarius"]
+
+[build-dependencies]
+tonic-prost-build = { version = "0.14.0" }

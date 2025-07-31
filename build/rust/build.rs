@@ -59,7 +59,7 @@ fn main() -> Result<()> {
         };
     }
 
-    let build_result = tonic_build::configure()
+    let build_result = tonic_prost_build::configure()
         .out_dir(out_path)
         .build_server(true)
         .build_client(true)
