@@ -14,7 +14,7 @@ jobs:
 
     steps:
       # Set up
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       # Set up
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Setup rust
         run: rustup update --no-self-update stable
       - name: Install protoc
