@@ -60,6 +60,14 @@ RSpec.describe Tucana::Shared::DefinitionDataTypeRule do
       end
     end
 
+    context "with :parent_type variant" do
+      it "sets the parent_type field" do
+        config = { parent_type: { data_type_identifier: "test_type" } }
+        rule = described_class.create(:parent_type, config)
+        expect(rule.parent_type).to be_a(Tucana::Shared::DefinitionDataTypeParentTypeRuleConfig)
+      end
+    end
+
     context "with unknown variant" do
       it "raises UnexpectedRuleType error" do
         expect {

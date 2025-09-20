@@ -26,6 +26,8 @@ module Tucana
           self.input_types
         when :return_type
           self.return_type
+        when :parent_type
+          self.parent_type
         else
           raise UnexpectedRuleType, "Unknown rule type #{variant}"
         end
@@ -47,6 +49,8 @@ module Tucana
           self.input_types = DefinitionDataTypeInputTypesRuleConfig.new(config)
         when :return_type
           self.return_type = DefinitionDataTypeReturnTypeRuleConfig.new(config)
+        when :parent_type
+          self.parent_type = DefinitionDataTypeParentTypeRuleConfig.new(config)
         else
           raise UnexpectedRuleType, "Unknown rule type #{variant}"
         end
@@ -156,6 +160,18 @@ module Tucana
 
       def self.from_hash(config)
         new(data_type_identifier: DataTypeIdentifier.from_hash(config[:data_type_identifier]))
+      end
+    end
+
+    DefinitionDataTypeParentTypeRuleConfig.class_eval do
+      def to_h
+        {
+          parent_type: self.parent_type,
+        }
+      end
+
+      def self.from_hash(config)
+        new(parent_type: DataTypeIdentifier.from_hash(config[:parent_type]))
       end
     end
 
