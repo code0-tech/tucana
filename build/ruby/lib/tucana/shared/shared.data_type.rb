@@ -50,7 +50,7 @@ module Tucana
         when :return_type
           self.return_type = DefinitionDataTypeReturnTypeRuleConfig.new(config)
         when :parent_type
-          self.parent_type = DefinitionDataTypeParentTypeRuleConfig.new(config)
+          self.parent_type = DefinitionDataTypeParentTypeRuleConfig.from_hash(config)
         else
           raise UnexpectedRuleType, "Unknown rule type #{variant}"
         end
@@ -190,11 +190,11 @@ module Tucana
         end
 
         if config.key?(:data_type_identifier)
-          self.data_type_identifier = config
+          self.data_type_identifier = config[:data_type_identifier]
         elsif config.key?(:generic_type)
-          self.generic_type = GenericType.new(config)
+          self.generic_type = GenericType.from_hash(config)
         elsif config.key?(:generic_key)
-          self.generic_key = config
+          self.generic_key = config[:generic_key]
         else
           raise UnexpectedType, "Unknown type"
         end
@@ -247,7 +247,7 @@ module Tucana
         end
 
         if config.key?(:data_type_identifier)
-          self.data_type_identifier = DataTypeIdentifier.new(config.fetch(:data_type_identifier))
+          self.data_type_identifier = DataTypeIdentifier.from_hash(config.fetch(:data_type_identifier))
         elsif config.key?(:generic_key)
           self.generic_key = config.fetch(:generic_key)
         end
