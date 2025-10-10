@@ -7,6 +7,7 @@ package shared;
 import "shared.translation.proto";
 import "shared.data_type.proto";
 import "shared.struct.proto";
+import "shared.version.proto";
 
 // Definition of a function used for execution
 message RuntimeFunctionDefinition {
@@ -19,6 +20,8 @@ message RuntimeFunctionDefinition {
   repeated Translation description = 7;
   repeated Translation documentation = 8;
   repeated Translation deprecation_message = 9;
+  // Version of the runtime function
+  shared.Version version = 10;
 }
 
 // Definition of a parameter used for execution
