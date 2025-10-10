@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+message Version {
+  int32 major = 1;
+  int32 minor = 2;
+  int32 bug = 3;
+}
