@@ -19,7 +19,7 @@ pub mod shared {
                 r#type: "no".to_string(),
                 settings: vec![],
                 starting_node_id: 0,
-                node_functions: None,
+                node_functions: vec![],
             };
 
             let str_flow = serde_json::to_string(&flow).expect("Serialization failed");
@@ -35,7 +35,7 @@ pub mod shared {
                 "data_types": [],
                 "settings": [],
                 "starting_node_id": 0,
-                "node_functions": null
+                "node_functions": []
             });
 
             assert_eq!(json_flow, expected_json);
@@ -52,7 +52,7 @@ pub mod shared {
                 "data_types": [],
                 "settings": [],
                 "starting_node_id": 0,
-                "node_functions": null
+                "node_functions": []
             }"#;
 
             let deserialized: Result<ValidationFlow, _> = serde_json::from_str(json_data);
@@ -67,7 +67,7 @@ pub mod shared {
                 input_type_identifier: None,
                 return_type_identifier: None,
                 starting_node_id: 0,
-                node_functions: None,
+                node_functions: vec![],
             };
 
             assert_eq!(deserialized.unwrap(), expected_flow);
