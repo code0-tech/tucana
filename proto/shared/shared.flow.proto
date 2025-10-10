@@ -19,13 +19,15 @@ message ValidationFlow {
   optional string input_type_identifier = 5;
   optional string return_type_identifier = 6;
   repeated FlowSetting settings = 7;
-  NodeFunction starting_node = 8;
+  int64 starting_node_id = 8;
+  repeated NodeFunction node_functions = 9;
 }
 
 message ExecutionFlow {
   // Database ID -> req. for Aquila to identify in FlowStore
   int64 flow_id = 1;
-  NodeFunction starting_node = 2;
+  int64 starting_node_id = 2;
+  repeated NodeFunction node_functions = 4;
   optional shared.Value input_value = 3;
 }
 
@@ -41,18 +43,14 @@ message NodeFunction {
   int64 database_id = 1;
   string runtime_function_id = 2;
   repeated NodeParameter parameters = 3;
-  optional NodeFunction next_node = 4 ;
-}
-
-message NodeFunctions {
-  repeated NodeFunction functions = 1;
+  optional int64 next_node_id = 4;
 }
 
 message NodeValue {
   oneof value {
     shared.Value literal_value = 1;
     ReferenceValue reference_value = 2;
-    NodeFunctions node_functions = 3;
+    int64 node_function_id = 3;
   }
 }
 
