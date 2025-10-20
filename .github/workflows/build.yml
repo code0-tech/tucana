@@ -13,7 +13,6 @@ jobs:
         working-directory: build/ruby
 
     steps:
-      # Set up
       - uses: actions/checkout@v5
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -37,7 +36,6 @@ jobs:
         working-directory: build/rust
 
     steps:
-      # Set up
       - uses: actions/checkout@v5
       - name: Setup rust
         run: rustup update --no-self-update stable
@@ -53,3 +51,24 @@ jobs:
           RUST_BACKTRACE: 'full'
       - name: Package crate
         run: cargo package --allow-dirty
+
+  npm:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: build/ts
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate ts
+        run: npm run generate
+
