@@ -15,9 +15,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "generate:aquila": "protoc --ts_opt=add_pb_suffix --ts_out=pb --proto_path=../../proto/aquila --proto_path=../../proto/shared ../../proto/aquila/*.proto",
-    "generate:sagittarius": "protoc --ts_opt=add_pb_suffix --ts_out=pb --proto_path=../../proto/sagittarius --proto_path=../../proto/shared ../../proto/sagittarius/*.proto",
-    "generate:shared": "protoc --ts_opt=add_pb_suffix --ts_out=pb --proto_path=../../proto/shared ../../proto/shared/*.proto",
+    "generate:aquila": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript_es2020 --ts_out=pb --proto_path=../../proto/aquila --proto_path=../../proto/shared ../../proto/aquila/*.proto",
+    "generate:sagittarius": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript_es2020 --ts_out=pb --proto_path=../../proto/sagittarius --proto_path=../../proto/shared ../../proto/sagittarius/*.proto",
+    "generate:shared": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript_es2020 --ts_out=pb --proto_path=../../proto/shared ../../proto/shared/*.proto",
     "generate": "npm run generate:shared && npm run generate:sagittarius && npm run generate:aquila"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
   },
   "files": [
     "pb/*.ts",
+    "pb/*.js",
     "index.js",
     "package.json"
   ],
