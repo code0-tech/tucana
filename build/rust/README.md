@@ -9,6 +9,7 @@ The Rust Code0 gRPC library (for internal service communication) providing inter
 
 - **aquila** - gRPC services and types for Aquila (as server) component communication
 - **sagittarius** - gRPC services and types for Sagittarius (as server) component communication
+- **shared** - shared gRPC types for the services above
 
 ## Overview
 
@@ -43,7 +44,7 @@ let updated_flow = path::set_value("input_type_identifier", &flow_value, new_typ
 
 ### JSON Conversion for Protobuf Messages
 
-Convert between Protobuf messages and JSON for debugging or external interfaces:
+Convert between Protobuf messages and JSON for debugging or external interfaces. This uses the [protoJSON](https://protobuf.dev/programming-guides/json/) format.
 
 ```rust
 use tucana::shared::helper::value;
