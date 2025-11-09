@@ -62,10 +62,9 @@ message NodeParameter {
 }
 
 message ReferenceValue {
-  int32 depth = 1;
-  repeated int32 scope = 2;
-  int32 node = 3;
-  repeated ReferencePath paths = 4;
+  // Database Identifier of node
+  int64 node_id = 1;
+  repeated ReferencePath paths = 2;
 }
 
 message ReferencePath {
