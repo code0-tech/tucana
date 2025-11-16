@@ -32,13 +32,15 @@ message Log {
 message SuccessLog {
   int64 note_id = 1;
   shared.Value result = 2;
+  repeated shared.Value parameter = 3;
+  string timestamp = 4;
 }
 
 message RuntimeErrorLog {
   int64 note_id = 1;
-  string error_code = 2;
-  string error_message = 3;
-  optional string suggestion = 4;
+  string error = 2;
+  repeated shared.Value parameter = 3;
+  string timestamp = 4;
 }
 
 message ApplicationLog {
