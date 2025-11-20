@@ -21,7 +21,7 @@ message RuntimeFunctionDefinition {
   repeated Translation documentation = 8;
   repeated Translation deprecation_message = 9;
   repeated Translation display_message = 10;
-  repeated Translation aliases = 11;
+  repeated Translation alias = 11;
   // Version of the runtime function
   shared.Version version = 12;
 }

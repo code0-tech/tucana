@@ -17,9 +17,10 @@ message FlowType {
   repeated shared.Translation name = 6;
   repeated shared.Translation description = 7;
   repeated shared.Translation documentation = 8;
-  repeated shared.Translation aliases = 9;
+  repeated shared.Translation display_message = 9;
+  repeated shared.Translation alias = 10;
   // Version of the flow type
-  shared.Version version = 10;
+  shared.Version version = 11;
 }
 
 message FlowTypeSetting {
