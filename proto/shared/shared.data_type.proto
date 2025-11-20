@@ -29,12 +29,13 @@ message DefinitionDataType {
   // Unique identifier of the data type
   string identifier = 2;
   repeated Translation name = 3;
+  repeated Translation aliases = 4;
   // Rules of the data type (e.g. Regex, contains...)
-  repeated DefinitionDataTypeRule rules = 4;
+  repeated DefinitionDataTypeRule rules = 5;
   // List of generic keys
-  repeated string generic_keys = 5;
+  repeated string generic_keys = 6;
   // Version of the data type
-  shared.Version version = 6;
+  shared.Version version = 7;
 }
 
 message ExecutionDataType {

@@ -20,8 +20,10 @@ message RuntimeFunctionDefinition {
   repeated Translation description = 7;
   repeated Translation documentation = 8;
   repeated Translation deprecation_message = 9;
+  repeated Translation display_message = 10;
+  repeated Translation aliases = 11;
   // Version of the runtime function
-  shared.Version version = 10;
+  shared.Version version = 12;
 }
 
 // Definition of a parameter used for execution
