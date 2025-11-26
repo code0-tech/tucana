@@ -177,11 +177,13 @@ module Tucana
 
     DataTypeIdentifier.class_eval do
       def to_h
-        {
-          data_type_identifier: self.data_type_identifier,
-          generic_type: self.generic_type ? self.generic_type.to_h : nil,
-          generic_key: self.generic_key,
-        }
+        if !self.data_type_identifier.empty?
+          return { data_type_identifier: self.data_type_identifier }
+        elsif !self.generic_type.nil?
+          return { generic_type: self.generic_type.to_h }
+        elsif !self.generic_key.nil?
+          return { generic_key: self.generic_key }
+        end
       end
 
       def from_hash(config)
@@ -210,18 +212,18 @@ module Tucana
     GenericType.class_eval do
       def to_h
         {
-          data_type_identifier: self.data_type_identifier.to_h,
-          generic_mapper: self.generic_mapper ? self.generic_mapper.to_h : nil,
+          data_type_identifier: self.data_type_identifier,
+          generic_mappers: self.generic_mappers.map(&:to_h),
         }
       end
 
       def from_hash(config)
         if config.key?(:data_type_identifier)
-          self.data_type_identifier = DataTypeIdentifier.from_hash(config.fetch(:data_type_identifier))
+          self.data_type_identifier = config.fetch(:data_type_identifier)
         end
 
-        if config.key?(:generic_mapper)
-          self.generic_mapper = GenericMapper.from_hash(config.fetch(:generic_mapper))
+        if config.key?(:generic_mappers)
+          self.generic_mappers = config.fetch(:generic_mappers).map { |mapper_config| GenericMapper.from_hash(mapper_config) }
         end
 
         self
@@ -235,24 +237,17 @@ module Tucana
     GenericMapper.class_eval do
       def to_h
         {
-          data_type_identifier: self.data_type_identifier.to_h,
-          generic_key: self.generic_key,
-          source: self.source,
+          target: self.target,
+          source: self.source.to_h,
+          generic_combinations: self.generic_combinations.map(&:to_h),
         }
       end
 
       def from_hash(config)
-        if config.keys.intersection([:data_type_identifier, :generic_key]).count > 1
-          raise UnexpectedType, "Cannot have more than one type"
-        end
-
-        if config.key?(:data_type_identifier)
-          self.data_type_identifier = DataTypeIdentifier.from_hash(config.fetch(:data_type_identifier))
-        elsif config.key?(:generic_key)
-          self.generic_key = config.fetch(:generic_key)
-        end
-
-        self.source = config[:source]
+        self.target = config[:target]
+        self.source = DataTypeIdentifier.from_hash(config.fetch(:source))
+        self.generic_combinations = config.fetch(:generic_combinations, [])
+        self
       end
 
       def self.from_hash(config)

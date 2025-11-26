@@ -4,6 +4,39 @@ Tucana.load_protocol(:shared)
 
 RSpec.describe Tucana::Shared::DefinitionDataTypeRule do
   describe "#create" do
+    context 'DataTypeIdentifier#to_h' do
+      context 'generic_key' do
+        it do
+          expect(Tucana::Shared::DataTypeIdentifier.new(generic_key: 'T').to_h)
+            .to eq({ generic_key: 'T' })
+        end
+      end
+      context 'identifier' do
+        it do
+          expect(Tucana::Shared::DataTypeIdentifier.new(data_type_identifier: 'MyType').to_h)
+            .to eq({ data_type_identifier: 'MyType' })
+        end
+      end
+      context 'generic_type' do
+        it do
+          generic_type = Tucana::Shared::GenericType.new(
+            data_type_identifier: 'some_identifier',
+            generic_mappers: []
+          )
+
+          data_type_identifier = Tucana::Shared::DataTypeIdentifier.new(generic_type: generic_type)
+
+          expect(data_type_identifier.to_h)
+            .to eq({
+                     generic_type: {
+                       data_type_identifier: 'some_identifier',
+                       generic_mappers: []
+                     }
+                   })
+        end
+      end
+    end
+
     context "with :contains_key variant" do
       it "sets the contains_key field" do
         config = { key: "test_key", data_type_identifier: { data_type_identifier: "test_type" } }
