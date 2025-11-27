@@ -6,7 +6,6 @@ package shared;
 
 import "shared.translation.proto";
 import "shared.struct.proto";
-import "shared.version.proto";
 
 message FlowType {
   string identifier = 1;
@@ -20,7 +19,8 @@ message FlowType {
   repeated shared.Translation display_message = 9;
   repeated shared.Translation alias = 10;
   // Version of the flow type
-  shared.Version version = 11;
+  // Format: "major.minor.patch", e.g. "1.2.3"
+  string version = 11;
 }
 
 message FlowTypeSetting {
