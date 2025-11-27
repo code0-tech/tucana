@@ -238,14 +238,16 @@ module Tucana
       def to_h
         {
           target: self.target,
-          source: self.source.to_h,
+          source: self.source.map(&:to_h),
           generic_combinations: self.generic_combinations.map(&:to_h),
         }
       end
 
       def from_hash(config)
         self.target = config[:target]
-        self.source = DataTypeIdentifier.from_hash(config.fetch(:source))
+        self.source = config[:source].map do |source|
+          DataTypeIdentifier.from_hash(source)
+        end
         self.generic_combinations = config.fetch(:generic_combinations, [])
         self
       end
