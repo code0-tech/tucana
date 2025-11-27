@@ -6,7 +6,6 @@ package shared;
 
 import "shared.struct.proto";
 import "shared.translation.proto";
-import "shared.version.proto";
 
 /*
     A data type is a custom implementation that could be compared to an object
@@ -36,7 +35,8 @@ message DefinitionDataType {
   // List of generic keys
   repeated string generic_keys = 7;
   // Version of the data type
-  shared.Version version = 8;
+  // Format: "major.minor.patch", e.g. "1.2.3"
+  string version = 8;
 }
 
 message ExecutionDataType {

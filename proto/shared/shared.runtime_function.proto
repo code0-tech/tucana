@@ -7,7 +7,6 @@ package shared;
 import "shared.translation.proto";
 import "shared.data_type.proto";
 import "shared.struct.proto";
-import "shared.version.proto";
 
 // Definition of a function used for execution
 message RuntimeFunctionDefinition {
@@ -23,7 +22,8 @@ message RuntimeFunctionDefinition {
   repeated Translation display_message = 10;
   repeated Translation alias = 11;
   // Version of the runtime function
-  shared.Version version = 12;
+  // Format: "major.minor.patch", e.g. "1.2.3"
+  string version = 12;
 }
 
 // Definition of a parameter used for execution
