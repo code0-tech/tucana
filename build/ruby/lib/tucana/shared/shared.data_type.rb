@@ -223,7 +223,10 @@ module Tucana
         end
 
         if config.key?(:generic_mappers)
-          self.generic_mappers = config.fetch(:generic_mappers).map { |mapper_config| GenericMapper.from_hash(mapper_config) }
+          self.generic_mappers.clear
+          config[:generic_mappers].each do |mapper_config|
+            self.generic_mappers << GenericMapper.from_hash(mapper_config)
+          end
         end
 
         self
@@ -245,8 +248,11 @@ module Tucana
 
       def from_hash(config)
         self.target = config[:target]
-        self.source = config[:source].map do |source|
-          DataTypeIdentifier.from_hash(source)
+        if config.key?(:source)
+          self.source.clear
+          config[:source].each do |source|
+            self.source << DataTypeIdentifier.from_hash(source)
+          end
         end
         
         if config.key?(:generic_combinations)
