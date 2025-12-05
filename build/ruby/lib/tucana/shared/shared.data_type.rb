@@ -248,7 +248,14 @@ module Tucana
         self.source = config[:source].map do |source|
           DataTypeIdentifier.from_hash(source)
         end
-        self.generic_combinations = config.fetch(:generic_combinations, [])
+        
+        self.generic_combinations = []
+        if config.key?(:generic_combinations)
+          config[:generic_combinations].each do |combo|
+            self.generic_combinations << combo
+          end
+        end
+        
         self
       end
 
