@@ -194,7 +194,7 @@ module Tucana
         if config.key?(:data_type_identifier)
           self.data_type_identifier = config[:data_type_identifier]
         elsif config.key?(:generic_type)
-          self.generic_type = GenericType.from_hash(config)
+          self.generic_type = GenericType.from_hash(config[:generic_type])
         elsif config.key?(:generic_key)
           self.generic_key = config[:generic_key]
         else
