@@ -249,10 +249,10 @@ module Tucana
           DataTypeIdentifier.from_hash(source)
         end
         
-        self.generic_combinations = []
         if config.key?(:generic_combinations)
+          self.generic_combinations.clear
           config[:generic_combinations].each do |combo|
-            self.generic_combinations << combo
+            self.generic_combinations << GenericMapper::GenericCombinationStrategy.resolve(combo)
           end
         end
         
