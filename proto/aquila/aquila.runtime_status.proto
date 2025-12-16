@@ -6,7 +6,7 @@ option ruby_package = "Tucana::Aquila";
 
 message AdapaterStatusInformation {
   oneof data {
-    string endpoint = 1; // e.g. URL, cron expression, ...
+    string endpoint = 1; // e.g. URL, ...
   }
 }
 
