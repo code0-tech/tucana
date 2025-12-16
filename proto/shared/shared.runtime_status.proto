@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package shared;
+
+option ruby_package = "Tucana::Shared";
+
+message AdapterConfiguration {
+  oneof data {
+    string endpoint = 1; // e.g. URL, ...
+  }
+}
+
+enum Status {
+  UNKNOWN = 0;
+  NOT_RESPONDING = 1;
+  NOT_READY = 2;
+  RUNNING = 3;
+  STOPPED = 4;
+}
+
+message AdapterRuntimeStatus {
+  Status status = 1;
+  string timestamp = 2; // epoch timestamp in milliseconds
+
+  string identifier = 3; // unique identifier of the adapter
+
+  // All the supported features: e.g. ['http'] / ['cron'] / ['http', 'cron']
+  repeated string features = 4;
+  repeated AdapterConfiguration configurations = 5;
+}
+
+message ExecutionRuntimeStatus {
+  Status status = 1;
+  string timestamp = 2; // epoch timestamp in milliseconds
+
+  string identifier = 3; // unique identifier of the adapter
+
+  // All the supported features: e.g. ['http'] / ['cron'] / ['http', 'cron']
+  repeated string features = 4;
+}
