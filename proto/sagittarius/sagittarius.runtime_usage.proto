@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package sagittarius;
+
+option ruby_package = "Tucana::Sagittarius";
+
+message RuntimeUsage {
+  int64 flow_id = 1;
+  string duration = 2; // in nanoseconds
+}
+
+message RuntimeUsageRequest {
+  repeated RuntimeUsage runtime_usage = 1;
+}
+
+message RuntimeUsageResponse {
+  bool success = 1;
+}
+
+service RuntimeUsageService {
+  rpc Update(RuntimeUsageRequest) returns (RuntimeUsageResponse) {}
+}
