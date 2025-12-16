@@ -22,6 +22,7 @@ message ValidationFlow {
   int64 starting_node_id = 8;
   repeated NodeFunction node_functions = 9;
   string project_slug = 10;
+  optional string disable_reason = 11;
 }
 
 message ExecutionFlow {
