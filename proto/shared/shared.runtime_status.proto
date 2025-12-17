@@ -10,7 +10,7 @@ message AdapterConfiguration {
   }
 }
 
-enum Status {
+enum RuntimeStatus {
   UNKNOWN = 0;
   NOT_RESPONDING = 1;
   NOT_READY = 2;
@@ -19,7 +19,7 @@ enum Status {
 }
 
 message AdapterRuntimeStatus {
-  Status status = 1;
+  RuntimeStatus status = 1;
   string timestamp = 2; // epoch timestamp in milliseconds
 
   string identifier = 3; // unique identifier of the adapter
@@ -30,7 +30,7 @@ message AdapterRuntimeStatus {
 }
 
 message ExecutionRuntimeStatus {
-  Status status = 1;
+  RuntimeStatus status = 1;
   string timestamp = 2; // epoch timestamp in milliseconds
 
   string identifier = 3; // unique identifier of the adapter
