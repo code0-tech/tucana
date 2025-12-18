@@ -6,5 +6,5 @@ option ruby_package = "Tucana::Shared";
 
 message RuntimeUsage {
   int64 flow_id = 1;
-  string duration = 2; // in nanoseconds
+  int64 duration = 2; // in nanoseconds
 }
