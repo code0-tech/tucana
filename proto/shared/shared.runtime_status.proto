@@ -4,6 +4,8 @@ package shared;
 
 option ruby_package = "Tucana::Shared";
 
+import "shared.translation.proto";
+
 message AdapterConfiguration {
   oneof data {
     string endpoint = 1; // e.g. URL, ...
@@ -18,23 +20,26 @@ enum RuntimeStatus {
   STOPPED = 4;
 }
 
+message RuntimeFeature {
+  repeated shared.Translation name = 1;
+  repeated shared.Translation description = 2;
+}
+
 message AdapterRuntimeStatus {
   RuntimeStatus status = 1;
-  string timestamp = 2; // epoch timestamp in milliseconds
+  int64 timestamp = 2; // epoch timestamp in milliseconds
 
   string identifier = 3; // unique identifier of the adapter
 
-  // All the supported features: e.g. ['http'] / ['cron'] / ['http', 'cron']
-  repeated string features = 4;
+  repeated RuntimeFeature features = 4;
   repeated AdapterConfiguration configurations = 5;
 }
 
 message ExecutionRuntimeStatus {
   RuntimeStatus status = 1;
-  string timestamp = 2; // epoch timestamp in milliseconds
+  int64 timestamp = 2; // epoch timestamp in milliseconds
 
   string identifier = 3; // unique identifier of the adapter
 
-  // All the supported features: e.g. ['http'] / ['cron'] / ['http', 'cron']
-  repeated string features = 4;
+  repeated RuntimeFeature features = 4;
 }
