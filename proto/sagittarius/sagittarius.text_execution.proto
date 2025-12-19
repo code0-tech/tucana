@@ -22,6 +22,28 @@ message TestExecutionResponse {
 }
 
 message Log {
+  oneof kind {
+    ApplicationLog application_log = 1;
+    SuccessLog success_log = 2;
+    RuntimeErrorLog error_log = 3;
+  }
+}
+
+message SuccessLog {
+  int64 node_id = 1;
+  shared.Value result = 2;
+  repeated shared.Value parameter = 3;
+  string timestamp = 4;
+}
+
+message RuntimeErrorLog {
+  int64 node_id = 1;
+  string error = 2;
+  repeated shared.Value parameter = 3;
+  string timestamp = 4;
+}
+
+message ApplicationLog {
     string message = 1;
     string level = 2;
     string timestamp = 3;
