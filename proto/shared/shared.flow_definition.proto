@@ -24,8 +24,14 @@ message FlowType {
 }
 
 message FlowTypeSetting {
+  enum UniquenessScope {
+    UNKNOWN = 0;
+    NONE = 1;
+    PROJECT = 2;
+  }
+
   string identifier = 1;
-  bool unique = 2;
+  UniquenessScope unique = 2;
   string data_type_identifier = 3;
   optional shared.Value default_value = 4;
   repeated shared.Translation name = 5;
