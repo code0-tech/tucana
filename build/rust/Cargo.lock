@@ -518,18 +518,6 @@ dependencies = [
 
 [[package]]
 name = "pbjson-build"
-version = "0.8.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "af22d08a625a2213a78dbb0ffa253318c5c79ce3133d32d296655a7bdfb02095"
-dependencies = [
- "heck",
- "itertools",
- "prost",
- "prost-types",
-]
-
-[[package]]
-name = "pbjson-build"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2ed4d5c6ae95e08ac768883c8401cf0e8deb4e6e1d6a4e1fd3d2ec4f0ec63200"
@@ -549,7 +537,7 @@ dependencies = [
  "bytes",
  "chrono",
  "pbjson",
- "pbjson-build 0.9.0",
+ "pbjson-build",
  "prost",
  "prost-build",
  "serde",
@@ -1073,7 +1061,7 @@ name = "tucana"
 version = "0.0.0"
 dependencies = [
  "pbjson",
- "pbjson-build 0.8.0",
+ "pbjson-build",
  "pbjson-types",
  "prost",
  "prost-build",
