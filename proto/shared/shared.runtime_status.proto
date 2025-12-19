@@ -18,7 +18,7 @@ message RuntimeFeature {
 }
 
 message AdapterRuntimeStatus {
-  enum RuntimeStatus {
+  enum Status {
     UNKNOWN = 0;
     NOT_RESPONDING = 1;
     NOT_READY = 2;
@@ -26,7 +26,7 @@ message AdapterRuntimeStatus {
     STOPPED = 4;
   }
 
-  RuntimeStatus status = 1;
+  Status status = 1;
   int64 timestamp = 2; // epoch timestamp in milliseconds
 
   string identifier = 3; // unique identifier of the adapter
@@ -36,7 +36,7 @@ message AdapterRuntimeStatus {
 }
 
 message ExecutionRuntimeStatus {
-  enum RuntimeStatus {
+  enum Status {
     UNKNOWN = 0;
     NOT_RESPONDING = 1;
     NOT_READY = 2;
@@ -44,7 +44,7 @@ message ExecutionRuntimeStatus {
     STOPPED = 4;
   }
 
-  RuntimeStatus status = 1;
+  Status status = 1;
   int64 timestamp = 2; // epoch timestamp in milliseconds
 
   string identifier = 3; // unique identifier of the adapter
