@@ -51,21 +51,27 @@ services that Sagittarius must implement as a server.
 │   ├── data_type - DataType service
 │   ├── execution - Execution service (handles internal execution calls)
 │   ├── flow_definition - FlowType service (handles flow_type updates)
-│   └── runtime_function - Service for updating the runtime functions
+│   ├── runtime_function - Service for updating the runtime functions
+│   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
+│   └── runtime_usage - Service for runtime usage (handles execution time of a flow)
 ├── sagittarius
 │   ├── action - Action service (manages logon/logoff requests for action configurations)
 │   ├── data_type - DataType service
 │   ├── flow - Flow service (handles flow updates)
-│   ├── flow_definition - FlowType service (handles flow_type updates)
+│   ├── flow_type - FlowType service (handles flow_type updates)
 │   ├── ping - Ping service (performs life checks)
 │   ├── runtime_function - Service for updating the runtime functions
+│   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
+│   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
 │   └── test_execution - Service and Types for the test execution
 └── shared
     ├── data_type - Defines types for data types
     ├── event - Defines types for events
     ├── flow - Defines types for flows
     ├── flow_definition - Defines a definition for a Flow
-    ├── runtime_function_definition - Defines types for runtime functions
+    ├── runtime_function - Defines types for runtime functions
+    ├── runtime_status - Defines types for runtime status (handles information about Draco and Taurus)
+    ├── runtime_usage - Defines types for runtime usage (handles execution time of a flow)
     ├── struct - Defines types for json representations
     └── translation - Contains translations with country codes and translated messages
 ```
