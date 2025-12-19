@@ -12,20 +12,20 @@ message AdapterConfiguration {
   }
 }
 
-enum RuntimeStatus {
-  UNKNOWN = 0;
-  NOT_RESPONDING = 1;
-  NOT_READY = 2;
-  RUNNING = 3;
-  STOPPED = 4;
-}
-
 message RuntimeFeature {
   repeated shared.Translation name = 1;
   repeated shared.Translation description = 2;
 }
 
 message AdapterRuntimeStatus {
+  enum RuntimeStatus {
+    UNKNOWN = 0;
+    NOT_RESPONDING = 1;
+    NOT_READY = 2;
+    RUNNING = 3;
+    STOPPED = 4;
+  }
+
   RuntimeStatus status = 1;
   int64 timestamp = 2; // epoch timestamp in milliseconds
 
@@ -36,6 +36,14 @@ message AdapterRuntimeStatus {
 }
 
 message ExecutionRuntimeStatus {
+  enum RuntimeStatus {
+    UNKNOWN = 0;
+    NOT_RESPONDING = 1;
+    NOT_READY = 2;
+    RUNNING = 3;
+    STOPPED = 4;
+  }
+
   RuntimeStatus status = 1;
   int64 timestamp = 2; // epoch timestamp in milliseconds
 
