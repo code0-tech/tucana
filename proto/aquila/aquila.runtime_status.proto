@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package aquila;
+
+import "shared.runtime_status.proto";
+
+option ruby_package = "Tucana::Aquila";
+
+message RuntimeStatusUpdateRequest {
+  oneof status {
+    shared.AdapterRuntimeStatus adapter_runtime_status = 1;
+    shared.ExecutionRuntimeStatus execution_runtime_status = 2;
+  }
+}
+
+message RuntimeStatusUpdateResponse {
+  bool success = 1;
+}
+
+service RuntimeStatusService {
+  rpc Update(RuntimeStatusUpdateRequest) returns (RuntimeStatusUpdateResponse) {}
+}
