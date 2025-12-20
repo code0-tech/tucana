@@ -21,6 +21,7 @@ message FlowType {
   // Version of the flow type
   // Format: "major.minor.patch", e.g. "1.2.3"
   string version = 11;
+  string display_icon = 12;
 }
 
 message FlowTypeSetting {
