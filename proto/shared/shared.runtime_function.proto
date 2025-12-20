@@ -24,6 +24,7 @@ message RuntimeFunctionDefinition {
   // Version of the runtime function
   // Format: "major.minor.patch", e.g. "1.2.3"
   string version = 12;
+  string display_icon = 13;
 }
 
 // Definition of a parameter used for execution
