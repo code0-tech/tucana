@@ -7,8 +7,8 @@ package aquila;
 import "shared.struct.proto";
 import "shared.runtime_function.proto";
 import "shared.data_type.proto";
+import "shared.flow_definition.proto";
 import "shared.translation.proto";
-import "shared.event.proto";
 
 // Event that gets admitted by an action
 message Event {
@@ -22,12 +22,15 @@ message Event {
 message Configuration {
   // Action identifier
   string identifier = 1;
+  string version = 2;
+
   // Flow Configuration
-  repeated shared.RuntimeFunctionDefinition function_definitions = 2;
-  // Event Configuration
-  repeated shared.EventType event_types = 3;
+  repeated shared.RuntimeFunctionDefinition function_definitions = 3;
+  repeated shared.DefintionDataType data_tyoes = 4;
+  repeated shared.FlowType flow_types = 5;
+  
   // Application Configuration
-  repeated ActionConfiguration action_configurations = 4;
+  repeated ActionConfiguration action_configurations = 6;
 }
 
 message ActionConfiguration {
