@@ -26,7 +26,7 @@ message Configuration {
 
   // Flow Configuration
   repeated shared.RuntimeFunctionDefinition function_definitions = 3;
-  repeated shared.DefintionDataType data_tyoes = 4;
+  repeated shared.DefinitionDataType data_tyoes = 4;
   repeated shared.FlowType flow_types = 5;
   
   // Application Configuration
