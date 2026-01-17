@@ -66,7 +66,6 @@ services that Sagittarius must implement as a server.
 │   └── test_execution - Service and Types for the test execution
 └── shared
     ├── data_type - Defines types for data types
-    ├── event - Defines types for events
     ├── flow - Defines types for flows
     ├── flow_definition - Defines a definition for a Flow
     ├── runtime_function - Defines types for runtime functions
