@@ -25,6 +25,8 @@ message RuntimeFunctionDefinition {
   // Format: "major.minor.patch", e.g. "1.2.3"
   string version = 12;
   string display_icon = 13;
+  // Field will be set by an action distinguish an action function from a runtime function
+  optional string action_identifier = 14;
 }
 
 // Definition of a parameter used for execution
