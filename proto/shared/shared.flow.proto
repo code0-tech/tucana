@@ -55,7 +55,7 @@ message NodeValue {
   oneof value {
     shared.Value literal_value = 1;
     ReferenceValue reference_value = 2;
-    // Reference of the `database_id` field of message `NodeFunction`
+    // Reference to the `database_id` field of message `NodeFunction`
     int64 node_function_id = 3;
   }
 }
