@@ -22,7 +22,7 @@ message FlowType {
   // Format: "major.minor.patch", e.g. "1.2.3"
   string version = 11;
   string display_icon = 12;
-  // Field will be set by an action distinguish an action function from a runtime function
+  // Field will be set by an action to distinguish an action function from a runtime function
   optional string action_identifier = 13;
 }
 
