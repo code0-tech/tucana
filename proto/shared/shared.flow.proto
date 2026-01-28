@@ -37,7 +37,7 @@ message FlowSetting {
   // The database id from sagittarius
   int64 database_id = 1;
   string flow_setting_id = 2;
-  shared.Struct object = 3;
+  shared.Value value = 3;
 }
 
 message NodeFunction {
