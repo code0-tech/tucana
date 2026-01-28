@@ -25,6 +25,8 @@
     "protoc": "^33.0.0"
   },
   "files": [
+    "helpers/*.ts",
+    "helpers/*.js",
     "pb/*.ts",
     "pb/*.js",
     "index.js",
