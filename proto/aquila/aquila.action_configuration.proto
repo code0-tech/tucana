@@ -10,8 +10,8 @@ import "shared.action_configuration.proto";
 message ActionConfigurationUpdateRequest {
   // Name of the action
   string action_identifier = 1;
-  // List of action configuration that should be updated
-  repeated shared.ActionConfiguration action_configuration = 2;
+  // List of action configurations that should be updated
+  repeated shared.ActionConfiguration action_configurations = 2;
 }
 
 // Response of updating a action configuration
