@@ -46,9 +46,6 @@ message NodeFunction {
   string runtime_function_id = 2;
   repeated NodeParameter parameters = 3;
   optional int64 next_node_id = 4;
-  // Identifier of the action that can execute this function
-  // If not present it should be a runtime function
-  optional string definition_source = 5;
 }
 
 message NodeValue {
