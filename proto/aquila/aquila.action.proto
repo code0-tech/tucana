@@ -44,7 +44,7 @@ message TransferRequest {
     // Identification of the action
     //
     // Expected behavior:
-    // Aquila will abort if the first request is not a ActionLogon
+    // Aquila will abort if the first request is not an ActionLogon
     ActionLogon logon = 1;
     // Event that got admitted
     Event event = 2;
