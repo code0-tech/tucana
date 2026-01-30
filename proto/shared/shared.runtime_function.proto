@@ -26,7 +26,7 @@ message RuntimeFunctionDefinition {
   string version = 12;
   string display_icon = 13;
   // Field will be set by an action to distinguish an action function from a runtime function
-  optional string action_identifier = 14;
+  optional string definition_source = 14;
 }
 
 // Definition of a parameter used for execution

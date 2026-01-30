@@ -38,7 +38,7 @@ message DefinitionDataType {
   // Format: "major.minor.patch", e.g. "1.2.3"
   string version = 8;
   // Field will be set by an action to distinguish an action function from a runtime function
-  optional string action_identifier = 9;
+  optional string definition_source = 9;
 }
 
 message ExecutionDataType {
