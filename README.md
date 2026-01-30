@@ -47,7 +47,8 @@ services that Sagittarius must implement as a server.
 ```ascii-tree
 .
 ├── aquila
-│   ├── action - Action service (emits events, manages configs, and handles executions)
+│   ├── action - Action service (emits events, and handles executions)
+│   ├── action_configuration - ActionConfiguration service 
 │   ├── data_type - DataType service
 │   ├── execution - Execution service (handles internal execution calls)
 │   ├── flow_definition - FlowType service (handles flow_type updates)
@@ -55,7 +56,7 @@ services that Sagittarius must implement as a server.
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
 │   └── runtime_usage - Service for runtime usage (handles execution time of a flow)
 ├── sagittarius
-│   ├── action - Action service (manages logon/logoff requests for action configurations)
+│   ├── action_configuration - ActionConfiguration service 
 │   ├── data_type - DataType service
 │   ├── flow - Flow service (handles flow updates)
 │   ├── flow_type - FlowType service (handles flow_type updates)
@@ -65,6 +66,7 @@ services that Sagittarius must implement as a server.
 │   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
 │   └── test_execution - Service and Types for the test execution
 └── shared
+    ├── action_configuration - Defines types for action configuration
     ├── data_type - Defines types for data types
     ├── flow - Defines types for flows
     ├── flow_definition - Defines a definition for a Flow
