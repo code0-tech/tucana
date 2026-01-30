@@ -4,7 +4,7 @@ option ruby_package = "Tucana::Sagittarius";
 
 package sagittarius;
 
-import "shared.action_identifier.proto";
+import "shared.action_configuration.proto";
 
 // Request for updating a action configuration
 message ActionConfigurationUpdateRequest {

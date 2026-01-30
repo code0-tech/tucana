@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-option ruby_package = "Tucana::Sagittarius";
+option ruby_package = "Tucana::Aquila";
 
-package sagittarius;
+package aquila;
 
-import "shared.action_identifier.proto";
+import "shared.action_configuration.proto";
 
 // Request for updating a action configuration
 message ActionConfigurationUpdateRequest {

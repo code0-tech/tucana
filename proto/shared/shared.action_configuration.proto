@@ -4,6 +4,10 @@ package shared;
 
 option ruby_package = "Tucana::Shared";
 
+import "shared.data_type.proto";
+import "shared.struct.proto";
+import "shared.translation.proto";
+
 message ActionConfiguration {
   repeated shared.Translation name = 1;
   repeated shared.Translation description = 2;
