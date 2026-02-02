@@ -46,6 +46,7 @@ message NodeFunction {
   string runtime_function_id = 2;
   repeated NodeParameter parameters = 3;
   optional int64 next_node_id = 4;
+  string definition_source = 5;
 }
 
 message NodeValue {
