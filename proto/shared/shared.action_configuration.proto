@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package shared;
+
+option ruby_package = "Tucana::Shared";
+
+import "shared.data_type.proto";
+import "shared.struct.proto";
+import "shared.translation.proto";
+
+message ActionConfiguration {
+  repeated shared.Translation name = 1;
+  repeated shared.Translation description = 2;
+  shared.DefinitionDataType type = 3;
+  optional shared.Value default_value = 4;
+}
