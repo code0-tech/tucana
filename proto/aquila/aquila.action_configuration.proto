@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Aquila";
+
+package aquila;
+
+import "shared.action_configuration.proto";
+
+// Request for updating a action configuration
+message ActionConfigurationUpdateRequest {
+  // Name of the action
+  string action_identifier = 1;
+  // List of action configurations that should be updated
+  repeated shared.ActionConfiguration action_configurations = 2;
+}
+
+// Response of updating a action configuration
+message ActionConfigurationUpdateResponse {
+  // True if was successful, false if not
+  bool success = 1;
+}
+
+service ActionConfigurationService {
+  rpc Update(ActionConfigurationUpdateRequest) returns (ActionConfigurationUpdateResponse) {}
+}
