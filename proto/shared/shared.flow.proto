@@ -66,9 +66,24 @@ message NodeParameter {
 }
 
 message ReferenceValue {
-  // Database Identifier of node
+  oneof target {
+    // Ref Value points to flow input
+    int64 flow_input = 1; 
+    // Ref Value points to a Result of a node, the int is the id of the node
+    int64 result = 2;
+    // Points to Value that is contained inside of a node 
+    InputType input_type = 3;
+  }
+  repeated ReferencePath paths = 4;
+}
+
+message InputType {
+  // Id of the node 
   int64 node_id = 1;
-  repeated ReferencePath paths = 2;
+  // Index of the parameter inside the function
+  int64 paramter_id = 2;
+  // Index of the input type of the data type
+  int64 input_id = 3;
 }
 
 message ReferencePath {
