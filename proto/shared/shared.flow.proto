@@ -81,7 +81,7 @@ message InputType {
   // Id of the node 
   int64 node_id = 1;
   // Index of the parameter inside the function
-  int64 paramter_id = 2;
+  int64 parameter_id = 2;
   // Index of the input type of the data type
   int64 input_id = 3;
 }
