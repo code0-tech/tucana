@@ -15,14 +15,15 @@ message ValidationFlow {
   string type = 3;
   // All custom data types used in this flow
   repeated shared.ExecutionDataType data_types = 4;
+  repeated shared.DataTypeIdentifier data_type_identifier = 5;
   // These reference data_types by its identifiers, which is are string
-  optional string input_type_identifier = 5;
-  optional string return_type_identifier = 6;
-  repeated FlowSetting settings = 7;
-  int64 starting_node_id = 8;
-  repeated NodeFunction node_functions = 9;
-  string project_slug = 10;
-  optional string disable_reason = 11;
+  optional string input_type_identifier = 6;
+  optional string return_type_identifier = 7;
+  repeated FlowSetting settings = 8;
+  int64 starting_node_id = 9;
+  repeated NodeFunction node_functions = 10;
+  string project_slug = 11;
+  optional string disable_reason = 12;
 }
 
 message ExecutionFlow {
