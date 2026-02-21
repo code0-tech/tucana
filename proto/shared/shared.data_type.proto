@@ -50,21 +50,21 @@ message ExecutionDataType {
 
 message DefinitionDataTypeRule {
   oneof config {
-    DefinitionDataTypeContainsKeyRuleConfig contains_key = 1;
-    DefinitionDataTypeContainsTypeRuleConfig contains_type = 2;
+    DataTypeContainsKeyRuleConfig contains_key = 1;
+    DataTypeContainsTypeRuleConfig contains_type = 2;
     DataTypeItemOfCollectionRuleConfig item_of_collection = 3;
     DataTypeNumberRangeRuleConfig number_range = 4;
     DataTypeRegexRuleConfig regex = 5;
-    DefinitionDataTypeInputTypesRuleConfig input_types = 6;
-    DefinitionDataTypeReturnTypeRuleConfig return_type = 7;
-    DefinitionDataTypeParentTypeRuleConfig parent_type = 8;
+    DataTypeInputTypesRuleConfig input_types = 6;
+    DataTypeReturnTypeRuleConfig return_type = 7;
+    DataTypeParentTypeRuleConfig parent_type = 8;
   }
 }
 
 message ExecutionDataTypeRule {
   oneof config {
-    ExecutionDataTypeContainsKeyRuleConfig contains_key = 1;
-    ExecutionDataTypeContainsTypeRuleConfig contains_type = 2;
+    DataTypeContainsKeyRuleConfig contains_key = 1;
+    DataTypeContainsTypeRuleConfig contains_type = 2;
     DataTypeItemOfCollectionRuleConfig item_of_collection = 3;
     DataTypeNumberRangeRuleConfig number_range = 4;
     DataTypeRegexRuleConfig regex = 5;
@@ -72,28 +72,19 @@ message ExecutionDataTypeRule {
 }
 
 // Rule for defining the data type parent type
-message DefinitionDataTypeParentTypeRuleConfig {
+message DataTypeParentTypeRuleConfig {
     DataTypeIdentifier parent_type = 1;
 }
 
 // Rule to check that the given key is contained in the given object
-message DefinitionDataTypeContainsKeyRuleConfig {
+message DataTypeContainsKeyRuleConfig {
   string key = 1;
   DataTypeIdentifier data_type_identifier = 2;
 }
 
-message ExecutionDataTypeContainsKeyRuleConfig {
-  string key = 1;
-  string data_type_identifier = 2;
-}
-
 // Rule to check that the given type is contained in the given array
-message DefinitionDataTypeContainsTypeRuleConfig {
+message DataTypeContainsTypeRuleConfig {
   DataTypeIdentifier data_type_identifier = 1;
-}
-
-message ExecutionDataTypeContainsTypeRuleConfig {
-  string data_type_identifier = 1;
 }
 
 // Rule to check that the given item is contained inside the array of items
@@ -113,7 +104,7 @@ message DataTypeRegexRuleConfig {
     string pattern = 1;
 }
 
-message DefinitionDataTypeInputTypesRuleConfig {
+message DataTypeInputTypesRuleConfig {
   message DataTypeInputType {
     DataTypeIdentifier data_type_identifier = 1;
     string input_identifier = 2;
@@ -122,7 +113,7 @@ message DefinitionDataTypeInputTypesRuleConfig {
   repeated DataTypeInputType input_types = 1;
 }
 
-message DefinitionDataTypeReturnTypeRuleConfig {
+message DataTypeReturnTypeRuleConfig {
   DataTypeIdentifier data_type_identifier = 1;
 }
 
