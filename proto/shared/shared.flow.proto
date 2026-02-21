@@ -68,7 +68,7 @@ message NodeParameter {
 message ReferenceValue {
   oneof target {
     // Ref Value points to flow input
-    int64 flow_input = 1; 
+    FlowInput flow_input = 1; 
     // Ref Value points to a Result of a node, the int is the id of the node
     int64 result = 2;
     // Points to Value that is contained inside of a node 
@@ -76,6 +76,8 @@ message ReferenceValue {
   }
   repeated ReferencePath paths = 4;
 }
+
+message FlowInput {}
 
 message InputType {
   // Id of the node 
