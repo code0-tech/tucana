@@ -1,7 +1,7 @@
 use crate::shared::{
+    DataTypeContainsKeyRuleConfig, DataTypeContainsTypeRuleConfig, DataTypeIdentifier,
     DataTypeItemOfCollectionRuleConfig, DataTypeNumberRangeRuleConfig, DataTypeRegexRuleConfig,
-    ExecutionDataTypeContainsKeyRuleConfig, ExecutionDataTypeContainsTypeRuleConfig,
-    ExecutionDataTypeRule, Value, execution_data_type_rule::Config,
+    ExecutionDataTypeRule, Value, data_type_identifier::Type, execution_data_type_rule::Config,
 };
 
 pub struct RuleBuilder {
@@ -15,23 +15,23 @@ impl RuleBuilder {
 
     pub fn add_contains_key(mut self, key: String, data_type_identifier: &str) -> Self {
         self.rules.push(ExecutionDataTypeRule {
-            config: Some(Config::ContainsKey(
-                ExecutionDataTypeContainsKeyRuleConfig {
-                    key,
-                    data_type_identifier: data_type_identifier.to_string(),
-                },
-            )),
+            config: Some(Config::ContainsKey(DataTypeContainsKeyRuleConfig {
+                key,
+                data_type_identifier: Some(DataTypeIdentifier {
+                    r#type: Some(Type::DataTypeIdentifier(data_type_identifier.to_string())),
+                }),
+            })),
         });
         self
     }
 
     pub fn add_contains_type(mut self, data_type_identifier: &str) -> Self {
         self.rules.push(ExecutionDataTypeRule {
-            config: Some(Config::ContainsType(
-                ExecutionDataTypeContainsTypeRuleConfig {
-                    data_type_identifier: data_type_identifier.to_string(),
-                },
-            )),
+            config: Some(Config::ContainsType(DataTypeContainsTypeRuleConfig {
+                data_type_identifier: Some(DataTypeIdentifier {
+                    r#type: Some(Type::DataTypeIdentifier(data_type_identifier.to_string())),
+                }),
+            })),
         });
         self
     }
@@ -83,7 +83,12 @@ mod tests {
         match &rules[0].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, String::from("User"));
+                assert_eq!(
+                    cfg.data_type_identifier,
+                    Some(DataTypeIdentifier {
+                        r#type: Some(Type::DataTypeIdentifier(String::from("User"))),
+                    }),
+                );
             }
             _ => panic!("Expected ContainsKey config"),
         }
@@ -95,7 +100,12 @@ mod tests {
 
         match &rules[0].config {
             Some(Config::ContainsType(cfg)) => {
-                assert_eq!(cfg.data_type_identifier, String::from("User"));
+                assert_eq!(
+                    cfg.data_type_identifier,
+                    Some(DataTypeIdentifier {
+                        r#type: Some(Type::DataTypeIdentifier(String::from("User"))),
+                    }),
+                );
             }
             _ => panic!("Expected ContainsType config"),
         }
@@ -153,7 +163,12 @@ mod tests {
         match &rules[0].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, String::from("User"));
+                assert_eq!(
+                    cfg.data_type_identifier,
+                    Some(DataTypeIdentifier {
+                        r#type: Some(Type::DataTypeIdentifier(String::from("User"))),
+                    })
+                );
             }
             _ => panic!("Expected ContainsKey config"),
         }
@@ -168,7 +183,12 @@ mod tests {
         match &rules[2].config {
             Some(Config::ContainsKey(cfg)) => {
                 assert_eq!(cfg.key, "id");
-                assert_eq!(cfg.data_type_identifier, String::from("User"));
+                assert_eq!(
+                    cfg.data_type_identifier,
+                    Some(DataTypeIdentifier {
+                        r#type: Some(Type::DataTypeIdentifier(String::from("User"))),
+                    })
+                );
             }
             _ => panic!("Expected ContainsKey config"),
         }
