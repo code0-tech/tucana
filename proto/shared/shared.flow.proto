@@ -16,8 +16,8 @@ message ValidationFlow {
   // All custom data types used in this flow
   repeated shared.ExecutionDataType data_types = 4;
   // These reference data_types by its identifiers, which is are string
-  optional string input_type_identifier = 5;
-  optional string return_type_identifier = 6;
+  optional shared.DataTypeIdentifier input_type = 5;
+  optional shared.DataTypeIdentifier return_type = 6;
   repeated FlowSetting settings = 7;
   int64 starting_node_id = 8;
   repeated NodeFunction node_functions = 9;

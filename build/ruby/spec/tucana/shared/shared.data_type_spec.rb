@@ -72,7 +72,7 @@ RSpec.describe Tucana::Shared::DefinitionDataTypeRule do
       it 'sets the contains_key field' do
         config = { key: 'test_key', data_type_identifier: { data_type_identifier: 'test_type' } }
         rule = described_class.create(:contains_key, config)
-        expect(rule.contains_key).to be_a(Tucana::Shared::DefinitionDataTypeContainsKeyRuleConfig)
+        expect(rule.contains_key).to be_a(Tucana::Shared::DataTypeContainsKeyRuleConfig)
       end
     end
 
@@ -80,7 +80,7 @@ RSpec.describe Tucana::Shared::DefinitionDataTypeRule do
       it 'sets the contains_type field' do
         config = { data_type_identifier: { data_type_identifier: 'test_type' } }
         rule = described_class.create(:contains_type, config)
-        expect(rule.contains_type).to be_a(Tucana::Shared::DefinitionDataTypeContainsTypeRuleConfig)
+        expect(rule.contains_type).to be_a(Tucana::Shared::DataTypeContainsTypeRuleConfig)
       end
     end
 
@@ -113,7 +113,7 @@ RSpec.describe Tucana::Shared::DefinitionDataTypeRule do
         config = { input_types: [{ data_type_identifier: { data_type_identifier: 'test_type' },
                                    input_identifier: 'test_input' }] }
         rule = described_class.create(:input_types, config)
-        expect(rule.input_types).to be_a(Tucana::Shared::DefinitionDataTypeInputTypesRuleConfig)
+        expect(rule.input_types).to be_a(Tucana::Shared::DataTypeInputTypesRuleConfig)
       end
     end
 
@@ -121,7 +121,7 @@ RSpec.describe Tucana::Shared::DefinitionDataTypeRule do
       it 'sets the return_type field' do
         config = { data_type_identifier: { data_type_identifier: 'test_type' } }
         rule = described_class.create(:return_type, config)
-        expect(rule.return_type).to be_a(Tucana::Shared::DefinitionDataTypeReturnTypeRuleConfig)
+        expect(rule.return_type).to be_a(Tucana::Shared::DataTypeReturnTypeRuleConfig)
       end
     end
 
@@ -129,7 +129,7 @@ RSpec.describe Tucana::Shared::DefinitionDataTypeRule do
       it 'sets the parent_type field' do
         config = { parent_type: { data_type_identifier: 'test_type' } }
         rule = described_class.create(:parent_type, config)
-        expect(rule.parent_type).to be_a(Tucana::Shared::DefinitionDataTypeParentTypeRuleConfig)
+        expect(rule.parent_type).to be_a(Tucana::Shared::DataTypeParentTypeRuleConfig)
       end
     end
 
