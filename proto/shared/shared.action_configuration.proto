@@ -21,7 +21,7 @@ message ActionConfigurations {
 }
 
 // Message sent by the Action to define a configuration
-message ActionConfigurationDefinition { 
+message ActionConfigurationDefinition {
   repeated shared.Translation name = 1;
   repeated shared.Translation description = 2;
   shared.DefinitionDataType type = 3;
