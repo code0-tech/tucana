@@ -11,7 +11,7 @@ message ActionConfigurationUpdateRequest {
   // Name of the action
   string action_identifier = 1;
   // List of action configurations that should be updated
-  repeated shared.ActionConfiguration action_configurations = 2;
+  repeated shared.ActionConfigurationDefinition action_configurations = 2;
 }
 
 // Response of updating a action configuration
