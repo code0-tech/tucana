@@ -5,6 +5,7 @@ option ruby_package = "Tucana::Sagittarius";
 package sagittarius;
 
 import "shared.flow.proto";
+import "shared.action_configuration.proto";
 
 //Aquila sends a request to initialise stream to Sagittarius
 message FlowLogonRequest {
@@ -19,6 +20,8 @@ message FlowResponse {
     int64 deleted_flow_id = 2;
     // Replaces all flows in Aquila (only on startup and for releases)
     shared.Flows flows = 3;
+    // ActionConfigurations that have been configured by the user 
+    shared.ActionConfigurations action_configurations = 4;
   }
 }
 

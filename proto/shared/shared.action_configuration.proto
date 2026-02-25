@@ -8,9 +8,23 @@ import "shared.data_type.proto";
 import "shared.struct.proto";
 import "shared.translation.proto";
 
+// Message sent by Sagittarius to inform the Action about an ActionConfiguration value
 message ActionConfiguration {
+  string identifier = 1;
+  int64 project_id = 2;
+  shared.Value value = 3;
+}
+
+// Wrapper message containing a collection of ActionConfiguration instances
+message ActionConfigurations {
+  repeated ActionConfiguration action_configurations = 1;
+}
+
+// Message sent by the Action to define a configuration
+message ActionConfigurationDefinition {
   repeated shared.Translation name = 1;
   repeated shared.Translation description = 2;
   shared.DefinitionDataType type = 3;
   optional shared.Value default_value = 4;
+  string identifier = 5;
 }
