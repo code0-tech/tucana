@@ -28,4 +28,3 @@ message ActionConfigurationDefinition {
   optional shared.Value default_value = 4;
   string identifier = 5;
 }
-
