@@ -15,6 +15,7 @@ message ActionConfiguration {
   shared.Value value = 3;
 }
 
+// Wrapper message containing a collection of ActionConfiguration instances
 message ActionConfigurations {
   repeated ActionConfiguration action_configurations = 1;
 }
