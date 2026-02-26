@@ -58,7 +58,7 @@ message TransferResponse {
   oneof data {
     // Execution request
     ExecutionRequest execution = 1;
-    // ActionConfigurations that have been configured by the user 
+    // ActionConfigurations that have been configured by the user
     shared.ActionConfigurations action_configurations = 2;
   }
 }
