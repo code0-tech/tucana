@@ -13,23 +13,23 @@ import "shared.translation.proto";
 message DefinitionDataType {
 
   // Unique identifier of the data type
-  string identifier = 2;
-  repeated Translation name = 3;
-  repeated Translation display_message = 4;
-  repeated Translation alias = 5;
+  string identifier = 1;
+  repeated Translation name = 2;
+  repeated Translation display_message = 3;
+  repeated Translation alias = 4;
   // Rules of the data type (e.g. Regex, contains...)
-  repeated DefinitionDataTypeRule rules = 6;
+  repeated DefinitionDataTypeRule rules = 5;
   // List of generic keys
-  repeated string generic_keys = 7;
+  repeated string generic_keys = 6;
   //the typescript signature representing this data type
-  string signature = 8;
+  string signature = 7;
   //will be used if the signature includes other data types that aren't TS standard
-  repeated string linked_data_type_identifiers = 9;
+  repeated string linked_data_type_identifiers = 8;
   // Version of the data type
   // Format: "major.minor.patch", e.g. "1.2.3"
-  string version = 10;
+  string version = 9;
   // Identifier of the service that defines this definition
-  string definition_source = 11;
+  string definition_source = 10;
 }
 
 message ExecutionDataType {
