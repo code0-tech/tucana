@@ -12,19 +12,7 @@ import "shared.translation.proto";
     It could be as simple as a primitive but can be as complex as a structured object with rules
  */
 message DefinitionDataType {
-  enum Variant {
-    UNKNOWN = 0;
-    PRIMITIVE = 1;
-    TYPE = 2;
-    OBJECT = 3;
-    DATATYPE = 4;
-    ARRAY = 5;
-    ERROR = 6;
-    NODE = 7;
-  }
 
-  // Variant of the data type
-  Variant variant = 1;
   // Unique identifier of the data type
   string identifier = 2;
   repeated Translation name = 3;
@@ -34,120 +22,46 @@ message DefinitionDataType {
   repeated DefinitionDataTypeRule rules = 6;
   // List of generic keys
   repeated string generic_keys = 7;
+  //the typescript signature representing this data type
+  string signature = 8;
+  //will be used if the signature includes other data types that aren't TS standard
+  repeated string linked_data_type_identifiers = 9;
   // Version of the data type
   // Format: "major.minor.patch", e.g. "1.2.3"
-  string version = 8;
+  string version = 10;
   // Identifier of the service that defines this definition
-  optional string definition_source = 9;
+  string definition_source = 11;
 }
 
 message ExecutionDataType {
   // Unique identifier of the data type
   string identifier = 1;
-  // Rules of the data type (e.g. Regex, contains...)
+  // Rules of the data type (e.g. Regex, Number_Range...)
   repeated ExecutionDataTypeRule rules = 2;
 }
 
 message DefinitionDataTypeRule {
   oneof config {
-    DataTypeContainsKeyRuleConfig contains_key = 1;
-    DataTypeContainsTypeRuleConfig contains_type = 2;
-    DataTypeItemOfCollectionRuleConfig item_of_collection = 3;
-    DataTypeNumberRangeRuleConfig number_range = 4;
-    DataTypeRegexRuleConfig regex = 5;
-    DataTypeInputTypesRuleConfig input_types = 6;
-    DataTypeReturnTypeRuleConfig return_type = 7;
-    DataTypeParentTypeRuleConfig parent_type = 8;
+    DataTypeNumberRangeRuleConfig number_range = 1;
+    DataTypeRegexRuleConfig regex = 2;
   }
 }
 
 message ExecutionDataTypeRule {
   oneof config {
-    DataTypeContainsKeyRuleConfig contains_key = 1;
-    DataTypeContainsTypeRuleConfig contains_type = 2;
-    DataTypeItemOfCollectionRuleConfig item_of_collection = 3;
-    DataTypeNumberRangeRuleConfig number_range = 4;
-    DataTypeRegexRuleConfig regex = 5;
+    DataTypeNumberRangeRuleConfig number_range = 1;
+    DataTypeRegexRuleConfig regex = 2;
   }
-}
-
-// Rule for defining the data type parent type
-message DataTypeParentTypeRuleConfig {
-    DataTypeIdentifier parent_type = 1;
-}
-
-// Rule to check that the given key is contained in the given object
-message DataTypeContainsKeyRuleConfig {
-  string key = 1;
-  DataTypeIdentifier data_type_identifier = 2;
-}
-
-// Rule to check that the given type is contained in the given array
-message DataTypeContainsTypeRuleConfig {
-  DataTypeIdentifier data_type_identifier = 1;
-}
-
-// Rule to check that the given item is contained inside the array of items
-message DataTypeItemOfCollectionRuleConfig {
-    repeated shared.Value items = 1;
 }
 
 // Rule to check that the given number is contained inside the range of numbers
 message DataTypeNumberRangeRuleConfig {
-    int64 from = 1;
-    int64 to = 2;
-    optional int64 steps = 3;
+  int64 from = 1;
+  int64 to = 2;
+  optional int64 steps = 3;
 }
 
 // Rule to check that the given string matches the given regex pattern
 message DataTypeRegexRuleConfig {
-    string pattern = 1;
-}
-
-message DataTypeInputTypesRuleConfig {
-  message DataTypeInputType {
-    DataTypeIdentifier data_type_identifier = 1;
-    string input_identifier = 2;
-  }
-
-  repeated DataTypeInputType input_types = 1;
-}
-
-message DataTypeReturnTypeRuleConfig {
-  DataTypeIdentifier data_type_identifier = 1;
-}
-
-message DataTypeIdentifier {
-  oneof type {
-    // Points to a data type without generic keys
-    string data_type_identifier = 1;
-    // Points to a data type with generic keys
-    GenericType generic_type = 2;
-    // Points to a generic key in the current function
-    string generic_key = 3;
-  }
-}
-
-message GenericType {
-  // References a data type by its identifier
-  string data_type_identifier = 1;
-  repeated GenericMapper generic_mappers = 2;
-}
-
-// target get mapped to source
-message GenericMapper {
-  // Strategy to combine generic keys
-  enum GenericCombinationStrategy {
-    UNKNOWN = 0;
-    AND = 1;
-    OR = 2;
-  }
-
-  // can point to another generic or to a resolved data type
-  // Assigns source to this source
-  repeated DataTypeIdentifier source = 1;
-  // can only be a generic key for example: 'T', 'V'
-  string target = 2;
-
-  repeated GenericCombinationStrategy generic_combinations = 3;
+  string pattern = 1;
 }
