@@ -4,7 +4,6 @@ option ruby_package = "Tucana::Shared";
 
 package shared;
 
-import "shared.struct.proto";
 import "shared.translation.proto";
 
 /*
