@@ -4,6 +4,7 @@ option ruby_package = "Tucana::Aquila";
 
 package aquila;
 
+import "shared.action_configuration.proto";
 import "shared.struct.proto";
 
 // Event that gets admitted by an action
@@ -54,8 +55,12 @@ message TransferRequest {
 }
 
 message TransferResponse {
-  // Execution request
-  ExecutionRequest execution = 1;
+  oneof data {
+    // Execution request
+    ExecutionRequest execution = 1;
+    // ActionConfigurations that have been configured by the user
+    shared.ActionConfigurations action_configurations = 2;
+  }
 }
 
 service ActionTransferService {
