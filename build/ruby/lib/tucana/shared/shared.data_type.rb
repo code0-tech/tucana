@@ -12,22 +12,10 @@ module Tucana
 
       def rule_config
         case variant
-        when :contains_key
-          self.contains_key
-        when :contains_type
-          self.contains_type
-        when :item_of_collection
-          self.item_of_collection
         when :number_range
           self.number_range
         when :regex
           self.regex
-        when :input_types
-          self.input_types
-        when :return_type
-          self.return_type
-        when :parent_type
-          self.parent_type
         else
           raise UnexpectedRuleType, "Unknown rule type #{variant}"
         end
@@ -35,22 +23,10 @@ module Tucana
 
       def create(variant, config)
         case variant
-        when :contains_key
-          self.contains_key = DataTypeContainsKeyRuleConfig.new(config)
-        when :contains_type
-          self.contains_type = DataTypeContainsTypeRuleConfig.new(config)
-        when :item_of_collection
-          self.item_of_collection = DataTypeItemOfCollectionRuleConfig.from_hash(config)
         when :number_range
           self.number_range = DataTypeNumberRangeRuleConfig.new(config)
         when :regex
           self.regex = DataTypeRegexRuleConfig.new(config)
-        when :input_types
-          self.input_types = DataTypeInputTypesRuleConfig.new(config)
-        when :return_type
-          self.return_type = DataTypeReturnTypeRuleConfig.new(config)
-        when :parent_type
-          self.parent_type = DataTypeParentTypeRuleConfig.from_hash(config)
         else
           raise UnexpectedRuleType, "Unknown rule type #{variant}"
         end
@@ -60,46 +36,6 @@ module Tucana
 
       def self.create(variant, config)
         new.create(variant, config)
-      end
-    end
-
-    DataTypeContainsKeyRuleConfig.class_eval do
-      def to_h
-        {
-          key: self.key,
-          data_type_identifier: self.data_type_identifier.to_h,
-        }
-      end
-
-      def self.from_hash(config)
-        new(
-          key: config[:key],
-          data_type_identifier: DataTypeIdentifier.from_hash(config[:data_type_identifier])
-        )
-      end
-    end
-
-    DataTypeContainsTypeRuleConfig.class_eval do
-      def to_h
-        {
-          data_type_identifier: self.data_type_identifier.to_h,
-        }
-      end
-
-      def self.from_hash(config)
-        new(data_type_identifier: DataTypeIdentifier.from_hash(config[:data_type_identifier]))
-      end
-    end
-
-    DataTypeItemOfCollectionRuleConfig.class_eval do
-      def to_h
-        {
-          items: self.items.map { |item| item.to_ruby(true) },
-        }
-      end
-
-      def self.from_hash(hash)
-        new(items: hash.fetch(:items).map { |item| Value.from_ruby(item) })
       end
     end
 
@@ -118,155 +54,6 @@ module Tucana
         {
           pattern: self.pattern,
         }
-      end
-    end
-
-    DataTypeInputTypesRuleConfig.class_eval do
-      def to_h
-        {
-          input_types: self.input_types.map { |input_type| input_type.to_h }
-        }
-      end
-
-      def self.from_hash(hash)
-        new(
-          input_types: hash.fetch(:input_types).map { |input_type| DataTypeInputType.from_hash(input_type) }
-        )
-      end
-    end
-
-    DataTypeInputTypesRuleConfig::DataTypeInputType.class_eval do
-      def to_h
-        {
-          data_type_identifier: self.data_type_identifier,
-          input_identifier: self.input_identifier,
-        }
-      end
-
-      def self.from_hash(config)
-        new(
-          input_identifier: config[:input_identifier],
-          data_type_identifier: DataTypeIdentifier.from_hash(config[:data_type_identifier])
-        )
-      end
-    end
-
-    DataTypeReturnTypeRuleConfig.class_eval do
-      def to_h
-        {
-          data_type_identifier: self.data_type_identifier,
-        }
-      end
-
-      def self.from_hash(config)
-        new(data_type_identifier: DataTypeIdentifier.from_hash(config[:data_type_identifier]))
-      end
-    end
-
-    DataTypeParentTypeRuleConfig.class_eval do
-      def to_h
-        {
-          parent_type: self.parent_type,
-        }
-      end
-
-      def self.from_hash(config)
-        new(parent_type: DataTypeIdentifier.from_hash(config[:parent_type]))
-      end
-    end
-
-    DataTypeIdentifier.class_eval do
-      def to_h
-        if !self.data_type_identifier.empty?
-          return { data_type_identifier: self.data_type_identifier }
-        elsif !self.generic_type.nil?
-          return { generic_type: self.generic_type.to_h }
-        elsif !self.generic_key.nil?
-          return { generic_key: self.generic_key }
-        end
-      end
-
-      def from_hash(config)
-        if config.keys.intersection([:data_type_identifier, :generic_type, :generic_key]).count > 1
-          raise UnexpectedType, "Cannot have more than one type"
-        end
-
-        if config.key?(:data_type_identifier)
-          self.data_type_identifier = config[:data_type_identifier]
-        elsif config.key?(:generic_type)
-          self.generic_type = GenericType.from_hash(config[:generic_type])
-        elsif config.key?(:generic_key)
-          self.generic_key = config[:generic_key]
-        else
-          raise UnexpectedType, "Unknown type"
-        end
-
-        self
-      end
-
-      def self.from_hash(config)
-        new.from_hash(config)
-      end
-    end
-
-    GenericType.class_eval do
-      def to_h
-        {
-          data_type_identifier: self.data_type_identifier,
-          generic_mappers: self.generic_mappers.map(&:to_h),
-        }
-      end
-
-      def from_hash(config)
-        if config.key?(:data_type_identifier)
-          self.data_type_identifier = config.fetch(:data_type_identifier)
-        end
-
-        if config.key?(:generic_mappers)
-          self.generic_mappers.clear
-          config[:generic_mappers].each do |mapper_config|
-            self.generic_mappers << GenericMapper.from_hash(mapper_config)
-          end
-        end
-
-        self
-      end
-
-      def self.from_hash(config)
-        new.from_hash(config)
-      end
-    end
-
-    GenericMapper.class_eval do
-      def to_h
-        {
-          target: self.target,
-          source: self.source.map(&:to_h),
-          generic_combinations: self.generic_combinations.map(&:to_h),
-        }
-      end
-
-      def from_hash(config)
-        self.target = config[:target]
-        if config.key?(:source)
-          self.source.clear
-          config[:source].each do |source|
-            self.source << DataTypeIdentifier.from_hash(source)
-          end
-        end
-        
-        if config.key?(:generic_combinations)
-          self.generic_combinations.clear
-          config[:generic_combinations].each do |combo|
-            self.generic_combinations << GenericMapper::GenericCombinationStrategy.resolve(combo)
-          end
-        end
-        
-        self
-      end
-
-      def self.from_hash(config)
-        new.from_hash(config)
       end
     end
   end
