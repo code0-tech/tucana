@@ -11,8 +11,10 @@ import "shared.struct.proto";
 message Event {
   // Id of Event type
   string event_type = 1;
+  // Project Id that this event is emitted for
+  int64 project_id = 2;
   // Payload (JSON) of event params
-  shared.Value payload = 2;
+  shared.Value payload = 3;
 }
 
 // Action flow/event configuration
@@ -20,6 +22,7 @@ message ActionLogon {
   // Action identifier
   string action_identifier = 1;
   string version = 2;
+  repeated shared.ActionConfigurationDefinition action_configurations = 3;
 }
 
 // Request to execute a request a flow
