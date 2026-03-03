@@ -11,31 +11,29 @@ import "shared.struct.proto";
 message RuntimeFunctionDefinition {
   string runtime_name = 1;
   repeated RuntimeParameterDefinition runtime_parameter_definitions = 2;
-  optional string return_type = 3;
+  string signature = 3;
   bool throws_error = 4;
-  repeated string generic_keys = 5;
-  repeated Translation name = 6;
-  repeated Translation description = 7;
-  repeated Translation documentation = 8;
-  repeated Translation deprecation_message = 9;
-  repeated Translation display_message = 10;
-  repeated Translation alias = 11;
+  repeated Translation name = 5;
+  repeated Translation description = 6;
+  repeated Translation documentation = 7;
+  repeated Translation deprecation_message = 8;
+  repeated Translation display_message = 9;
+  repeated Translation alias = 10;
   //will link to all data types used in return_type or within the parameters type
-  repeated string linked_data_type_identifiers = 12;
+  repeated string linked_data_type_identifiers = 11;
   // Version of the runtime function
   // Format: "major.minor.patch", e.g. "1.2.3"
-  string version = 13;
-  string display_icon = 14;
+  string version = 12;
+  string display_icon = 13;
   // Identifier of the service that defines this definition
-  string definition_source = 15;
+  string definition_source = 14;
 }
 
 // Definition of a parameter used for execution
 message RuntimeParameterDefinition {
-  string type = 1;
-  string runtime_name = 2;
-  optional shared.Value default_value = 3;
-  repeated Translation name = 4;
-  repeated Translation description = 5;
-  repeated Translation documentation = 6;
+  string runtime_name = 1;
+  optional shared.Value default_value = 2;
+  repeated Translation name = 3;
+  repeated Translation description = 4;
+  repeated Translation documentation = 5;
 }
