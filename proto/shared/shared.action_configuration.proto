@@ -11,13 +11,18 @@ import "shared.translation.proto";
 // Message sent by Sagittarius to inform the Action about an ActionConfiguration value
 message ActionConfiguration {
   string identifier = 1;
-  int64 project_id = 2;
-  shared.Value value = 3;
+  shared.Value value = 2;
 }
 
-// Wrapper message containing a collection of ActionConfiguration instances
+// Message representing a project configuration for an action
+message ActionProjectConfiguration {
+  int64 project_id = 1;
+  repeated ActionConfiguration action_configurations = 2;
+}
+
+// Wrapper message containing a collection of ActionProjectConfiguration instances
 message ActionConfigurations {
-  repeated ActionConfiguration action_configurations = 1;
+  repeated ActionProjectConfiguration action_configurations = 1;
 }
 
 // Message sent by the Action to define a configuration
