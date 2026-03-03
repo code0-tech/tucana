@@ -31,8 +31,9 @@ message RuntimeFunctionDefinition {
 
 // Definition of a parameter used for execution
 message RuntimeParameterDefinition {
-  optional shared.Value default_value = 1;
-  repeated Translation name = 2;
-  repeated Translation description = 3;
-  repeated Translation documentation = 4;
+  string runtime_name = 1;
+  optional shared.Value default_value = 2;
+  repeated Translation name = 3;
+  repeated Translation description = 4;
+  repeated Translation documentation = 5;
 }
