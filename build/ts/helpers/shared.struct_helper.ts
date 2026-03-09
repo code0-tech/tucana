@@ -2,6 +2,30 @@ import {Value} from "../pb/shared.struct_pb.js";
 
 type AllowedValue = null | number | string | boolean | Array<AllowedValue> | object;
 
+export function toAllowedValue(value: Value): AllowedValue {
+    switch (value.kind.oneofKind) {
+        case "nullValue":
+            return null;
+        case "numberValue":
+            return value.kind.numberValue;
+        case "stringValue":
+            return value.kind.stringValue;
+        case "boolValue":
+            return value.kind.boolValue;
+        case "listValue":
+            return value.kind.listValue.values.map(toAllowedValue);
+        case "structValue":
+            const obj: {[key: string]: AllowedValue} = {};
+            for (const [k, v] of Object.entries(value.kind.structValue.fields)) {
+                obj[k] = toAllowedValue(v);
+            }
+            return obj;
+        default:
+            throw new Error(`Unsupported Value kind: ${value.kind.oneofKind}`);
+    }
+}
+
+
 export function constructValue(value: AllowedValue): Value {
     if (value === null) {
         return {kind: {oneofKind: "nullValue", nullValue: 0}};
