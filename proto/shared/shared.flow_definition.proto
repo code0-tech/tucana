@@ -10,8 +10,8 @@ import "shared.struct.proto";
 message FlowType {
   string identifier = 1;
   repeated FlowTypeSetting settings = 2;
-  optional string input_type_identifier = 3;
-  optional string return_type_identifier = 4;
+  optional string input_type = 3;
+  optional string return_type = 4;
   bool editable = 5;
   repeated shared.Translation name = 6;
   repeated shared.Translation description = 7;
@@ -24,6 +24,7 @@ message FlowType {
   string display_icon = 12;
   // Identifier of the service that defines this definition
   optional string definition_source = 13;
+  repeated string linked_data_type_identifiers = 14;
 }
 
 message FlowTypeSetting {
@@ -35,8 +36,9 @@ message FlowTypeSetting {
 
   string identifier = 1;
   UniquenessScope unique = 2;
-  string data_type_identifier = 3;
+  string type = 3;
   optional shared.Value default_value = 4;
   repeated shared.Translation name = 5;
   repeated shared.Translation description = 6;
+  repeated string linked_data_type_identifiers = 7;
 }

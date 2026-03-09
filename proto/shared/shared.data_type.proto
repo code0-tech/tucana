@@ -22,7 +22,7 @@ message DefinitionDataType {
   // List of generic keys
   repeated string generic_keys = 6;
   //the typescript signature representing this data type
-  string signature = 7;
+  string type = 7;
   //will be used if the signature includes other data types that aren't TS standard
   repeated string linked_data_type_identifiers = 8;
   // Version of the data type
