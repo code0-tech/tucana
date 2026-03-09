@@ -29,7 +29,8 @@ message ActionConfigurations {
 message ActionConfigurationDefinition {
   repeated shared.Translation name = 1;
   repeated shared.Translation description = 2;
-  shared.DefinitionDataType type = 3;
+  string type = 3;
   optional shared.Value default_value = 4;
   string identifier = 5;
+  repeated string linked_data_type_identifiers = 6;
 }
