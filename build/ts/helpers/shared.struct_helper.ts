@@ -1,8 +1,8 @@
 import {Value} from "../pb/shared.struct_pb.js";
 
-type AllowedValue = null | number | string | boolean | Array<AllowedValue> | object;
+export type PlainValue = null | number | string | boolean | Array<PlainValue> | object;
 
-export function toAllowedValue(value: Value): AllowedValue {
+export function toAllowedValue(value: Value): PlainValue {
     switch (value.kind.oneofKind) {
         case "nullValue":
             return null;
@@ -15,7 +15,7 @@ export function toAllowedValue(value: Value): AllowedValue {
         case "listValue":
             return value.kind.listValue.values.map(toAllowedValue);
         case "structValue":
-            const obj: {[key: string]: AllowedValue} = {};
+            const obj: {[key: string]: PlainValue} = {};
             for (const [k, v] of Object.entries(value.kind.structValue.fields)) {
                 obj[k] = toAllowedValue(v);
             }
@@ -26,7 +26,7 @@ export function toAllowedValue(value: Value): AllowedValue {
 }
 
 
-export function constructValue(value: AllowedValue): Value {
+export function constructValue(value: PlainValue): Value {
     if (value === null) {
         return {kind: {oneofKind: "nullValue", nullValue: 0}};
     }
