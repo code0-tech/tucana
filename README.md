@@ -50,7 +50,6 @@ services that Sagittarius must implement as a server.
 │   ├── action - Action service (emits events, and handles executions)
 │   ├── action_configuration - ActionConfiguration service 
 │   ├── data_type - DataType service
-│   ├── execution - Execution service (handles internal execution calls)
 │   ├── flow_definition - FlowType service (handles flow_type updates)
 │   ├── runtime_function - Service for updating the runtime functions
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
