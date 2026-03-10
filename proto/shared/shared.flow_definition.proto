@@ -25,6 +25,7 @@ message FlowType {
   // Identifier of the service that defines this definition
   optional string definition_source = 13;
   repeated string linked_data_type_identifiers = 14;
+  optional string endpoint = 15; // e.g. /${project_slug}/${flow_setting_identifier}
 }
 
 message FlowTypeSetting {
