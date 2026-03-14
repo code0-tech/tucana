@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@protobuf-ts/plugin": "^2.11.1",
-    "protoc": "^33.0.0"
+    "protoc": "^34.0.0"
   },
   "files": [
     "helpers/*.ts",
