@@ -37,12 +37,20 @@ message ExecutionRequest {
   int64 project_id = 4;
 }
 
+message ActionRuntimeError {
+  string code = 1;
+  optional string description = 2;
+}
+
 // Result from executed flows by an action
 message ExecutionResult {
   // Identifier of flow to execute
   string execution_identifier = 1;
   // Result of executed flow
-  shared.Value result = 2;
+  oneof result {
+    shared.Value success = 2;
+    ActionRuntimeError error = 3;
+  }
 }
 
 message TransferRequest {
