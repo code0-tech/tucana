@@ -15,9 +15,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "generate:aquila": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript_es2020 --ts_out=pb --proto_path=../../proto/aquila --proto_path=../../proto/shared ../../proto/aquila/*.proto",
-    "generate:sagittarius": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript_es2020 --ts_out=pb --proto_path=../../proto/sagittarius --proto_path=../../proto/shared ../../proto/sagittarius/*.proto",
-    "generate:shared": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript_es2020 --ts_out=pb --proto_path=../../proto/shared ../../proto/shared/*.proto",
+    "generate:aquila": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/aquila --proto_path=../../proto/shared ../../proto/aquila/*.proto",
+    "generate:sagittarius": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/sagittarius --proto_path=../../proto/shared ../../proto/sagittarius/*.proto",
+    "generate:shared": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/shared ../../proto/shared/*.proto",
     "generate": "npm run generate:shared && npm run generate:sagittarius && npm run generate:aquila"
   },
   "devDependencies": {
@@ -25,13 +25,19 @@
     "protoc": "^34.0.0"
   },
   "files": [
-    "helpers/*.ts",
-    "helpers/*.js",
-    "pb/*.ts",
-    "pb/*.js",
+    "pb",
+    "helpers",
+    "index.ts",
     "index.js",
+    "index.d.ts",
     "package.json"
   ],
+  "types": "index.d.ts",
+  "exports": {
+    "./shared": "./pb/shared.js",
+    "./sagittarius": "./pb/sagittarius.js",
+    "./aquila": "./pb/aquila.js"
+  },
   "publishConfig": {
     "access": "public"
   }
