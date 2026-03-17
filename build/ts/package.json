@@ -34,9 +34,18 @@
   ],
   "types": "index.d.ts",
   "exports": {
-    "./shared": "./pb/shared.js",
-    "./sagittarius": "./pb/sagittarius.js",
-    "./aquila": "./pb/aquila.js"
+    ".": {
+      "import": "./index.js"
+    },
+    "./shared": {
+      "import": "./pb/shared.js"
+    },
+    "./aquila": {
+      "import": "./pb/aquila.js"
+    },
+    "./sagittarius": {
+      "import": "./pb/sagittarius.js"
+    }
   },
   "publishConfig": {
     "access": "public"
