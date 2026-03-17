@@ -16,4 +16,3 @@ export * from "./_generated/shared.struct_pb.d.js";
 export * from "./_generated/shared.struct_pb.js";
 export * from "./_generated/shared.translation_pb.d.js";
 export * from "./_generated/shared.translation_pb.js";
-export * from "../helpers/shared.struct_helper.js"
