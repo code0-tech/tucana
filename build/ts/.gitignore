@@ -1,3 +1,3 @@
 node_modules/
-pb/*
-!pb/.gitkeep
+pb/
+!pb/_generated/.gitkeep

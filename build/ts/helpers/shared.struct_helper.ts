@@ -1,4 +1,4 @@
-import {Value} from "../pb/shared.struct_pb.js";
+import {Value} from "../pb/shared";
 
 export type PlainValue = null | number | string | boolean | Array<PlainValue> | object;
 
