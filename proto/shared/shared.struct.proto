@@ -82,7 +82,7 @@ message Value {
 message NumberValue {
   oneof number {
     // Represents an integer value.
-    int integer = 1;
+    int64 integer = 1;
     // Represents a floating-point value.
     double float = 2;
   }
