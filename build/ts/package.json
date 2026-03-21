@@ -27,7 +27,8 @@
   "devDependencies": {
     "@protobuf-ts/plugin": "^2.11.1",
     "protoc": "^34.0.0",
-    "ts-morph": "^27.0.2"
+    "ts-morph": "^27.0.2",
+    "ts-node": "^10.9.2"
   },
   "files": [
     "pb",
