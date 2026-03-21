@@ -1,1 +1,1 @@
-export * from "./shared.struct_helper";
+export * from "./shared.struct_helper.js";
