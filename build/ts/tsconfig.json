@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": ["ES2017", "DOM"],
-    "module": "commonjs",
+    "module": "ESNext",
+    "declaration": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "strict": true,
   },
-  "include": ["helpers"]
+  "include": ["helpers", "pb/aquila.ts", "pb/shared.ts", "pb/sagittarius.ts"]
 }

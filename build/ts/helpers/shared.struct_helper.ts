@@ -1,8 +1,8 @@
 import {Value} from "../pb/shared";
 
-export type PlainValue = null | number | string | boolean | Array<PlainValue> | object;
+type PlainValue = null | number | string | boolean | Array<PlainValue> | object;
 
-export function toAllowedValue(value: Value): PlainValue {
+function toAllowedValue(value: Value): PlainValue {
     switch (value.kind.oneofKind) {
         case "nullValue":
             return null;
@@ -15,7 +15,7 @@ export function toAllowedValue(value: Value): PlainValue {
         case "listValue":
             return value.kind.listValue.values.map(toAllowedValue);
         case "structValue":
-            const obj: {[key: string]: PlainValue} = {};
+            const obj: { [key: string]: PlainValue } = {};
             for (const [k, v] of Object.entries(value.kind.structValue.fields)) {
                 obj[k] = toAllowedValue(v);
             }
@@ -26,7 +26,7 @@ export function toAllowedValue(value: Value): PlainValue {
 }
 
 
-export function constructValue(value: PlainValue): Value {
+function constructValue(value: PlainValue): Value {
     if (value === null) {
         return {kind: {oneofKind: "nullValue", nullValue: 0}};
     }
@@ -49,7 +49,7 @@ export function constructValue(value: PlainValue): Value {
         };
     }
     if (typeof value === "object") {
-        const structFields: {[key: string]: Value} = {};
+        const structFields: { [key: string]: Value } = {};
         for (const [k, v] of Object.entries(value)) {
             structFields[k] = constructValue(v);
         }
@@ -61,4 +61,10 @@ export function constructValue(value: PlainValue): Value {
         };
     }
     throw new Error(`Unsupported value type: ${typeof value}`);
+}
+
+export {
+    toAllowedValue,
+    constructValue,
+    PlainValue
 }
