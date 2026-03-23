@@ -65,7 +65,11 @@ module Tucana
         when :null_value
           nil
         when :number_value
-          self.number_value
+          if recursive
+            self.number_value.to_ruby
+          else
+            self.number_value
+          end
         when :string_value
           self.string_value
         when :bool_value
@@ -84,7 +88,7 @@ module Tucana
         when NilClass
           self.null_value = :NULL_VALUE
         when Numeric
-          self.number_value = value
+          self.number_value = NumberValue.from_ruby(value)
         when String
           self.string_value = value
         when TrueClass
@@ -99,6 +103,36 @@ module Tucana
           self.list_value = value
         when Array
           self.list_value = ListValue.from_a(value)
+        else
+          raise UnexpectedStructType
+        end
+
+        self
+      end
+    end
+
+    NumberValue.class_eval do
+      def to_ruby
+        case self.number
+        when :integer
+          self.integer
+        when :float
+          self.float
+        else
+          raise UnexpectedStructType
+        end
+      end
+
+      def self.from_ruby(value)
+        self.new.from_ruby(value)
+      end
+
+      def from_ruby(value)
+        case value
+        when Integer
+          self.integer = value
+        when Float
+          self.float = value
         else
           raise UnexpectedStructType
         end
