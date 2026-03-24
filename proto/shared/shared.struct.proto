@@ -62,8 +62,8 @@ message Value {
   oneof kind {
     // Represents a null value.
     NullValue null_value = 1;
-    // Represents a double value.
-    double number_value = 2;
+    // Represents a numberic value.
+    NumberValue number_value = 2;
     // Represents a string value.
     string string_value = 3;
     // Represents a boolean value.
@@ -72,6 +72,19 @@ message Value {
     Struct struct_value = 5;
     // Represents a repeated `Value`.
     ListValue list_value = 6;
+  }
+}
+
+// `NumberValue` represents a numeric value which can be either an
+// integer or a floating-point number.
+//
+// The JSON representation for `NumberValue` is JSON number.
+message NumberValue {
+  oneof number {
+    // Represents an integer value.
+    int64 integer = 1;
+    // Represents a floating-point value.
+    double float = 2;
   }
 }
 

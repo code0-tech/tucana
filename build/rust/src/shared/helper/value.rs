@@ -1,4 +1,4 @@
-use crate::shared::{ListValue, Struct, Value, value::Kind};
+use crate::shared::{ListValue, NumberValue, Struct, Value, value::Kind, number_value};
 use serde_json::{Number, Value as JsonValue};
 use std::collections::HashMap;
 
@@ -33,7 +33,11 @@ impl ToValue for bool {
 impl ToValue for i64 {
     fn to_value(&self) -> Value {
         Value {
-            kind: Some(Kind::NumberValue(self.to_owned() as f64)),
+            kind: Some(Kind::NumberValue(NumberValue {
+                number: Some(crate::shared::number_value::Number::Integer(
+                    self.to_owned(),
+                )),
+            })),
         }
     }
 }
@@ -41,7 +45,9 @@ impl ToValue for i64 {
 impl ToValue for f64 {
     fn to_value(&self) -> Value {
         Value {
-            kind: Some(Kind::NumberValue(self.to_owned())),
+            kind: Some(Kind::NumberValue(NumberValue {
+                number: Some(crate::shared::number_value::Number::Float(self.to_owned())),
+            })),
         }
     }
 }
@@ -83,11 +89,21 @@ pub fn from_json_value(value: JsonValue) -> Value {
         JsonValue::Null => Value {
             kind: Some(Kind::NullValue(0)),
         },
-        JsonValue::Bool(b) => Value {
-            kind: Some(Kind::BoolValue(b)),
-        },
+        JsonValue::Bool(b) =>b.to_value(),
         JsonValue::Number(n) => Value {
-            kind: Some(Kind::NumberValue(n.as_f64().unwrap_or_default())),
+            kind: Some(Kind::NumberValue(NumberValue {
+                number: Some(if let Some(i) = n.as_i64() {
+                    number_value::Number::Integer(i)
+                } else if let Some(u) = n.as_u64() {
+                    if u <= i64::MAX as u64 {
+                        number_value::Number::Integer(u as i64)
+                    } else {
+                        number_value::Number::Float(n.as_f64().unwrap_or_default())
+                    }
+                } else {
+                    number_value::Number::Float(n.as_f64().unwrap_or_default())
+                }),
+            })),
         },
         JsonValue::String(s) => Value {
             kind: Some(Kind::StringValue(s)),
@@ -114,15 +130,12 @@ pub fn to_json_value(value: Value) -> JsonValue {
         Some(Kind::NullValue(_)) => JsonValue::Null,
         Some(Kind::BoolValue(b)) => JsonValue::Bool(b),
         Some(Kind::NumberValue(n)) => {
-            // Try to preserve the original number format when possible
-            if n.fract() == 0.0 && n >= 0.0 && n <= i64::MAX as f64 {
-                // It's an integer within the range of i64
-                match Number::from(n as i64) {
-                    num => JsonValue::Number(num),
-                }
-            } else {
-                // It's a floating point or out of i64 range
-                JsonValue::Number(Number::from_f64(n).expect("Invalid number value"))
+            match n.number {
+                Some(number_value::Number::Integer(i)) => JsonValue::Number(Number::from(i)),
+                Some(number_value::Number::Float(f)) => JsonValue::Number(
+                    Number::from_f64(f).expect("Invalid number value"),
+                ),
+                None => JsonValue::Null,
             }
         }
         Some(Kind::StringValue(s)) => JsonValue::String(s),
@@ -167,7 +180,7 @@ mod tests {
         let json_val = json!(42);
         let val = from_json_value(json_val);
         if let Some(Kind::NumberValue(n)) = val.kind {
-            assert_eq!(n, 42.0);
+            assert_eq!(n.number, Some(number_value::Number::Integer(42)));
         } else {
             panic!("Expected NumberValue kind");
         }
@@ -253,7 +266,9 @@ mod tests {
     #[test]
     fn test_to_json_number() {
         let val = Value {
-            kind: Some(Kind::NumberValue(42.0)),
+            kind: Some(Kind::NumberValue(NumberValue {
+                number: Some(number_value::Number::Integer(42)),
+            })),
         };
         let json_val = to_json_value(val);
         assert!(json_val.is_number());
@@ -276,7 +291,9 @@ mod tests {
             kind: Some(Kind::ListValue(ListValue {
                 values: vec![
                     Value {
-                        kind: Some(Kind::NumberValue(1.0)),
+                        kind: Some(Kind::NumberValue(NumberValue {
+                            number: Some(number_value::Number::Integer(1)),
+                        })),
                     },
                     Value {
                         kind: Some(Kind::StringValue("test".to_string())),
@@ -304,7 +321,9 @@ mod tests {
         fields.insert(
             "key2".to_string(),
             Value {
-                kind: Some(Kind::NumberValue(42.0)),
+                kind: Some(Kind::NumberValue(NumberValue {
+                    number: Some(number_value::Number::Integer(42)),
+                })),
             },
         );
 
@@ -385,7 +404,9 @@ mod tests {
         assert_eq!(
             (42i64).to_value(),
             Value {
-                kind: Some(Kind::NumberValue(42.0))
+                kind: Some(Kind::NumberValue(NumberValue {
+                    number: Some(number_value::Number::Integer(42)),
+                }))
             }
         );
     }
@@ -395,7 +416,9 @@ mod tests {
         assert_eq!(
             (3.14f64).to_value(),
             Value {
-                kind: Some(Kind::NumberValue(3.14))
+                kind: Some(Kind::NumberValue(NumberValue {
+                    number: Some(number_value::Number::Float(3.14)),
+                }))
             }
         );
     }
@@ -407,13 +430,19 @@ mod tests {
             kind: Some(Kind::ListValue(ListValue {
                 values: vec![
                     Value {
-                        kind: Some(Kind::NumberValue(1.0)),
+                        kind: Some(Kind::NumberValue(NumberValue {
+                            number: Some(number_value::Number::Integer(1)),
+                        })),
                     },
                     Value {
-                        kind: Some(Kind::NumberValue(2.0)),
+                        kind: Some(Kind::NumberValue(NumberValue {
+                            number: Some(number_value::Number::Integer(2)),
+                        })),
                     },
                     Value {
-                        kind: Some(Kind::NumberValue(3.0)),
+                        kind: Some(Kind::NumberValue(NumberValue {
+                            number: Some(number_value::Number::Integer(3)),
+                        })),
                     },
                 ],
             })),
@@ -427,7 +456,9 @@ mod tests {
         assert_eq!(
             opt.to_value(),
             Value {
-                kind: Some(Kind::NumberValue(10.0))
+                kind: Some(Kind::NumberValue(NumberValue {
+                    number: Some(number_value::Number::Integer(10)),
+                }))
             }
         );
     }
@@ -449,13 +480,17 @@ mod tests {
             fields.insert(
                 "a".to_string(),
                 Value {
-                    kind: Some(Kind::NumberValue(1.0)),
+                    kind: Some(Kind::NumberValue(NumberValue {
+                        number: Some(number_value::Number::Integer(1)),
+                    })),
                 },
             );
             fields.insert(
                 "b".to_string(),
                 Value {
-                    kind: Some(Kind::NumberValue(2.0)),
+                    kind: Some(Kind::NumberValue(NumberValue {
+                        number: Some(number_value::Number::Integer(2)),
+                    })),
                 },
             );
             fields

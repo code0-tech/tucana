@@ -1,4 +1,4 @@
-use crate::shared::{ListValue, Struct, Value, value::Kind};
+use crate::shared::{ListValue, Struct, Value, value::Kind, number_value};
 use std::collections::HashMap;
 
 /// Get the Kind at a given path from a Value
@@ -84,10 +84,26 @@ pub fn get_string(path: &str, value: &Value) -> Option<String> {
     }
 }
 
-/// Extract a number value from a path
-pub fn get_number(path: &str, value: &Value) -> Option<f64> {
+/// Extract an integer value from a path
+pub fn get_integer(path: &str, value: &Value) -> Option<i64> {
     match expect_kind(path, value)? {
-        Kind::NumberValue(n) => Some(n),
+        Kind::NumberValue(n) => match n.number {
+            Some(number_value::Number::Integer(i)) => Some(i),
+            None => None,
+            _ => None,
+        },
+        _ => None,
+    }
+}
+
+/// Extract a float value from a path
+pub fn get_float(path: &str, value: &Value) -> Option<f64> {
+    match expect_kind(path, value)? {
+        Kind::NumberValue(n) => match n.number {
+            Some(number_value::Number::Float(f)) => Some(f),
+            None => None,
+            _ => None,
+        },
         _ => None,
     }
 }
@@ -181,9 +197,10 @@ pub fn set_value(path: &str, current: &Value, new_value: Value) -> Value {
 pub mod tests {
 
     use crate::shared::{
-        Struct, Value,
+        NumberValue, Struct, Value, number_value,
         helper::path::{
-            exists_path, expect_kind, get_bool, get_list, get_number, get_string, get_struct,
+            exists_path, expect_kind, get_bool, get_float, get_integer, get_list, get_string,
+            get_struct,
             set_value,
         },
     };
@@ -203,7 +220,9 @@ pub mod tests {
                     (
                         "age".to_string(),
                         Value {
-                            kind: Some(crate::shared::value::Kind::NumberValue(30.0)),
+                            kind: Some(crate::shared::value::Kind::NumberValue(NumberValue {
+                                number: Some(number_value::Number::Integer(30)),
+                            })),
                         },
                     ),
                 ]),
@@ -231,7 +250,9 @@ pub mod tests {
                         (
                             "age".to_string(),
                             Value {
-                                kind: Some(crate::shared::value::Kind::NumberValue(30.0)),
+                                kind: Some(crate::shared::value::Kind::NumberValue(NumberValue {
+                                    number: Some(number_value::Number::Integer(30)),
+                                })),
                             },
                         ),
                     ]),
@@ -244,7 +265,9 @@ pub mod tests {
         );
         assert_eq!(
             expect_kind("age", &value),
-            Some(crate::shared::value::Kind::NumberValue(30.0))
+            Some(crate::shared::value::Kind::NumberValue(NumberValue {
+                number: Some(number_value::Number::Integer(30)),
+            }))
         );
         assert_eq!(expect_kind("address", &value), None);
     }
@@ -294,7 +317,13 @@ pub mod tests {
                                                 Value {
                                                     kind: Some(
                                                         crate::shared::value::Kind::NumberValue(
-                                                            12345.0,
+                                                            NumberValue {
+                                                                number: Some(
+                                                                    number_value::Number::Integer(
+                                                                        12345,
+                                                                    ),
+                                                                ),
+                                                            },
                                                         ),
                                                     ),
                                                 },
@@ -330,7 +359,9 @@ pub mod tests {
         );
         assert_eq!(
             expect_kind("address.zipcode", &value),
-            Some(crate::shared::value::Kind::NumberValue(12345.0))
+            Some(crate::shared::value::Kind::NumberValue(NumberValue {
+                number: Some(number_value::Number::Integer(12345)),
+            }))
         );
 
         // Test nonexistent fields
@@ -359,7 +390,9 @@ pub mod tests {
                         (
                             "age".to_string(),
                             Value {
-                                kind: Some(crate::shared::value::Kind::NumberValue(30.0)),
+                                kind: Some(crate::shared::value::Kind::NumberValue(NumberValue {
+                                    number: Some(number_value::Number::Integer(30)),
+                                })),
                             },
                         ),
                         (
@@ -402,9 +435,11 @@ pub mod tests {
         assert_eq!(get_string("name", &value), Some("John".to_string()));
         assert_eq!(get_string("age", &value), None);
 
-        // Test get_number
-        assert_eq!(get_number("age", &value), Some(30.0));
-        assert_eq!(get_number("name", &value), None);
+        // Test get_integer / get_float
+        assert_eq!(get_integer("age", &value), Some(30));
+        assert_eq!(get_integer("name", &value), None);
+        assert_eq!(get_float("age", &value), None);
+        assert_eq!(get_float("name", &value), None);
 
         // Test get_bool
         assert_eq!(get_bool("is_active", &value), Some(true));
@@ -437,11 +472,13 @@ pub mod tests {
 
         // Test setting a top-level field
         let new_value = Value {
-            kind: Some(crate::shared::value::Kind::NumberValue(40.0)),
+            kind: Some(crate::shared::value::Kind::NumberValue(NumberValue {
+                number: Some(number_value::Number::Integer(40)),
+            })),
         };
         let result = set_value("age", &value, new_value);
 
-        assert_eq!(get_number("age", &result), Some(40.0));
+        assert_eq!(get_integer("age", &result), Some(40));
         assert_eq!(get_string("name", &result), Some("John".to_string()));
 
         // Test setting a nested field
