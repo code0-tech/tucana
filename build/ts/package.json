@@ -13,47 +13,50 @@
   "license": "Apache-2.0",
   "author": "",
   "type": "module",
-  "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "generate:aquila": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/aquila --proto_path=../../proto/shared ../../proto/aquila/*.proto",
-    "generate:sagittarius": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/sagittarius --proto_path=../../proto/shared ../../proto/sagittarius/*.proto",
-    "generate:shared": "protoc --ts_opt=add_pb_suffix --ts_opt=output_javascript --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/shared ../../proto/shared/*.proto",
+    "build": "vite build",
+    "generate:aquila": "protoc --ts_opt=add_pb_suffix  --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/aquila --proto_path=../../proto/shared ../../proto/aquila/*.proto",
+    "generate:sagittarius": "protoc --ts_opt=add_pb_suffix --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/sagittarius --proto_path=../../proto/shared ../../proto/sagittarius/*.proto",
+    "generate:shared": "protoc --ts_opt=add_pb_suffix --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/shared ../../proto/shared/*.proto",
     "generate": "npm run clean && npm run generate:shared && npm run generate:sagittarius && npm run generate:aquila && npm run generate:exports && npm run generate:replace-enums",
     "generate:exports": "node scripts/generateExports.mjs",
     "generate:replace-enums": "npx ts-node scripts/replace-enums.ts",
     "clean": "rm -rf pb/_generated/*.js && rm -rf pb/_generated/*.ts && rm -rf helpers/*.js"
   },
   "devDependencies": {
+    "vite": "^8.0.3",
+    "vite-plugin-dts": "^4.5.4",
     "@protobuf-ts/plugin": "^2.11.1",
     "protoc": "^34.0.0",
     "ts-morph": "^27.0.2",
     "ts-node": "^10.9.2"
   },
   "files": [
-    "pb",
-    "helpers",
-    "index.ts",
-    "index.js",
-    "index.d.ts",
-    "package.json"
+    "dist"
   ],
-  "types": "index.d.ts",
+  "main": "./dist/tucana.cjs.js",
+  "module": "./dist/tucana.es.js",
+  "types": "./dist/tucana.d.ts",
   "exports": {
-    ".": {
-      "import": "./index.js"
-    },
     "./shared": {
-      "import": "./pb/shared.js"
+      "types": "./dist/shared.d.ts",
+      "import": "./dist/shared.es.js",
+      "require": "./dist/shared.cjs.js"
     },
     "./aquila": {
-      "import": "./pb/aquila.js"
+      "types": "./dist/aquila.d.ts",
+      "import": "./dist/aquila.es.js",
+      "require": "./dist/aquila.cjs.js"
     },
     "./sagittarius": {
-      "import": "./pb/sagittarius.js"
+      "types": "./dist/sagittarius.d.ts",
+      "import": "./dist/sagittarius.es.js",
+      "require": "./dist/sagittarius.cjs.js"
     },
     "./helpers": {
-      "import": "./helpers/helpers.js"
+      "types": "./dist/helpers.d.ts",
+      "import": "./dist/helpers.es.js",
+      "require": "./dist/helpers.cjs.js"
     }
   },
   "publishConfig": {
