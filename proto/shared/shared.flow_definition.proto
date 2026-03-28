@@ -10,21 +10,20 @@ import "shared.struct.proto";
 message FlowType {
   string identifier = 1;
   repeated FlowTypeSetting settings = 2;
-  optional string input_type = 3;
-  optional string return_type = 4;
-  bool editable = 5;
-  repeated shared.Translation name = 6;
-  repeated shared.Translation description = 7;
-  repeated shared.Translation documentation = 8;
-  repeated shared.Translation display_message = 9;
-  repeated shared.Translation alias = 10;
+  bool editable = 3;
+  repeated shared.Translation name = 4;
+  repeated shared.Translation description = 5;
+  repeated shared.Translation documentation = 6;
+  repeated shared.Translation display_message = 7;
+  repeated shared.Translation alias = 8;
   // Version of the flow type
   // Format: "major.minor.patch", e.g. "1.2.3"
-  string version = 11;
-  string display_icon = 12;
+  string version = 9;
+  string display_icon = 10;
   // Identifier of the service that defines this definition
-  optional string definition_source = 13;
-  repeated string linked_data_type_identifiers = 14;
+  optional string definition_source = 11;
+  repeated string linked_data_type_identifiers = 12;
+  string signature = 13;
 }
 
 message FlowTypeSetting {
@@ -36,9 +35,7 @@ message FlowTypeSetting {
 
   string identifier = 1;
   UniquenessScope unique = 2;
-  string type = 3;
-  optional shared.Value default_value = 4;
-  repeated shared.Translation name = 5;
-  repeated shared.Translation description = 6;
-  repeated string linked_data_type_identifiers = 7;
+  optional shared.Value default_value = 3;
+  repeated shared.Translation name = 4;
+  repeated shared.Translation description = 5;
 }
