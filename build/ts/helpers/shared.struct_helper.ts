@@ -1,13 +1,20 @@
 import {Value} from "../pb/shared";
 
-type PlainValue = null | number | string | boolean | Array<PlainValue> | object;
+type PlainValue = null | bigint | number | string | boolean | Array<PlainValue> | object;
 
 function toAllowedValue(value: Value): PlainValue {
     switch (value.kind.oneofKind) {
         case "nullValue":
             return null;
         case "numberValue":
-            return value.kind.numberValue;
+            const numberValue = value.kind.numberValue;
+            if (numberValue.number.oneofKind === "integer") {
+                return numberValue.number.integer;
+            } else if (numberValue.number.oneofKind === "float") {
+                return numberValue.number.float;
+            } else  {
+                throw new Error("Unsupported NumberValue number kind: " + numberValue.number.oneofKind);
+            }
         case "stringValue":
             return value.kind.stringValue;
         case "boolValue":
@@ -30,8 +37,30 @@ function constructValue(value: PlainValue): Value {
     if (value === null) {
         return {kind: {oneofKind: "nullValue", nullValue: 0}};
     }
-    if (typeof value === "number") {
-        return {kind: {oneofKind: "numberValue", numberValue: value}};
+    if (typeof value === "number" || typeof value === "bigint") {
+        if (Number.isInteger(value) || typeof value === "bigint") {
+            return {
+                kind: {
+                    oneofKind: "numberValue", numberValue: {
+                        number: {
+                            oneofKind: "integer",
+                            integer: BigInt(value)
+                        }
+                    }
+                }
+            };
+        }
+
+        return {
+            kind: {
+                oneofKind: "numberValue", numberValue: {
+                    number: {
+                        oneofKind: "float",
+                        float: value
+                    }
+                }
+            }
+        };
     }
     if (typeof value === "string") {
         return {kind: {oneofKind: "stringValue", stringValue: value}};
