@@ -50,6 +50,11 @@ export default defineConfig({
                 "pb/_generated/**/*.ts",
                 "helpers/**/*.ts",
             ],
+            afterDiagnostic: diagnostics => {
+                if (diagnostics.length > 0) {
+                    throw new Error("dts failed");
+                }
+            }
         }),
     ],
 
