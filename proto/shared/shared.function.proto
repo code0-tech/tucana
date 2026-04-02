@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+import "shared.translation.proto";
+import "shared.struct.proto";
+
+// Definition of a function used for execution
+message FunctionDefinition {
+  string runtime_name = 1;
+  repeated ParameterDefinition parameter_definitions = 2;
+  string signature = 3;
+  bool throws_error = 4;
+  repeated Translation name = 5;
+  repeated Translation description = 6;
+  repeated Translation documentation = 7;
+  repeated Translation deprecation_message = 8;
+  repeated Translation display_message = 9;
+  repeated Translation alias = 10;
+  //will link to all data types used in return_type or within the parameters type
+  repeated string linked_data_type_identifiers = 11;
+  // Version of the runtime function
+  // Format: "major.minor.patch", e.g. "1.2.3"
+  string version = 12;
+  string display_icon = 13;
+  // Identifier of the service that defines this definition
+  string definition_source = 14;
+}
+
+// Definition of a parameter used for execution
+message ParameterDefinition {
+  string runtime_name = 1;
+  optional shared.Value default_value = 2;
+  repeated Translation name = 3;
+  repeated Translation description = 4;
+  repeated Translation documentation = 5;
+}
