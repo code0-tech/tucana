@@ -22,7 +22,8 @@ message ActionProjectConfiguration {
 
 // Wrapper message containing a collection of ActionProjectConfiguration instances
 message ActionConfigurations {
-  repeated ActionProjectConfiguration action_configurations = 1;
+  string action_identifier = 1;
+  repeated ActionProjectConfiguration action_configurations = 2;
 }
 
 // Message sent by the Action to define a configuration
