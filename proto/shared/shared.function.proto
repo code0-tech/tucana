@@ -27,13 +27,17 @@ message FunctionDefinition {
   string display_icon = 13;
   // Identifier of the service that defines this definition
   string definition_source = 14;
+  string runtime_definition_name = 15;
 }
 
 // Definition of a parameter used for execution
 message ParameterDefinition {
   string runtime_name = 1;
   optional shared.Value default_value = 2;
-  repeated Translation name = 3;
-  repeated Translation description = 4;
-  repeated Translation documentation = 5;
+  optional bool optional = 3;
+  optional bool hidden = 4;
+  repeated Translation name = 5;
+  repeated Translation description = 6;
+  repeated Translation documentation = 7;
+  string runtime_definition_name = 8;
 }

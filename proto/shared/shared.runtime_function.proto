@@ -33,7 +33,9 @@ message RuntimeFunctionDefinition {
 message RuntimeParameterDefinition {
   string runtime_name = 1;
   optional shared.Value default_value = 2;
-  repeated Translation name = 3;
-  repeated Translation description = 4;
-  repeated Translation documentation = 5;
+  optional bool optional = 3;
+  optional bool hidden = 4;
+  repeated Translation name = 5;
+  repeated Translation description = 6;
+  repeated Translation documentation = 7;
 }
