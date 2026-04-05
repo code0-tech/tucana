@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package sagittarius;
 
+import "shared.errors.proto";
 import "shared.runtime_status.proto";
 
 option ruby_package = "Tucana::Sagittarius";
@@ -15,6 +16,7 @@ message RuntimeStatusUpdateRequest {
 
 message RuntimeStatusUpdateResponse {
   bool success = 1;
+  optional shared.Error error = 2;
 }
 
 service RuntimeStatusService {

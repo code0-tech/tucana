@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package shared;
+
+option ruby_package = "Tucana::Shared";
+
+message Error {
+  string message = 1;
+  repeated ErrorDetails details = 2;
+}
+
+message ErrorDetails {
+  oneof kind {
+    ActiveModelError active_model_error = 1;
+  }
+}
+
+message ActiveModelError {
+  string attribute = 1;
+  string type = 2;
+}

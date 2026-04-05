@@ -5,6 +5,7 @@ option ruby_package = "Tucana::Sagittarius";
 package sagittarius;
 
 import "shared.action_configuration.proto";
+import "shared.errors.proto";
 
 // Request for updating a action configuration
 message ActionConfigurationUpdateRequest {
@@ -18,6 +19,7 @@ message ActionConfigurationUpdateRequest {
 message ActionConfigurationUpdateResponse {
   // True if was successful, false if not
   bool success = 1;
+  optional shared.Error error = 2;
 }
 
 service ActionConfigurationService {
