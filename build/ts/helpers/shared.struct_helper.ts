@@ -9,7 +9,12 @@ function toAllowedValue(value: Value): PlainValue {
         case "numberValue":
             const numberValue = value.kind.numberValue;
             if (numberValue.number.oneofKind === "integer") {
-                return numberValue.number.integer;
+                const numberResult = numberValue.number.integer
+                if (Number.MAX_SAFE_INTEGER < numberResult || numberResult < Number.MIN_SAFE_INTEGER) {
+                    return numberResult
+                }
+
+                return Number(numberResult)
             } else if (numberValue.number.oneofKind === "float") {
                 return numberValue.number.float;
             } else  {
