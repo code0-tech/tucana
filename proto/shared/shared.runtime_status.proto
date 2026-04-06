@@ -7,7 +7,7 @@ option ruby_package = "Tucana::Shared";
 import "shared.translation.proto";
 
 message AdapterConfiguration {
-  // List of FlowTypes for this specific AdapterConfiguration
+  // List of flow type identifiers for this specific AdapterConfiguration
   repeated string flow_type_identifier = 1;
   oneof data {
     string endpoint = 2; // e.g. URL, ...
