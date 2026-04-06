@@ -39,6 +39,14 @@ Tucana.load_protocol(:sagittarius)
 Tucana.load_protocol(:aquila)
 ```
 
+### TypeScript/JavaScript
+
+See: [NPM](https://www.npmjs.com/package/@code0-tech/tucana)
+
+```console
+npm i @code0-tech/tucana
+```
+
 ## Project Structure
 
 The project is organized with services functioning as servers. Each protocol in the Sagittarius folder corresponds to
