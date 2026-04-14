@@ -27,6 +27,7 @@ message RuntimeFunctionDefinition {
   string display_icon = 13;
   // Identifier of the service that defines this definition
   string definition_source = 14;
+  optional string design = 15;
 }
 
 // Definition of a parameter used for execution

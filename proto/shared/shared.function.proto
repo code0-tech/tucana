@@ -28,6 +28,7 @@ message FunctionDefinition {
   // Identifier of the service that defines this definition
   string definition_source = 14;
   string runtime_definition_name = 15;
+  optional string design = 16;
 }
 
 // Definition of a parameter used for execution
