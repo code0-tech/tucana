@@ -62,6 +62,7 @@ message NodeParameter {
   int64 database_id = 1;
   string runtime_parameter_id = 2;
   NodeValue value = 3;
+  optional string cast = 4;
 }
 
 message ReferenceValue {
