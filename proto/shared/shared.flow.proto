@@ -37,6 +37,7 @@ message FlowSetting {
   int64 database_id = 1;
   string flow_setting_id = 2;
   shared.Value value = 3;
+  optional string cast = 4;
 }
 
 message NodeFunction {
