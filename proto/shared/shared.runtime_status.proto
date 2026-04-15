@@ -6,8 +6,16 @@ option ruby_package = "Tucana::Shared";
 
 import "shared.translation.proto";
 
-message AdapterConfiguration {
+message AdapterStatusConfiguration {
   // List of flow type identifiers for this specific AdapterConfiguration
+  repeated string flow_type_identifiers = 1;
+  oneof data {
+    string endpoint = 2; // e.g. URL, ...
+  }
+}
+
+message ActionStatusConfiguration {
+  // List of flow type identifiers for this specific ActionStatusConfiguration
   repeated string flow_type_identifiers = 1;
   oneof data {
     string endpoint = 2; // e.g. URL, ...
@@ -34,7 +42,7 @@ message AdapterRuntimeStatus {
   string identifier = 3; // unique identifier of the adapter
 
   repeated RuntimeFeature features = 4;
-  repeated AdapterConfiguration configurations = 5;
+  repeated AdapterStatusConfiguration configurations = 5;
 }
 
 message ExecutionRuntimeStatus {
@@ -53,3 +61,23 @@ message ExecutionRuntimeStatus {
 
   repeated RuntimeFeature features = 4;
 }
+
+
+message ActionStatus {
+  enum Status {
+    UNKNOWN = 0;
+    NOT_RESPONDING = 1;
+    NOT_READY = 2;
+    RUNNING = 3;
+    STOPPED = 4;
+  }
+
+  Status status = 1;
+  int64 timestamp = 2; // epoch timestamp in milliseconds
+
+  string identifier = 3; // unique identifier of the action
+
+  repeated RuntimeFeature features = 4;
+  repeated ActionStatusConfiguration configurations = 5;
+}
+
