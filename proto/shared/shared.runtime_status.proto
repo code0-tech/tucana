@@ -15,7 +15,7 @@ message AdapterStatusConfiguration {
 }
 
 message ActionStatusConfiguration {
-  // List of flow type identifiers for this specific AdapterConfiguration
+  // List of flow type identifiers for this specific ActionStatusConfiguration
   repeated string flow_type_identifiers = 1;
   oneof data {
     string endpoint = 2; // e.g. URL, ...
