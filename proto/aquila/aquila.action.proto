@@ -5,6 +5,7 @@ option ruby_package = "Tucana::Aquila";
 package aquila;
 
 import "shared.action_configuration.proto";
+import "shared.execution_result.proto";
 import "shared.struct.proto";
 
 // Event that gets admitted by an action
@@ -37,11 +38,6 @@ message ExecutionRequest {
   int64 project_id = 4;
 }
 
-message ActionRuntimeError {
-  string code = 1;
-  optional string description = 2;
-}
-
 // Result from executed flows by an action
 message ExecutionResult {
   // Identifier of flow to execute
@@ -49,7 +45,7 @@ message ExecutionResult {
   // Result of executed flow
   oneof result {
     shared.Value success = 2;
-    ActionRuntimeError error = 3;
+    shared.RuntimeError error = 3;
   }
 }
 
