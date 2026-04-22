@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package shared;
+
+option ruby_package = "Tucana::Shared";
+
+import "shared.translation.proto";
+import "shared.data_type.proto";
+import "shared.function.proto";
+import "shared.runtime_function.proto";
+import "shared.flow_type.proto";
+import "shared.struct.proto";
+
+message Module {
+
+  string identifier = 1;
+  repeated shared.Translation name = 2;
+  repeated shared.Translation description = 3;
+  string documentation = 4; // link to the documentation of the module
+  string author = 5; // author of the module
+  string icon = 6; // icon of the module. supported: tabler:xy and simple:xy
+  string version = 7; // version of the module. Format: "major.minor.patch", e.g. "1.2.3"
+
+  repeated shared.FlowType flow_types = 9;
+  repeated shared.FunctionDefinition function_definitions = 10;
+  repeated shared.RuntimeFunctionDefinition runtime_function_definitions = 11;
+  repeated shared.DefinitionDataType definition_data_types = 12;
+
+  repeated ModuleConfigurationDefinition configurations = 13;
+
+}
+
+//send by sagittarius to inform a module of the real config set by the user
+message ModuleConfiguration {
+  string identifier = 1;
+  shared.Value value = 2;
+}
+
+message ModuleProjectConfigurations {
+  int64 project_id = 1;
+  repeated ModuleConfiguration module_configurations = 2;
+}
+
+message ModuleConfigurations {
+  string module_identifier = 1; // links to Module.identifier
+  repeated ModuleProjectConfigurations module_configurations = 2;
+}
+
+
+// Message sent by a module to define a configuration
+message ModuleConfigurationDefinition {
+
+  string identifier = 1;
+  repeated shared.Translation name = 2;
+  repeated shared.Translation description = 3;
+  string type = 4; // The identifier of the type, e.g. "STRING"
+  repeated string linked_data_type_identifiers = 5; // All used data types in the type
+
+  optional shared.Value default_value = 6;
+  optional bool optional = 7;
+  optional bool hidden = 8;
+}

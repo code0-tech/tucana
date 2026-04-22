@@ -4,12 +4,12 @@ option ruby_package = "Tucana::Aquila";
 
 package aquila;
 
-import "shared.action_configuration.proto";
+import "shared.module.proto";
 import "shared.execution_result.proto";
 import "shared.struct.proto";
 
 // Event that gets admitted by an action
-message Event {
+message ActionEvent {
   // Id of Event type
   string event_type = 1;
   // Project Id that this event is emitted for
@@ -21,13 +21,12 @@ message Event {
 // Action flow/event configuration
 message ActionLogon {
   // Action identifier
-  string action_identifier = 1;
-  string version = 2;
-  repeated shared.ActionConfigurationDefinition action_configurations = 3;
+  shared.Module module = 1;
+  string token = 2;
 }
 
 // Request to execute a request a flow
-message ExecutionRequest {
+message ActionExecutionRequest {
   // Execution identifier of execution
   string execution_identifier = 1;
   // Function identifier of flow to execute
@@ -38,18 +37,7 @@ message ExecutionRequest {
   int64 project_id = 4;
 }
 
-// Result from executed flows by an action
-message ExecutionResult {
-  // Identifier of flow to execute
-  string execution_identifier = 1;
-  // Result of executed flow
-  oneof result {
-    shared.Value success = 2;
-    shared.RuntimeError error = 3;
-  }
-}
-
-message TransferRequest {
+message ActionTransferRequest {
   oneof data {
     // Identification of the action
     //
@@ -57,22 +45,22 @@ message TransferRequest {
     // Aquila will abort if the first request is not an ActionLogon
     ActionLogon logon = 1;
     // Event that got admitted
-    Event event = 2;
+    ActionEvent event = 2;
     // Result of execution that was triggered by a execution request
-    ExecutionResult result = 3;
+    shared.NodeExecutionResult result = 3;
   }
 }
 
-message TransferResponse {
+message ActionTransferResponse {
   oneof data {
     // Execution request
-    ExecutionRequest execution = 1;
-    // ActionConfigurations that have been configured by the user
-    shared.ActionConfigurations action_configurations = 2;
+    ActionExecutionRequest execution = 1;
+    // ModuleConfigurations that have been configured by the user
+    shared.ModuleConfigurations module_configurations = 2;
   }
 }
 
 service ActionTransferService {
   // This behavior achieves a bi-directional stream so that both services aren't required to be a server & client on their own
-  rpc Transfer (stream TransferRequest) returns (stream TransferResponse);
+  rpc Transfer (stream ActionTransferRequest) returns (stream ActionTransferResponse);
 }
