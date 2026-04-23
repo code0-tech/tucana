@@ -53,8 +53,7 @@ message NodeValue {
   oneof value {
     shared.Value literal_value = 1;
     ReferenceValue reference_value = 2;
-    // Reference to the `database_id` field of message `NodeFunction`
-    int64 node_function_id = 3;
+    SubFlow sub_flow = 3;
   }
 }
 
@@ -76,6 +75,23 @@ message ReferenceValue {
     InputType input_type = 3;
   }
   repeated ReferencePath paths = 4;
+}
+
+message SubFlow {
+  oneof execution_reference {
+    int64 starting_node_id = 1;
+    string function_identifier = 2;
+  }
+
+  string signature = 3;
+  repeated SubFlowSetting settings = 4;
+}
+
+message SubFlowSetting {
+  string identifier = 1;
+  optional shared.Value default_value = 2;
+  optional bool optional = 3;
+  optional bool hidden = 4;
 }
 
 message FlowInput {}
