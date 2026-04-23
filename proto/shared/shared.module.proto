@@ -12,7 +12,6 @@ import "shared.flow_type.proto";
 import "shared.struct.proto";
 
 message Module {
-
   string identifier = 1;
   repeated shared.Translation name = 2;
   repeated shared.Translation description = 3;
@@ -27,7 +26,6 @@ message Module {
   repeated shared.DefinitionDataType definition_data_types = 12;
 
   repeated ModuleConfigurationDefinition configurations = 13;
-
 }
 
 //send by sagittarius to inform a module of the real config set by the user
@@ -49,7 +47,6 @@ message ModuleConfigurations {
 
 // Message sent by a module to define a configuration
 message ModuleConfigurationDefinition {
-
   string identifier = 1;
   repeated shared.Translation name = 2;
   repeated shared.Translation description = 3;
