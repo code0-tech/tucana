@@ -22,7 +22,6 @@ message ActionEvent {
 message ActionLogon {
   // Action identifier
   shared.Module module = 1;
-  string token = 2;
 }
 
 // Request to execute a request a flow
