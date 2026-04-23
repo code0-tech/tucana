@@ -92,7 +92,6 @@ message SubFlowSetting {
   optional shared.Value default_value = 2;
   optional bool optional = 3;
   optional bool hidden = 4;
-
 }
 
 message FlowInput {}
