@@ -4,18 +4,18 @@ package shared;
 
 option ruby_package = "Tucana::Shared";
 
-message Error {
+message ServiceError {
   string message = 1;
-  repeated ErrorDetails details = 2;
+  repeated ServiceErrorDetails details = 2;
 }
 
-message ErrorDetails {
+message ServiceErrorDetails {
   oneof kind {
-    ActiveModelError active_model_error = 1;
+    ServiceActiveModelError active_model_error = 1;
   }
 }
 
-message ActiveModelError {
+message ServiceActiveModelError {
   string attribute = 1;
   string type = 2;
 }

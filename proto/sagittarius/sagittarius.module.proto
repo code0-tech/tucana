@@ -17,7 +17,7 @@ message ModuleUpdateRequest {
 message ModuleUpdateResponse {
   // True if was successful, false if not
   bool success = 1;
-  optional shared.Error error = 2;
+  optional shared.ServiceError error = 2;
 }
 
 //This service will be implemented as a server by Sagittarius and as a client by Aquila.
