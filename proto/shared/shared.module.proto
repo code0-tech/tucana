@@ -49,7 +49,6 @@ message ModuleConfigurations {
 
 // Message sent by a module to define a configuration
 message ModuleConfigurationDefinition {
-
   string identifier = 1;
   repeated shared.Translation name = 2;
   repeated shared.Translation description = 3;
