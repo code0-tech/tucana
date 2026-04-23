@@ -26,7 +26,6 @@ message Module {
   repeated shared.DefinitionDataType definition_data_types = 12;
 
   repeated ModuleConfigurationDefinition configurations = 13;
-
 }
 
 //send by sagittarius to inform a module of the real config set by the user
