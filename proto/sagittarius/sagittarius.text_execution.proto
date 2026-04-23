@@ -5,48 +5,14 @@ option ruby_package = "Tucana::Sagittarius";
 package sagittarius;
 
 import "shared.struct.proto";
+import "shared.execution_result.proto";
 
 message Logon {}
 
 message TestExecutionRequest {
     int64 flow_id = 1;
-    string execution_uuid = 2;
+    string execution_identifier = 2;
     shared.Value body = 3;
-}
-
-message TestExecutionResponse {
-    int64 flow_id = 1;
-    string execution_uuid = 2;
-    shared.Value result = 3;
-    repeated Log logs = 4;
-}
-
-message Log {
-  oneof kind {
-    ApplicationLog application_log = 1;
-    SuccessLog success_log = 2;
-    RuntimeErrorLog error_log = 3;
-  }
-}
-
-message SuccessLog {
-  int64 node_id = 1;
-  shared.Value result = 2;
-  repeated shared.Value parameter = 3;
-  string timestamp = 4;
-}
-
-message RuntimeErrorLog {
-  int64 node_id = 1;
-  string error = 2;
-  repeated shared.Value parameter = 3;
-  string timestamp = 4;
-}
-
-message ApplicationLog {
-    string message = 1;
-    string level = 2;
-    string timestamp = 3;
 }
 
 // Aquila sends a logon request to Sagittarius that initiates a stream
@@ -54,7 +20,7 @@ message ApplicationLog {
 message ExecutionLogonRequest {
     oneof data {
         Logon logon = 1;
-        TestExecutionResponse response = 2;
+        shared.ExecutionResult response = 2;
     }
 }
 
