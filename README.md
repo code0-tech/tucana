@@ -56,31 +56,27 @@ services that Sagittarius must implement as a server.
 .
 ├── aquila
 │   ├── action - Action service (emits events, and handles executions)
-│   ├── action_configuration - ActionConfiguration service 
-│   ├── data_type - DataType service
-│   ├── flow_definition - FlowType service (handles flow_type updates)
-│   ├── runtime_function - Service for updating the runtime functions
+│   ├── module - Module service for Taurus to send over datatypes, functions and flow types
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
 │   └── runtime_usage - Service for runtime usage (handles execution time of a flow)
 ├── sagittarius
-│   ├── action_configuration - ActionConfiguration service 
-│   ├── data_type - DataType service
 │   ├── flow - Flow service (handles flow updates)
-│   ├── flow_type - FlowType service (handles flow_type updates)
+│   ├── module - Module service to receive datatypes, functions and flow types from aquila
 │   ├── ping - Ping service (performs life checks)
-│   ├── runtime_function - Service for updating the runtime functions
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
 │   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
 │   └── test_execution - Service and Types for the test execution
 └── shared
-    ├── action_configuration - Defines types for action configuration
     ├── data_type - Defines types for data types
-    ├── flow - Defines types for flows
-    ├── flow_definition - Defines a definition for a Flow
-    ├── runtime_function - Defines types for runtime functions
-    ├── runtime_status - Defines types for runtime status (handles information about Draco and Taurus)
-    ├── runtime_usage - Defines types for runtime usage (handles execution time of a flow)
-    ├── struct - Defines types for json representations
-    ├── translation - Contains translations with country codes and translated messages
-    └── version - Contains verion type for definitions
+    ├── errors - Defines error object
+    ├── execution_result - Defines execution result of a flow
+    ├── flow - Defines the flow to execute
+    ├── flow_type - Defines types for flows
+    ├── function - Defines a function
+    ├── module - Defines group of functions, runtime functions, flow types and data types
+    ├── runtime_function - Defines a runtime function
+    ├── runtime_status - Defines a runtime status (handles information about Draco and Taurus)
+    ├── runtime_usage - Defines a runtime usage (handles execution time of a flow)
+    ├── struct - Defines json representations
+    └── translation - Contains translations with country codes and translated messages
 ```
