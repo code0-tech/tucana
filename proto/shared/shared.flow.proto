@@ -85,7 +85,6 @@ message SubFlow {
 
   string signature = 3;
   repeated SubFlowSetting settings = 4;
-
 }
 
 message SubFlowSetting {
