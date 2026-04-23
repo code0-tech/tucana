@@ -12,7 +12,6 @@ import "shared.flow_type.proto";
 import "shared.struct.proto";
 
 message Module {
-
   string identifier = 1;
   repeated shared.Translation name = 2;
   repeated shared.Translation description = 3;
