@@ -88,7 +88,6 @@ message SubFlow {
 }
 
 message SubFlowSetting {
-
   string identifier = 1;
   optional shared.Value default_value = 2;
   optional bool optional = 3;
