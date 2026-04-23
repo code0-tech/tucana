@@ -4,6 +4,8 @@ package shared;
 
 option ruby_package = "Tucana::Shared";
 
+import "shared.struct.proto";
+
 message ServiceError {
   string message = 1;
   repeated ServiceErrorDetails details = 2;
@@ -18,4 +20,15 @@ message ServiceErrorDetails {
 message ServiceActiveModelError {
   string attribute = 1;
   string type = 2;
+}
+
+message Error {
+  string code = 1; //e.g. T-STD-000123
+  string category = 2; //e.g. InvalidArgument
+  string message = 3; //e.g. Expected number as argument but received list
+  int64 timestamp = 4; // epoch timestamp in milliseconds
+  string version = 5; // version of service which produced the error
+  map<string, string> dependencies = 6;
+  shared.Struct details = 7;
+
 }
