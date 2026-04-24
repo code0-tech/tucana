@@ -5,14 +5,10 @@ package shared;
 option ruby_package = "Tucana::Shared";
 
 import "shared.struct.proto";
+import "shared.errors.proto";
 
 message NodeParameterNodeExecutionResult {
   shared.Value value = 5;
-}
-
-message RuntimeError {
-  string code = 1;
-  optional string description = 2;
 }
 
 message NodeExecutionResult {
@@ -25,7 +21,7 @@ message NodeExecutionResult {
 
   oneof result {
     shared.Value success = 5;
-    RuntimeError error = 6;
+    shared.Error error = 6;
   }
 
 }
@@ -43,7 +39,7 @@ message ExecutionResult {
   // Result of executed flow
   oneof result {
     shared.Value success = 7;
-    RuntimeError error = 8;
+    shared.Error error = 8;
   }
 
 }

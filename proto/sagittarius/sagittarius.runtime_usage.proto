@@ -13,7 +13,7 @@ message RuntimeUsageRequest {
 
 message RuntimeUsageResponse {
   bool success = 1;
-  optional shared.Error error = 2;
+  optional shared.ServiceError error = 2;
 }
 
 service RuntimeUsageService {
