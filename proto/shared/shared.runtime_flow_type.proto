@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+import "shared.translation.proto";
+import "shared.struct.proto";
+
+message RuntimeFlowType {
+  string identifier = 1;
+  repeated RuntimeFlowTypeSetting runtime_settings = 2;
+  bool editable = 3;
+  repeated shared.Translation name = 4;
+  repeated shared.Translation description = 5;
+  repeated shared.Translation documentation = 6;
+  repeated shared.Translation display_message = 7;
+  repeated shared.Translation alias = 8;
+  // Version of the flow type
+  // Format: "major.minor.patch", e.g. "1.2.3"
+  string version = 9;
+  string display_icon = 10;
+  // Identifier of the service that defines this definition
+  optional string definition_source = 11;
+  repeated string linked_data_type_identifiers = 12;
+  string signature = 13;
+}
+
+message RuntimeFlowTypeSetting {
+  enum UniquenessScope {
+    UNKNOWN = 0;
+    NONE = 1;
+    PROJECT = 2;
+  }
+
+  string identifier = 1;
+  UniquenessScope unique = 2;
+  optional shared.Value default_value = 3;
+  repeated shared.Translation name = 4;
+  repeated shared.Translation description = 5;
+  optional bool optional = 6;
+  optional bool hidden = 7;
+}
