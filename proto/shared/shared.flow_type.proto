@@ -24,6 +24,7 @@ message FlowType {
   optional string definition_source = 11;
   repeated string linked_data_type_identifiers = 12;
   string signature = 13;
+  string runtime_identifier = 14;
 }
 
 message FlowTypeSetting {
@@ -38,4 +39,6 @@ message FlowTypeSetting {
   optional shared.Value default_value = 3;
   repeated shared.Translation name = 4;
   repeated shared.Translation description = 5;
+  optional bool optional = 6;
+  optional bool hidden = 7;
 }
