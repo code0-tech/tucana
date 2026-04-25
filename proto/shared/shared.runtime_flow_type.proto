@@ -7,9 +7,9 @@ package shared;
 import "shared.translation.proto";
 import "shared.struct.proto";
 
-message FlowType {
+message RuntimeFlowType {
   string identifier = 1;
-  repeated FlowTypeSetting settings = 2;
+  repeated RuntimeFlowTypeSetting runtime_settings = 2;
   bool editable = 3;
   repeated shared.Translation name = 4;
   repeated shared.Translation description = 5;
@@ -24,10 +24,9 @@ message FlowType {
   optional string definition_source = 11;
   repeated string linked_data_type_identifiers = 12;
   string signature = 13;
-  string runtime_identifier = 14;
 }
 
-message FlowTypeSetting {
+message RuntimeFlowTypeSetting {
   enum UniquenessScope {
     UNKNOWN = 0;
     NONE = 1;

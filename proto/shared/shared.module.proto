@@ -9,6 +9,7 @@ import "shared.data_type.proto";
 import "shared.function.proto";
 import "shared.runtime_function.proto";
 import "shared.flow_type.proto";
+import "shared.runtime_flow_type.proto";
 import "shared.struct.proto";
 
 message Module {
@@ -21,11 +22,12 @@ message Module {
   string version = 7; // version of the module. Format: "major.minor.patch", e.g. "1.2.3"
 
   repeated shared.FlowType flow_types = 9;
-  repeated shared.FunctionDefinition function_definitions = 10;
-  repeated shared.RuntimeFunctionDefinition runtime_function_definitions = 11;
-  repeated shared.DefinitionDataType definition_data_types = 12;
+  repeated shared.RuntimeFlowType runtime_flow_types = 10;
+  repeated shared.FunctionDefinition function_definitions = 11;
+  repeated shared.RuntimeFunctionDefinition runtime_function_definitions = 12;
+  repeated shared.DefinitionDataType definition_data_types = 13;
 
-  repeated ModuleConfigurationDefinition configurations = 13;
+  repeated ModuleConfigurationDefinition configurations = 14;
 }
 
 //send by sagittarius to inform a module of the real config set by the user
