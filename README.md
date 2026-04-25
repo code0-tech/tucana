@@ -71,7 +71,8 @@ services that Sagittarius must implement as a server.
     ├── errors - Defines error object
     ├── execution_result - Defines execution result of a flow
     ├── flow - Defines the flow to execute
-    ├── flow_type - Defines types for flows
+    ├── flow_type - Defines types for flows based upon runtime flow types
+    ├── runtime_flow_type - Defines runtime / primitive types for flows
     ├── function - Defines a function
     ├── module - Defines group of functions, runtime functions, flow types and data types
     ├── runtime_function - Defines a runtime function
