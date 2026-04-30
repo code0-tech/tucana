@@ -34,7 +34,7 @@ jobs:
         run: bundle exec rake generate_ruby:all
 
       # Release
-      - uses: rubygems/configure-rubygems-credentials@v1.0.0
+      - uses: rubygems/configure-rubygems-credentials@v2.0.0
       - name: Publish gem
         run: bundle exec rake release:rubygem_push
       - name: Wait for release
