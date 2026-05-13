@@ -99,3 +99,35 @@ jobs:
         run: npm version ${{ github.ref_name }} --git-tag-version=false
       - name: Publish package
         run: npm publish
+
+  pypi:
+    runs-on: ubuntu-latest
+
+    environment: packages
+
+    permissions:
+      id-token: write
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: build/python
+
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v8.1.0
+        with:
+          working-directory: 'build/python'
+          version-file: '.tool-versions'
+          enable-cache: false
+      - name: Install dependencies
+        run: uv sync
+      - name: Set version
+        run: uv version ${{ github.ref_name }}
+      - name: Generate python
+        run: uv run scripts/generate.py
+      - name: Build distribution
+        run: uv build
+      - name: Publish package
+        run: uv publish

@@ -96,3 +96,5 @@ jobs:
         run: uv run scripts/generate.py
       - name: Run tests
         run: uv run pytest
+      - name: Build distribution
+        run: uv build
