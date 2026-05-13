@@ -12,6 +12,7 @@ export default defineConfig({
                 shared: resolve(__dirname, "pb/shared.ts"),
                 aquila: resolve(__dirname, "pb/aquila.ts"),
                 sagittarius: resolve(__dirname, "pb/sagittarius.ts"),
+                velorum: resolve(__dirname, "pb/velorum.ts"),
                 helpers: resolve(__dirname, "helpers/helpers.ts"),
             },
             formats: ["es", "cjs"],
@@ -24,6 +25,7 @@ export default defineConfig({
                 shared: resolve(__dirname, "pb/shared.ts"),
                 aquila: resolve(__dirname, "pb/aquila.ts"),
                 sagittarius: resolve(__dirname, "pb/sagittarius.ts"),
+                velorum: resolve(__dirname, "pb/velorum.ts"),
                 helpers: resolve(__dirname, "helpers/helpers.ts"),
             },
 
