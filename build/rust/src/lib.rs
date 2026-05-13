@@ -16,3 +16,9 @@ pub mod sagittarius {
     include!("generated/sagittarius.rs");
     include!("generated/sagittarius.serde.rs");
 }
+
+#[cfg(feature = "velorum")]
+pub mod velorum {
+    include!("generated/velorum.rs");
+    include!("generated/velorum.serde.rs");
+}
