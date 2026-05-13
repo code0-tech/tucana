@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/code0-tech/tucana.git"
   },
-  "license": "Apache-2.0",
+  "license": "MIT",
   "author": "",
   "type": "module",
   "scripts": {
