@@ -136,3 +136,6 @@ Thumbs.db
 # uv
 .venv/
 
+# generated protobuf
+src/tucana/generated/*/*.py
+!src/tucana/generated/*/__init__.py
