@@ -22,5 +22,5 @@ message PromptResponse {
 }
 
 service PromptService {
-  rpc Prompt (PromptRequest) returns (stream PromptResponse) {}
+  rpc Prompt (PromptRequest) returns (PromptResponse) {}
 }

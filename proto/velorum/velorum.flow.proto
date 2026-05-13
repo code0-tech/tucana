@@ -23,5 +23,5 @@ message FlowResponse {
 }
 
 service FlowService {
-  rpc Flow (FlowRequest) returns (stream FlowResponse) {}
+  rpc Flow (FlowRequest) returns (FlowResponse) {}
 }
