@@ -5,7 +5,7 @@ edition = "2024"
 description = "The rust crate for the internal gRPC communication of Code0"
 repository = "https://github.com/code0-tech/tucana"
 homepage = "https://code0.tech"
-license = "Apache-2.0"
+license = "MIT"
 include = ["src/*"]
 
 [dependencies]
