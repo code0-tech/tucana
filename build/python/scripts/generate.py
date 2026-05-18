@@ -1,19 +1,13 @@
 #!/usr/bin/env python3
-"""
-Generate Python protobuf modules from proto files.
-Handles proto filenames with dots (e.g., shared.flow.proto) by organizing
-them into a clean namespace structure.
-"""
 
-import os
 import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import List, Tuple, Dict
+from typing import List, Tuple
+
 
 def get_proto_files(proto_dir: Path) -> Tuple[List[Path], List[Path]]:
-    """Collect all proto files and their directories."""
     proto_files = []
     proto_dirs = set()
 
@@ -23,11 +17,10 @@ def get_proto_files(proto_dir: Path) -> Tuple[List[Path], List[Path]]:
 
     return proto_files, sorted(list(proto_dirs))
 
+
 def generate_protos(proto_root: Path, output_dir: Path, proto_dirs: List[Path]) -> None:
-    """Run protoc to generate Python modules."""
     proto_import_paths = [str(d) for d in proto_dirs]
 
-    # Collect all proto files
     proto_file_paths = []
     for proto_dir_path in proto_dirs:
         proto_file_paths.extend(str(f) for f in proto_dir_path.glob("*.proto"))
@@ -36,22 +29,18 @@ def generate_protos(proto_root: Path, output_dir: Path, proto_dirs: List[Path]) 
         print("No proto files found!", file=sys.stderr)
         sys.exit(1)
 
-    # Build protoc command
     cmd = [
         "python", "-m", "grpc_tools.protoc",
     ]
 
-    # Add import paths
     for import_path in proto_import_paths:
         cmd.extend(["-I", import_path])
 
-    # Add output paths
     cmd.extend([
         f"--python_out={output_dir}",
         f"--grpc_python_out={output_dir}",
     ])
 
-    # Add proto files
     cmd.extend(proto_file_paths)
 
     print(f"\n📍 Running protoc...")
@@ -72,12 +61,8 @@ def generate_protos(proto_root: Path, output_dir: Path, proto_dirs: List[Path]) 
 
     print(f"✓ Proto generation successful")
 
-def organize_generated_files(output_dir: Path, proto_dirs: List[Path]) -> None:
-    """
-    Organize generated files into proper namespace structure.
-    Handles dot-notation in filenames.
-    """
-    # Map: protocol_name -> output_dir
+
+def organize_generated_files(output_dir: Path) -> None:
     protocol_map = {
         "shared": output_dir / "shared",
         "aquila": output_dir / "aquila",
@@ -85,29 +70,19 @@ def organize_generated_files(output_dir: Path, proto_dirs: List[Path]) -> None:
         "velorum": output_dir / "velorum",
     }
 
-    # Create namespace directories
     for ns_dir in protocol_map.values():
         ns_dir.mkdir(parents=True, exist_ok=True)
         init_file = ns_dir / "__init__.py"
         if not init_file.exists():
             init_file.write_text("")
 
-    # Move and organize generated files
     for py_file in output_dir.glob("*.py"):
         if py_file.name.startswith("__"):
             continue
 
-        # Parse filename patterns:
-        # - shared_X_pb2.py -> shared/X_pb2.py
-        # - shared_X_pb2_grpc.py -> shared/X_pb2_grpc.py
-        # - aquila_Y_pb2.py -> aquila/Y_pb2.py
-        # etc.
-
-        # Split by underscore to find protocol
         parts = py_file.stem.split("_")
         protocol = None
 
-        # Check first part(s) against known protocols
         if parts[0] in protocol_map:
             protocol = parts[0]
 
@@ -118,9 +93,8 @@ def organize_generated_files(output_dir: Path, proto_dirs: List[Path]) -> None:
             shutil.move(str(py_file), str(dest))
             print(f"Moved {py_file.name} -> {protocol}/{py_file.name}")
 
+
 def create_init_files(output_dir: Path) -> None:
-    """Create and populate __init__.py files for proper imports."""
-    # Namespace __init__ files - just need to be present
     for namespace in ["shared", "aquila", "sagittarius", "velorum"]:
         ns_dir = output_dir / namespace
         if ns_dir.exists():
@@ -136,7 +110,6 @@ Auto-generated from proto files. Import specific modules as needed:
 
 
 def main():
-    """Main entry point."""
     script_dir = Path(__file__).parent
     build_dir = script_dir.parent
     repo_root = build_dir.parent.parent
@@ -151,15 +124,12 @@ def main():
     print(f"   Proto root: {proto_root}")
     print(f"   Output: {generated_dir}")
 
-    # Verify proto directory exists
     if not proto_root.exists():
         print(f"❌ Proto directory not found: {proto_root}", file=sys.stderr)
         sys.exit(1)
 
-    # Create output directory
     generated_dir.mkdir(parents=True, exist_ok=True)
 
-    # Get proto files and directories
     proto_files, proto_dirs = get_proto_files(proto_root)
 
     if not proto_files:
@@ -168,21 +138,17 @@ def main():
 
     print(f"✓ Found {len(proto_files)} proto files in {len(proto_dirs)} directories")
 
-    # Clean old generated files (but keep __init__.py)
     print(f"\n📍 Cleaning old generated files...")
     for py_file in generated_dir.rglob("*.py"):
         if not py_file.name.startswith("__"):
             py_file.unlink()
             print(f"   Removed {py_file.name}")
 
-    # Generate with protoc
     generate_protos(proto_root, str(generated_dir), proto_dirs)
 
-    # Organize generated files
     print(f"\n📍 Organizing generated files...")
-    organize_generated_files(generated_dir, proto_dirs)
+    organize_generated_files(generated_dir)
 
-    # Create init files
     print(f"\n📍 Creating __init__.py files...")
     create_init_files(generated_dir)
 
@@ -190,11 +156,6 @@ def main():
     print(f"   Output directory: {generated_dir}")
     print(f"   Ready to import: from tucana.generated import shared, aquila, sagittarius, velorum")
 
+
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
