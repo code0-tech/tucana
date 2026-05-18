@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Velorum";
+
+package velorum;
+
+import "shared.function.proto";
+import "shared.data_type.proto";
+import "shared.flow.proto";
+
+message ModelsRequest {}
+
+message Model {
+  enum ModelType {
+    UNKNOWN = 0;
+    EXPLAIN = 1;
+    GENERATE = 2;
+  }
+
+  string name = 1;
+  float token_cost = 2; //e.g 1.0, 4.0
+  ModelType type = 3;
+}
+
+message ModelsResponse {
+  repeated Model models = 1;
+}
+
+
+service InfoService {
+  rpc Models (ModelsRequest) returns (ModelsResponse) {}
+}

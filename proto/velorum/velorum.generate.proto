@@ -8,6 +8,13 @@ import "shared.function.proto";
 import "shared.data_type.proto";
 import "shared.flow.proto";
 
+message PromptRequest {
+  string prompt = 1;
+  int64 project_id = 2;
+  repeated shared.FunctionDefinition functions = 3;
+  repeated shared.DefinitionDataType data_types = 4;
+}
+
 message FlowRequest {
   string prompt = 1;
   shared.GenerationFlow flow = 2;
@@ -22,6 +29,8 @@ message FlowResponse {
   int64 usage = 3; // in tokens
 }
 
-service FlowService {
+
+service GenerateService {
+  rpc Prompt (PromptRequest) returns (FlowResponse) {}
   rpc Flow (FlowRequest) returns (FlowResponse) {}
 }
