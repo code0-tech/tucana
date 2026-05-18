@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tucana"
+version = "0.0.0"
+description = "Code0 GRPC Protocol"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+  { name = "Code0 UG (haftungsbeschränkt)", email = "info@code0.tech" }
+]
+keywords = ["grpc", "protobuf", "code0"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+  "protobuf>=5.0",
+  "grpcio>=1.64"
+]
+
+[project.optional-dependencies]
+dev = [
+  "grpcio-tools>=1.64",
+  "pytest>=7.0",
+  "pytest-cov>=4.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/code0-tech/tucana"
+Repository = "https://github.com/code0-tech/tucana"
+Issues = "https://github.com/code0-tech/tucana/issues"
+Changelog = "https://github.com/code0-tech/tucana/releases"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+
+[tool.uv]
+managed = true
+dev-dependencies = [
+  "grpcio-tools>=1.64",
+  "pytest>=7.0",
+  "pytest-cov>=4.0",
+]
+

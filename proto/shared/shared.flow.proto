@@ -32,9 +32,17 @@ message ExecutionFlow {
   optional shared.Value input_value = 3;
 }
 
+message GenerationFlow {
+  string name = 1;
+  string type = 2;
+  string starting_node_id = 3;
+  repeated NodeFunction node_functions = 4;
+  repeated FlowSetting settings = 5;
+}
+
 message FlowSetting {
   // The database id from sagittarius
-  int64 database_id = 1;
+  optional int64 database_id = 1;
   string flow_setting_id = 2;
   shared.Value value = 3;
   optional string cast = 4;
@@ -42,11 +50,11 @@ message FlowSetting {
 
 message NodeFunction {
   // The database id from sagittarius
-  int64 database_id = 1;
+  optional int64 database_id = 1;
   string runtime_function_id = 2;
   repeated NodeParameter parameters = 3;
   optional int64 next_node_id = 4;
-  string definition_source = 5;
+  optional string definition_source = 5;
 }
 
 message NodeValue {
