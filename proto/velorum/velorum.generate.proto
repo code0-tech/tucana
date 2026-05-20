@@ -7,20 +7,25 @@ package velorum;
 import "shared.function.proto";
 import "shared.data_type.proto";
 import "shared.flow.proto";
+import "shared.flow_type.proto";
 
 message PromptRequest {
   string prompt = 1;
   int64 project_id = 2;
-  repeated shared.FunctionDefinition functions = 3;
-  repeated shared.DefinitionDataType data_types = 4;
+  string model_identifier = 3;
+  repeated shared.FunctionDefinition functions = 4;
+  repeated shared.DefinitionDataType data_types = 5;
+  repeated shared.FlowType flow_types = 6;
 }
 
 message FlowRequest {
   string prompt = 1;
   shared.GenerationFlow flow = 2;
   int64 project_id = 3;
-  repeated shared.FunctionDefinition functions = 4;
-  repeated shared.DefinitionDataType data_types = 5;
+  string model_identifier = 4;
+  repeated shared.FunctionDefinition functions = 5;
+  repeated shared.DefinitionDataType data_types = 6;
+  repeated shared.FlowType flow_types = 7;
 }
 
 message FlowResponse {
