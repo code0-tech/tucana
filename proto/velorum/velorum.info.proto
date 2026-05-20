@@ -17,9 +17,10 @@ message Model {
     GENERATE = 2;
   }
 
-  string name = 1;
-  float token_cost = 2; //e.g 1.0, 4.0
-  ModelType type = 3;
+  string identifier = 1; // e.g. "gpt-3.5-turbo"
+  string name = 2;
+  float token_cost = 3; //e.g 1.0, 4.0
+  repeated ModelType type = 4;
 }
 
 message ModelsResponse {
