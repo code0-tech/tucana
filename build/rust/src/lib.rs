@@ -11,10 +11,16 @@ pub mod aquila {
     include!("generated/aquila.serde.rs");
 }
 
-#[cfg(feature = "sagittarius")]
-pub mod sagittarius {
-    include!("generated/sagittarius.rs");
-    include!("generated/sagittarius.serde.rs");
+#[cfg(feature = "sagittarius_gateway")]
+pub mod sagittarius_gateway {
+    include!("generated/sagittarius_gateway.rs");
+    include!("generated/sagittarius_gateway.serde.rs");
+}
+
+#[cfg(feature = "sagittarius_rails")]
+pub mod sagittarius_rails {
+    include!("generated/sagittarius_rails.rs");
+    include!("generated/sagittarius_rails.serde.rs");
 }
 
 #[cfg(feature = "velorum")]

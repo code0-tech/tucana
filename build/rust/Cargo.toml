@@ -23,11 +23,12 @@ name = "tucana"
 path = "src/lib.rs"
 
 [features]
-default = ["aquila", "sagittarius", "velorum"]
+default = ["aquila", "sagittarius_gateway", "sagittarius_rails", "velorum"]
 aquila = []
-sagittarius = []
+sagittarius_gateway = []
+sagittarius_rails = []
 velorum = []
-all = ["aquila", "sagittarius", "velorum"]
+all = ["aquila", "sagittarius_gateway", "sagittarius_rails", "velorum"]
 
 [build-dependencies]
 tonic-prost-build = { version = "0.14.0" }
