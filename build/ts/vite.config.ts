@@ -11,7 +11,8 @@ export default defineConfig({
             entry: {
                 shared: resolve(__dirname, "pb/shared.ts"),
                 aquila: resolve(__dirname, "pb/aquila.ts"),
-                sagittarius: resolve(__dirname, "pb/sagittarius.ts"),
+                sagittarius_gateway: resolve(__dirname, "pb/sagittarius_gateway.ts"),
+                sagittarius_rails: resolve(__dirname, "pb/sagittarius_rails.ts"),
                 velorum: resolve(__dirname, "pb/velorum.ts"),
                 helpers: resolve(__dirname, "helpers/helpers.ts"),
             },
@@ -24,7 +25,8 @@ export default defineConfig({
             input: {
                 shared: resolve(__dirname, "pb/shared.ts"),
                 aquila: resolve(__dirname, "pb/aquila.ts"),
-                sagittarius: resolve(__dirname, "pb/sagittarius.ts"),
+                sagittarius_gateway: resolve(__dirname, "pb/sagittarius_gateway.ts"),
+                sagittarius_rails: resolve(__dirname, "pb/sagittarius_rails.ts"),
                 velorum: resolve(__dirname, "pb/velorum.ts"),
                 helpers: resolve(__dirname, "helpers/helpers.ts"),
             },
