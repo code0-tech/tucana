@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package sagittarius;
+option ruby_package = "Tucana::Sagittarius::Gateway";
+
+package sagittarius_gateway;
 
 import "shared.errors.proto";
 import "shared.runtime_usage.proto";
-
-option ruby_package = "Tucana::Sagittarius";
 
 message RuntimeUsageRequest {
   repeated shared.RuntimeUsage runtime_usage = 1;
