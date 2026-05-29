@@ -19,7 +19,7 @@ To enable additional features::
 
 ```toml
 [dependencies]
-tucana = { version = "<version>", features = ["sagittarius", "aquila"] }
+tucana = { version = "<version>", features = ["sagittarius_rails", "aquila"] }
 ```
 
 ### Ruby
@@ -33,7 +33,7 @@ gem 'tucana', '<version>'
 Don't forget to initialize the required feature:
 ```ruby
 # For Sagittarius
-Tucana.load_protocol(:sagittarius)
+Tucana.load_protocol(:sagittarius_rails)
 
 # For Aquila
 Tucana.load_protocol(:aquila)
@@ -47,10 +47,20 @@ See: [NPM](https://www.npmjs.com/package/@code0-tech/tucana)
 npm i @code0-tech/tucana
 ```
 
+### Python
+
+See: [PyPI](https://pypi.org/project/tucana/)
+
+```console
+pip install tucana
+```
+
 ## Project Structure
 
-The project is organized with services functioning as servers. Each protocol in the Sagittarius folder corresponds to
-services that Sagittarius must implement as a server.
+The project is organized with services functioning as servers. Each protocol in the Aquila folder corresponds to
+services that Aquila must implement as a server.
+
+> Notice: Sagittarius has been splitted into a service without and with streams regarding issues due to the thread blocking implementation of Ruby gRPC
 
 ```ascii-tree
 .
@@ -59,13 +69,19 @@ services that Sagittarius must implement as a server.
 │   ├── module - Module service for Taurus to send over datatypes, functions and flow types
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
 │   └── runtime_usage - Service for runtime usage (handles execution time of a flow)
-├── sagittarius
+├── sagittarius_gateway
 │   ├── flow - Flow service (handles flow updates)
 │   ├── module - Module service to receive datatypes, functions and flow types from aquila
-│   ├── ping - Ping service (performs life checks)
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
 │   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
-│   └── test_execution - Service and Types for the test execution
+│   └── test_execution - Service and Types for the test execution├── sagittarius
+├── sagittarius_rails
+│   ├── flow - Flow service (handles flow updates)
+│   ├── module - Module service to receive datatypes, functions and flow types from aquila
+│   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
+│   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
+│   ├── test_execution - Service and Types for the test execution
+│   └── token - Service for verifing a runtime token
 └── shared
     ├── data_type - Defines types for data types
     ├── errors - Defines error object
