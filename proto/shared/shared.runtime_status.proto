@@ -4,8 +4,6 @@ package shared;
 
 option ruby_package = "Tucana::Shared";
 
-import "shared.translation.proto";
-
 message AdapterStatusConfiguration {
   // List of flow type identifiers for this specific AdapterConfiguration
   repeated string flow_type_identifiers = 1;
