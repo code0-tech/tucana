@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Sagittarius::Rails";
+
+package sagittarius_rails;
+
+import "shared.errors.proto";
+import "shared.runtime_usage.proto";
+
+message RuntimeUsageRequest {
+  repeated shared.RuntimeUsage runtime_usage = 1;
+}
+
+message RuntimeUsageResponse {
+  bool success = 1;
+  optional shared.ServiceError error = 2;
+}
+
+service RuntimeUsageService {
+  rpc Update(RuntimeUsageRequest) returns (RuntimeUsageResponse) {}
+}

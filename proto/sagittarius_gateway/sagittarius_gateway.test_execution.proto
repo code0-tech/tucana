@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option ruby_package = "Tucana::Sagittarius";
+option ruby_package = "Tucana::Sagittarius::Gateway";
 
-package sagittarius;
+package sagittarius_gateway;
 
 import "shared.struct.proto";
 import "shared.execution_result.proto";
@@ -29,6 +29,18 @@ message ExecutionLogonResponse {
   TestExecutionRequest request = 1;
 }
 
+message ExecutionPushRequest {
+  TestExecutionRequest request = 1;
+}
+
+message ExecutionPushResponse {
+
+}
+
 service ExecutionService {
-  rpc Test (stream ExecutionLogonRequest) returns (stream ExecutionLogonResponse) {}
+  // Called by Aquila
+  rpc Update (stream ExecutionLogonRequest) returns (stream ExecutionLogonResponse) {}
+
+  // Called by Sagittarius
+  rpc Push (ExecutionPushRequest) returns (ExecutionPushResponse) {}
 }

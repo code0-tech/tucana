@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Sagittarius::Rails";
+
+package sagittarius_rails;
+
+import "shared.struct.proto";
+import "shared.execution_result.proto";
+import "shared.errors.proto";
+
+message ExecutionRequest {
+    shared.ExecutionResult response = 1;
+}
+
+message ExecutionResponse {
+  bool success = 1;
+  optional shared.ServiceError error = 2;
+}
+
+service ExecutionService {
+  rpc Update (ExecutionRequest) returns (ExecutionResponse) {}
+}

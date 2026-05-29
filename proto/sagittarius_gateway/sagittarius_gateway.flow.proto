@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Sagittarius::Gateway";
+
+package sagittarius_gateway;
+
+import "shared.flow.proto";
+import "shared.module.proto";
+
+//Aquila sends a request to initialise stream to Sagittarius
+message FlowLogonRequest {
+}
+
+//Sagittarius sends flow to be updated
+message FlowResponse {
+  oneof data {
+    // Updates a single flow
+    shared.ValidationFlow updated_flow = 1;
+    // Deletes a single flow
+    int64 deleted_flow_id = 2;
+    // Replaces all flows in Aquila (only on startup and for releases)
+    shared.Flows flows = 3;
+    // ModuleConfigurations that have been configured by the user
+    shared.ModuleConfigurations module_configurations = 4;
+  }
+}
+
+message FlowPushRequest {
+  int64 runtime_identifier = 1;
+  FlowResponse response = 2;
+}
+
+message FlowPushResponse {
+}
+
+service FlowService {
+  // Called by Aquila
+  rpc Update (FlowLogonRequest) returns (stream FlowResponse) {}
+
+  // Called by Sagittarius
+  rpc Push (FlowPushRequest) returns (FlowPushResponse) {}
+}
