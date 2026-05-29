@@ -5,7 +5,7 @@ require_relative "tucana/version"
 module Tucana
   class Error < StandardError; end
 
-  AVAILABLE_PROTOCOLS = %i[aquila sagittarius velorum]
+  AVAILABLE_PROTOCOLS = %i[aquila sagittarius_gateway sagittarius_rails velorum]
 
   def self.load_protocol(protocol)
     if protocol != :shared

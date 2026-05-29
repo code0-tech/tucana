@@ -8,9 +8,14 @@ def test_load_aquila():
     from tucana.generated import aquila  # noqa: F401
 
 
-def test_load_sagittarius():
-    """Test loading sagittarius protocol."""
-    from tucana.generated import sagittarius  # noqa: F401
+def test_load_sagittarius_gateway():
+    """Test loading sagittarius_gateway protocol."""
+    from tucana.generated import sagittarius_gateway  # noqa: F401
+
+
+def test_load_sagittarius_rails():
+    """Test loading sagittarius_rails protocol."""
+    from tucana.generated import sagittarius_rails  # noqa: F401
 
 
 def test_load_velorum():
