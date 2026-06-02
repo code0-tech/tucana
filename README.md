@@ -58,7 +58,8 @@ services that Sagittarius must implement as a server.
 │   ├── action - Action service (emits events, and handles executions)
 │   ├── module - Module service for Taurus to send over datatypes, functions and flow types
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
-│   └── runtime_usage - Service for runtime usage (handles execution time of a flow)
+│   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
+│   └── execution - Service for updating completed executions
 ├── sagittarius
 │   ├── flow - Flow service (handles flow updates)
 │   ├── module - Module service to receive datatypes, functions and flow types from aquila
