@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Aquila";
+
+package aquila;
+
+import "shared.execution_result.proto";
+
+message ExecutionRequest {
+    shared.ExecutionResult response = 1;
+}
+
+message ExecutionResponse {
+}
+
+service ExecutionService {
+  rpc Update (ExecutionRequest) returns (ExecutionResponse) {}
+}
