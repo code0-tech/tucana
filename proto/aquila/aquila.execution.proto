@@ -7,10 +7,11 @@ package aquila;
 import "shared.execution_result.proto";
 
 message ExecutionRequest {
-    shared.ExecutionResult response = 1;
+    shared.ExecutionResult execution_result = 1;
 }
 
 message ExecutionResponse {
+    bool success = 1;
 }
 
 service ExecutionService {
