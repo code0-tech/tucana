@@ -132,9 +132,9 @@ pub fn to_json_value(value: Value) -> JsonValue {
         Some(Kind::NumberValue(n)) => {
             match n.number {
                 Some(number_value::Number::Integer(i)) => JsonValue::Number(Number::from(i)),
-                Some(number_value::Number::Float(f)) => JsonValue::Number(
-                    Number::from_f64(f).expect("Invalid number value"),
-                ),
+                Some(number_value::Number::Float(f)) => Number::from_f64(f)
+                    .map(JsonValue::Number)
+                    .unwrap_or(JsonValue::Null),
                 None => JsonValue::Null,
             }
         }
