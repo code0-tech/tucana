@@ -7,11 +7,7 @@ import "shared.runtime_status.proto";
 option ruby_package = "Tucana::Aquila";
 
 message RuntimeStatusUpdateRequest {
-  oneof status {
-    shared.AdapterRuntimeStatus adapter_runtime_status = 1;
-    shared.ExecutionRuntimeStatus execution_runtime_status = 2;
-    shared.ActionStatus action_status = 3;
-  }
+  shared.ModuleStatus status = 1;
 }
 
 message RuntimeStatusUpdateResponse {
