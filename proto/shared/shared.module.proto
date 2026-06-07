@@ -36,8 +36,14 @@ message ModuleDefinition {
   repeated string flow_type_identifier = 1;
   oneof value {
     // Endpoint URL
-    string endpoint = 2;
+    Endpoint endpoint = 2;
   }
+}
+
+message Endpoint {
+  string host = 1;
+  int64 port = 2;
+  string endpoint = 3;
 }
 
 //send by sagittarius to inform a module of the real config set by the user

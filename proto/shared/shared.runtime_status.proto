@@ -4,7 +4,7 @@ package shared;
 
 option ruby_package = "Tucana::Shared";
 
-enum Status {
+enum StatusVariant {
   UNKNOWN = 0;
   NOT_RESPONDING = 1;
   NOT_READY = 2;
@@ -18,6 +18,6 @@ message ModuleStatus {
   string identifier = 1;
   // epoch timestamp in seconds
   int64 timestamp = 2; 
-  Status status = 3;
+  StatusVariant status = 3;
 }
 
