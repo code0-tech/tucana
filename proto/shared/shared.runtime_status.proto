@@ -4,16 +4,15 @@ package shared;
 
 option ruby_package = "Tucana::Shared";
 
-enum StatusVariant {
-  UNKNOWN = 0;
-  NOT_RESPONDING = 1;
-  NOT_READY = 2;
-  RUNNING = 3;
-  STOPPED = 4;
-}
-
-
 message ModuleStatus {
+  enum StatusVariant {
+    UNKNOWN = 0;
+    NOT_RESPONDING = 1;
+    NOT_READY = 2;
+    RUNNING = 3;
+    STOPPED = 4;
+  }
+
   // Identifier of this module
   string identifier = 1;
   // epoch timestamp in seconds
