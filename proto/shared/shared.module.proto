@@ -28,6 +28,16 @@ message Module {
   repeated shared.DefinitionDataType definition_data_types = 13;
 
   repeated ModuleConfigurationDefinition configurations = 14;
+  repeated ModuleDefinition definitions = 15;
+}
+
+message ModuleDefinition {
+  // A list of flow type identifier to which the value appies
+  repeated string flow_type_identifier = 1;
+  oneof value {
+    // Endpoint URL
+    string endpoint = 2;
+  }
 }
 
 //send by sagittarius to inform a module of the real config set by the user
