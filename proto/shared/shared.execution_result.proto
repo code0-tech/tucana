@@ -15,7 +15,7 @@ message NodeExecutionResult {
 
   oneof id {
     int64 node_id = 1;
-    int64 function_id = 2;
+    string function_identifier = 2;
   }
 
   int64 started_at = 3;
