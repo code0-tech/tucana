@@ -29,6 +29,8 @@ message Module {
 
   repeated ModuleConfigurationDefinition configurations = 14;
   repeated ModuleDefinition definitions = 15;
+
+  string definition_source = 16;
 }
 
 message ModuleDefinition {

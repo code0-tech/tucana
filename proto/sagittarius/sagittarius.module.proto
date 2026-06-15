@@ -11,6 +11,9 @@ import "shared.module.proto";
 message ModuleUpdateRequest {
   // List of modules
   repeated shared.Module modules = 1;
+
+  // List of all available definition sources
+  repeated string available_defintition_soruces = 2;
 }
 
 // Response of updating modules including data types, flow types and runtime function definitions
