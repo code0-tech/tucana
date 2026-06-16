@@ -7,11 +7,27 @@ package sagittarius;
 import "shared.errors.proto";
 import "shared.module.proto";
 
+message ModuleDataLogon {}
+
+message ModuleDataRequest {
+  oneof data {
+    ModuleDataLogon logon = 1;
+    shared.ModuleDataConnection connection = 2;
+  }
+}
+
 // Request for updating a list of modules including data types, flow types and runtime function definitions
 message ModuleUpdateRequest {
   // List of modules
   repeated shared.Module modules = 1;
 }
+
+// Request for updating a list of modules including data types, flow types and runtime function definitions
+message ModuleDefinitionUpdateRequest {
+  // List of modules
+  repeated shared.ModuleDefinition module_definition = 1;
+}
+
 
 // Response of updating modules including data types, flow types and runtime function definitions
 message ModuleUpdateResponse {
@@ -23,4 +39,6 @@ message ModuleUpdateResponse {
 //This service will be implemented as a server by Sagittarius and as a client by Aquila.
 service ModuleService {
   rpc Update(ModuleUpdateRequest) returns (ModuleUpdateResponse) {}
+  rpc UpdateModuleDefinition(ModuleUpdateRequest) returns (ModuleUpdateResponse) {}
+  rpc Query(stream ModuleDataRequest) returns (stream shared.ModuleDataQuery) {}
 }

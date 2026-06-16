@@ -32,18 +32,50 @@ message Module {
 }
 
 message ModuleDefinition {
-  // A list of flow type identifier to which the value appies
-  repeated string flow_type_identifier = 1;
-  oneof value {
-    // Endpoint URL
-    Endpoint endpoint = 2;
-  }
+  // List of identifier of module data for this module
+  repeated string module_data_identifier = 1;
+  // List of endpoints for this module
+  repeated Endpoint endpoint = 2;
+}
+
+
+message ModuleDataConnection {
+  int64 count = 1;
+  repeated ModuleDataEdge edges = 2;
+  repeated ModuleData nodes = 3;
+  PageInfo pageInfo = 4;
+}
+
+message ModuleDataEdge {
+  string cursor = 1;
+  ModuleData node = 2;
+}
+
+message ModuleData {
+  string identifier = 1;
+  shared.Value data = 2;
+}
+
+message PageInfo {
+  string end_cursor = 1;
+  bool has_next_page = 2;
+  bool has_prev_page = 3;
+  string start_cursor = 4;
+}
+
+message ModuleDataQuery {
+  string identifier = 1;
+  string query = 2;
+  string cursor = 3;
+  string filter = 4;
 }
 
 message Endpoint {
   string host = 1;
   int64 port = 2;
   string endpoint = 3;
+  // A list of flow type identifier to which the endpoint applies
+  repeated string flow_type_identifier = 4;
 }
 
 //send by sagittarius to inform a module of the real config set by the user

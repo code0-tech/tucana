@@ -12,6 +12,12 @@ message ModuleUpdateRequest {
   repeated shared.Module modules = 1;
 }
 
+// Request for updating a list of modules including data types, flow types and runtime function definitions
+message ModuleDefinitionUpdateRequest {
+  // List of modules
+  repeated shared.ModuleDefinition module_definition = 1;
+}
+
 // Response of updating modules including data types, flow types and runtime function definitions
 message ModuleUpdateResponse {
   // True if was successful, false if not
@@ -20,5 +26,6 @@ message ModuleUpdateResponse {
 
 //This service will be implemented as a server by Aquila and as a client by Taurus.
 service ModuleService {
-  rpc Update(ModuleUpdateRequest) returns (ModuleUpdateResponse) {}
+  rpc UpdateModule(ModuleUpdateRequest) returns (ModuleUpdateResponse) {}
+  rpc UpdateModuleDefinition(ModuleUpdateRequest) returns (ModuleUpdateResponse) {}
 }

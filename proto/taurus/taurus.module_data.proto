@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Taurus";
+
+package taurus;
+
+import "shared.module.proto";
+
+service ModuleDataService {
+  rpc Query(shared.ModuleDataQuery) returns (shared.ModuleDataConnection) {}
+}
