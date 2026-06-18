@@ -38,6 +38,9 @@ message ModuleDefinition {
   repeated Endpoint endpoint = 2;
 }
 
+message ModuleDefinitions {
+  repeated ModuleDefinition module_definitions = 1;
+}
 
 message ModuleDataConnection {
   int64 count = 1;
