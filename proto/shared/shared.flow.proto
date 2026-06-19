@@ -97,8 +97,10 @@ message SubFlow {
     SubFlowFunction function = 2;
   }
 
-  string signature = 3;
-  repeated SubFlowSetting settings = 4;
+  shared.Struct input_schema = 3;
+  shared.Struct output_schema = 4;
+  string signature = 5;
+  repeated SubFlowSetting settings = 6;
 }
 
 message SubFlowSetting {
