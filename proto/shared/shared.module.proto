@@ -46,6 +46,7 @@ message Endpoint {
   string host = 1;
   int64 port = 2;
   string endpoint = 3;
+  string protocol = 4;
 }
 
 //send by sagittarius to inform a module of the real config set by the user
