@@ -52,7 +52,7 @@ message ModuleDataConnection {
 
 message ModuleData {
   string identifier = 1;
-  shared.Value data = 2;
+  repeated shared.Value data = 2;
 }
 
 message PageInfo {
