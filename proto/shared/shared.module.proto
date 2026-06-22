@@ -44,14 +44,8 @@ message ModuleDefinitions {
 
 message ModuleDataConnection {
   int64 count = 1;
-  repeated ModuleDataEdge edges = 2;
-  repeated ModuleData nodes = 3;
-  PageInfo pageInfo = 4;
-}
-
-message ModuleDataEdge {
-  string cursor = 1;
-  ModuleData node = 2;
+  repeated ModuleData nodes = 2;
+  PageInfo pageInfo = 3;
 }
 
 message ModuleData {
@@ -68,9 +62,9 @@ message PageInfo {
 
 message ModuleDataQuery {
   string identifier = 1;
-  string query = 2;
-  string cursor = 3;
-  string filter = 4;
+  string filter = 2;
+  string sort = 3;
+  string cursor = 4;
 }
 
 message Endpoint {
