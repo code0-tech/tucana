@@ -76,7 +76,7 @@ message NodeParameter {
 message ReferenceValue {
   oneof target {
     // Ref Value points to flow input
-    FlowInput flow_input = 1; 
+    FlowInput flow_input = 1;
     // Ref Value points to a Result of a node, the int is the id of the node
     int64 node_id = 2;
     // Points to Value that is contained inside of a node 
@@ -86,13 +86,21 @@ message ReferenceValue {
 }
 
 message SubFlow {
-  oneof execution_reference {
-    int64 starting_node_id = 1;
-    string function_identifier = 2;
+
+  message SubFlowFunction {
+    string function_identifier = 1;
+    optional string definition_source = 2;
   }
 
-  string signature = 3;
-  repeated SubFlowSetting settings = 4;
+  oneof execution_reference {
+    int64 starting_node_id = 1;
+    SubFlowFunction function = 2;
+  }
+
+  shared.Struct input_schema = 3;
+  shared.Struct output_schema = 4;
+  string signature = 5;
+  repeated SubFlowSetting settings = 6;
 }
 
 message SubFlowSetting {

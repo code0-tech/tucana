@@ -29,6 +29,8 @@ message Module {
 
   repeated ModuleConfigurationDefinition configurations = 14;
   repeated ModuleDefinition definitions = 15;
+
+  string definition_source = 16;
 }
 
 message ModuleDefinition {
@@ -71,8 +73,9 @@ message Endpoint {
   string host = 1;
   int64 port = 2;
   string endpoint = 3;
+  string protocol = 4;
   // A list of flow type identifier to which the endpoint applies
-  repeated string flow_type_identifier = 4;
+  repeated string flow_type_identifier = 5;
 }
 
 //send by sagittarius to inform a module of the real config set by the user
