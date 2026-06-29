@@ -25,7 +25,7 @@ message ModuleUpdateRequest {
   repeated string available_defintition_soruces = 2;
 }
 
-// Request for updating a list of modules including data types, flow types and runtime function definitions
+// Request for updating a list of module definitions
 message ModuleDefinitionUpdateRequest {
   // List of modules
   repeated shared.ModuleDefinition module_definition = 1;
