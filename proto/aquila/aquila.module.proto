@@ -12,7 +12,7 @@ message ModuleUpdateRequest {
   repeated shared.Module modules = 1;
 }
 
-// Request for updating a list of modules including data types, flow types and runtime function definitions
+// Request for updating a list of module definitions
 message ModuleDefinitionUpdateRequest {
   // List of modules
   repeated shared.ModuleDefinition module_definition = 1;
