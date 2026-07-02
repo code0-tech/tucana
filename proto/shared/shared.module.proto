@@ -34,12 +34,75 @@ message Module {
 }
 
 message ModuleDefinition {
-  // A list of flow type identifier to which the value appies
-  repeated string flow_type_identifier = 1;
-  oneof value {
-    // Endpoint URL
-    Endpoint endpoint = 2;
+  // List of identifier of module data for this module
+  repeated string module_data_identifier = 1;
+  // List of endpoints for this module
+  repeated Endpoint endpoint = 2;
+}
+
+message ModuleDefinitions {
+  repeated ModuleDefinition module_definitions = 1;
+}
+
+message ModuleDataConnection {
+  int64 count = 1;
+  repeated ModuleData nodes = 2;
+  PageInfo pageInfo = 3;
+}
+
+message ModuleData {
+  string identifier = 1;
+  repeated shared.Value data = 2;
+}
+
+message PageInfo {
+  string end_cursor = 1;
+  bool has_next_page = 2;
+  bool has_prev_page = 3;
+  string start_cursor = 4;
+}
+
+message ModuleDataQuery {
+  string identifier = 1;
+  repeated ModuleDataFilter filter = 2;
+  repeated ModuleDataSort sort = 3;
+  string cursor = 4;
+}
+
+message ModuleDataSort {
+  enum ModuleDataSortDirection {
+   UNKNOWN = 0;
+   ASC = 1;
+   DESC = 2;
   }
+
+ repeated string path = 1;
+ ModuleDataSortDirection direction = 2;
+}
+
+message ModuleDataFilter {
+  message Operation {
+    oneof operation {
+      bool exists = 1;
+
+      NumberValue gt = 2;
+      NumberValue gte = 3;
+      NumberValue lt = 4;
+      NumberValue lte = 5;
+
+      string eq = 6;
+      string neq = 7;
+      string contains = 8;
+      string starts_with = 9;
+      string ends_with = 10;
+
+      ListValue in = 11;
+      ListValue not_in = 12;
+    }
+  }
+
+  repeated string path = 1;
+  Operation operation = 2;
 }
 
 message Endpoint {
@@ -47,6 +110,8 @@ message Endpoint {
   int64 port = 2;
   string endpoint = 3;
   string protocol = 4;
+  // A list of flow type identifier to which the endpoint applies
+  repeated string flow_type_identifier = 5;
 }
 
 //send by sagittarius to inform a module of the real config set by the user
