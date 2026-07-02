@@ -64,9 +64,45 @@ message PageInfo {
 
 message ModuleDataQuery {
   string identifier = 1;
-  string filter = 2;
-  string sort = 3;
+  repeated ModuleDataFilter filter = 2;
+  repeated ModuleDataSort sort = 3;
   string cursor = 4;
+}
+
+message ModuleDataSort {
+  enum ModuleDataSortDirection {
+   UNKNOWN = 0;
+   ASC = 1;
+   DESC = 2;
+  }
+
+ repeated string path = 1;
+ ModuleDataSortDirection direction = 2;
+}
+
+message ModuleDataFilter {
+  message Operation {
+    oneof operation {
+      boolean exists = 1;
+
+      NumberValue gt = 2;
+      NumberValue gte = 3;
+      NumberValue lt = 4;
+      NumberValue lte = 5;
+
+      string eq = 6;
+      string neq = 7;
+      string contains = 8;
+      string starts_with = 9;
+      string ends_with = 10;
+
+      ListValue in = 11;
+      ListValue not_in = 12;
+    }
+  }
+
+  repeated string path = 1;
+  Operation operation = 2;
 }
 
 message Endpoint {
