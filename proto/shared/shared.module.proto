@@ -83,7 +83,7 @@ message ModuleDataSort {
 message ModuleDataFilter {
   message Operation {
     oneof operation {
-      boolean exists = 1;
+      bool exists = 1;
 
       NumberValue gt = 2;
       NumberValue gte = 3;
