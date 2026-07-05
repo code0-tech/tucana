@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Sagittarius::Rails";
+
+package sagittarius_rails;
+
+import "shared.errors.proto";
+import "shared.runtime_status.proto";
+
+message RuntimeStatusUpdateRequest {
+  shared.ModuleStatus status = 1;
+}
+
+message RuntimeStatusUpdateResponse {
+  bool success = 1;
+  optional shared.ServiceError error = 2;
+}
+
+service RuntimeStatusService {
+  rpc Update(RuntimeStatusUpdateRequest) returns (RuntimeStatusUpdateResponse) {}
+}

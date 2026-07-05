@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Sagittarius::Rails";
+
+package sagittarius_rails;
+
+import "shared.flow.proto";
+
+message TokenVerifyRequest {
+  string token = 1;
+}
+
+message TokenVerifyResponse {
+  oneof data {
+    VerifiedRuntime verified = 1;
+    UnverifiedRuntime unverified = 2;
+  }
+}
+
+message VerifiedRuntime {
+  int64 runtime_id = 1;
+}
+
+message UnverifiedRuntime {
+}
+
+service TokenService {
+  // Called by Gateway
+  rpc Update (TokenVerifyRequest) returns (TokenVerifyResponse) {}
+}

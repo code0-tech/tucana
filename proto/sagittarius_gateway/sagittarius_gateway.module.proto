@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Sagittarius::Gateway";
+
+package sagittarius_gateway;
+
+import "shared.errors.proto";
+import "shared.module.proto";
+
+// Request for updating a list of modules including data types, flow types and runtime function definitions
+message ModuleUpdateRequest {
+  // List of modules
+  repeated shared.Module modules = 1;
+}
+
+// Response of updating modules including data types, flow types and runtime function definitions
+message ModuleUpdateResponse {
+  // True if was successful, false if not
+  bool success = 1;
+  optional shared.ServiceError error = 2;
+}
+
+message ModuleConfigurationRequest {
+
+}
+
+message ModuleConfigurationResponse {
+    shared.ModuleConfigurations module_configurations = 1;
+}
+
+//This service will be implemented as a server by Sagittarius and as a client by Aquila.
+service ModuleService {
+  rpc Update(ModuleUpdateRequest) returns (ModuleUpdateResponse) {}
+  rpc Configurations(ModuleUpdateRequest) returns (stream ModuleUpdateResponse) {}
+}
