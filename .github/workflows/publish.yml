@@ -21,7 +21,7 @@ jobs:
 
     steps:
       # Set up
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -51,7 +51,7 @@ jobs:
 
     steps:
       # Set up
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Setup rust
         run: rustup update --no-self-update stable
       - name: Install protoc
@@ -83,7 +83,7 @@ jobs:
         working-directory: build/ts
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up Node
         uses: actions/setup-node@v6
         with:
@@ -114,7 +114,7 @@ jobs:
         working-directory: build/python
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Set up uv
         uses: astral-sh/setup-uv@v8.1.0
         with:
