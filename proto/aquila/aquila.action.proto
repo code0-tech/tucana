@@ -54,6 +54,10 @@ message ActionTransferRequest {
     ActionEvent event = 2;
     // Result of execution that was triggered by a execution request
     ActionExecutionResponse result = 3;
+    // Updated Module Definitions at runtime
+    shared.ModuleDefinitions module_definitions = 4;
+    // Response to a Module Data Query
+    shared.ModuleDataConnection module_data = 5;
   }
 }
 
@@ -63,6 +67,8 @@ message ActionTransferResponse {
     ActionExecutionRequest execution = 1;
     // ModuleConfigurations that have been configured by the user
     shared.ModuleConfigurations module_configurations = 2;
+    // Request to query a specific module data
+    shared.ModuleDataQuery module_data_query = 3;
   }
 }
 
