@@ -4,7 +4,6 @@ option ruby_package = "Tucana::Sagittarius::Rails";
 
 package sagittarius_rails;
 
-import "shared.struct.proto";
 import "shared.execution_result.proto";
 import "shared.errors.proto";
 

@@ -4,8 +4,6 @@ option ruby_package = "Tucana::Sagittarius::Rails";
 
 package sagittarius_rails;
 
-import "shared.flow.proto";
-
 message TokenVerifyRequest {
   string token = 1;
 }
