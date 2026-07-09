@@ -28,8 +28,21 @@ message ModuleConfigurationResponse {
     shared.ModuleConfigurations module_configurations = 1;
 }
 
+message ModuleConfigurationPushRequest {
+  int64 runtime_identifier = 1;
+  ModuleConfigurationResponse response = 2;
+}
+
+message ModuleConfigurationPushResponse {
+}
+
 //This service will be implemented as a server by Sagittarius and as a client by Aquila.
 service ModuleService {
+  // Aquila will call this method to update modules
   rpc Update(ModuleUpdateRequest) returns (ModuleUpdateResponse) {}
-  rpc Configurations(ModuleUpdateRequest) returns (stream ModuleUpdateResponse) {}
+  // Aquila will call this method to open a stream to receive module configurations
+  rpc Configurations(ModuleConfigurationRequest) returns (stream ModuleConfigurationResponse) {}
+
+  // Sagittarius will call this method push new module configurations to aquila
+  rpc Push(ModuleConfigurationPushRequest) returns (ModuleConfigurationPushResponse) {}
 }
