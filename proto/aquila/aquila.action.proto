@@ -20,7 +20,7 @@ message ActionFlow {
   shared.Struct output_schema = 5;
   string project_slug = 6;
 
-  repeated shared.Translation name = 7;
+  repeated string name = 7;
   repeated shared.Translation description = 8;
 }
 
