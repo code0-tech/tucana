@@ -21,7 +21,6 @@ message ActionFlow {
   string project_slug = 6;
 
   repeated string name = 7;
-  repeated shared.Translation description = 8;
 }
 
 // Event that gets admitted by an action
