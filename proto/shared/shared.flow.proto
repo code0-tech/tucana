@@ -27,7 +27,7 @@ message ValidationFlow {
   shared.Struct input_schema = 12;
   shared.Struct output_schema = 13;
  
-  repeated shared.Translation name = 14;
+  repeated string name = 14;
 }
 
 message ExecutionFlow {
