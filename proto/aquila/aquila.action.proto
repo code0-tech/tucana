@@ -20,7 +20,7 @@ message ActionFlow {
   shared.Struct output_schema = 5;
   string project_slug = 6;
 
-  repeated string name = 7;
+  string name = 7;
 }
 
 // Event that gets admitted by an action
