@@ -35,8 +35,16 @@ message ActionEvent {
 
 // Action flow/event configuration
 message ActionLogon {
+  enum ScalingOption {
+    UNKNOWN = 0;
+    // Send all Flows/Project Configurations to all Actions of this type
+    DISABLED = 1;
+    // Split all Flows/Project Configurations between all available Actions of this type
+    SPLIT = 2;
+  }
   // Action identifier
   shared.Module module = 1;
+  ScalingOption scaling_option = 2;
 }
 
 // Request to execute a request a flow
