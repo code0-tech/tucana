@@ -56,18 +56,21 @@ services that Sagittarius must implement as a server.
 .
 ├── aquila
 │   ├── action - Action service (emits events, and handles executions)
+│   ├── execution - Service for updating completed executions
+│   ├── install_action - Service for listing, installing, and uninstalling actions
 │   ├── module - Module service for Taurus to send over datatypes, functions and flow types
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
-│   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
-│   └── execution - Service for updating completed executions
+│   └── runtime_usage - Service for runtime usage (handles execution time of a flow)
 ├── sagittarius
 │   ├── flow - Flow service (handles flow updates)
+│   ├── install_action - Service for listing, installing, and uninstalling actions
 │   ├── module - Module service to receive datatypes, functions and flow types from aquila
 │   ├── ping - Ping service (performs life checks)
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
 │   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
 │   └── test_execution - Service and Types for the test execution
 └── shared
+    ├── action - Defines information about an installable action
     ├── data_type - Defines types for data types
     ├── errors - Defines error object
     ├── execution_result - Defines execution result of a flow
@@ -82,3 +85,4 @@ services that Sagittarius must implement as a server.
     ├── struct - Defines json representations
     └── translation - Contains translations with country codes and translated messages
 ```
+

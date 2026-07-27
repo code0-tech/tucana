@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Aquila";
+
+package aquila;
+
+import "shared.action.proto";
+
+message UninstallActionCommand {
+  string action_identifier = 1;
+}
+
+message InstallActionCommand {
+  string action_identifier = 1;
+}
+
+message UninstallActionResult {
+  enum Result {
+    UNKNOWN = 0;
+    UNINSTALLED = 1;
+    FAILED = 2;
+  }
+
+  Result result = 1;
+}
+
+message InstallActionResult {
+  enum Result {
+    UNKNOWN = 0;
+    ALREADY_INSTALLED = 1;
+    INSTALLED = 2;
+    FAILED = 3;
+  }
+
+  Result result = 1;
+}
+
+message ListInstallableActionsCommand {}
+
+message ListInstallableActionsResult {
+  repeated shared.InstallableAction actions = 1;
+}
+
+message Logon {}
+
+message ActionInstallServiceRequest {
+  oneof data {
+    Logon logon = 1;
+    ListInstallableActionsResult list_installable_actions_result = 2;
+    InstallActionResult install_action_result = 3;
+    UninstallActionResult uninstall_action_result = 4;
+  }
+}
+
+message ActionInstallServiceResponse {
+  oneof data {
+    InstallActionCommand install_action = 1;
+    UninstallActionCommand uninstall_action = 2;
+    ListInstallableActionsCommand list_installable_actions = 3;
+  }
+}
+
+service ActionInstallService {
+  rpc Install (stream ActionInstallServiceRequest) returns (stream ActionInstallServiceResponse);
+}
