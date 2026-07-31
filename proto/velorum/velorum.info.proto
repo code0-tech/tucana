@@ -4,6 +4,10 @@ option ruby_package = "Tucana::Velorum";
 
 package velorum;
 
+import "shared.function.proto";
+import "shared.data_type.proto";
+import "shared.flow.proto";
+
 message ModelsRequest {}
 
 message Model {
