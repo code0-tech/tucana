@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option ruby_package = "Tucana::Sagittarius";
+option ruby_package = "Tucana::Sagittarius::Rails";
 
-package sagittarius;
+package sagittarius_rails;
 
 import "shared.errors.proto";
 import "shared.module.proto";

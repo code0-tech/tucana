@@ -7,5 +7,5 @@
     "strict": true,
     "skipLibCheck": true
   },
-  "include": ["helpers", "pb", "pb/aquila.ts", "pb/shared.ts", "pb/sagittarius.ts"]
+  "include": ["helpers", "pb", "pb/aquila.ts", "pb/shared.ts", "pb/sagittarius_gateway.ts", "pb/sagittarius_rails.ts", "pb/velorum.ts"]
 }

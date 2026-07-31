@@ -16,10 +16,11 @@
   "scripts": {
     "build": "vite build",
     "generate:aquila": "protoc --ts_opt=add_pb_suffix  --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/aquila --proto_path=../../proto/shared ../../proto/aquila/*.proto",
-    "generate:sagittarius": "protoc --ts_opt=add_pb_suffix --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/sagittarius --proto_path=../../proto/shared ../../proto/sagittarius/*.proto",
+    "generate:sagittarius_gateway": "protoc --ts_opt=add_pb_suffix --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/sagittarius_gateway --proto_path=../../proto/shared ../../proto/sagittarius_gateway/*.proto",
+    "generate:sagittarius_rails": "protoc --ts_opt=add_pb_suffix --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/sagittarius_rails --proto_path=../../proto/shared ../../proto/sagittarius_rails/*.proto",
     "generate:velorum": "protoc --ts_opt=add_pb_suffix --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/velorum --proto_path=../../proto/shared ../../proto/velorum/*.proto",
     "generate:shared": "protoc --ts_opt=add_pb_suffix --ts_opt=generate_dependencies --ts_out=pb/_generated --proto_path=../../proto/shared ../../proto/shared/*.proto",
-    "generate": "npm run clean && npm run generate:shared && npm run generate:sagittarius && npm run generate:aquila && npm run generate:velorum && npm run generate:exports",
+    "generate": "npm run clean && npm run generate:shared && npm run generate:sagittarius_gateway && npm run generate:sagittarius_rails && npm run generate:aquila && npm run generate:velorum && npm run generate:exports",
     "generate:exports": "node scripts/generateExports.mjs",
     "clean": "rm -rf pb/_generated/*.js && rm -rf pb/_generated/*.ts && rm -rf helpers/*.js"
   },
@@ -48,10 +49,15 @@
       "import": "./dist/aquila.es.js",
       "require": "./dist/aquila.cjs.js"
     },
-    "./sagittarius": {
-      "types": "./dist/sagittarius.d.ts",
-      "import": "./dist/sagittarius.es.js",
-      "require": "./dist/sagittarius.cjs.js"
+    "./sagittarius_gateway": {
+      "types": "./dist/sagittarius_gateway.d.ts",
+      "import": "./dist/sagittarius_gateway.es.js",
+      "require": "./dist/sagittarius_gateway.cjs.js"
+    },
+     "./sagittarius_rails": {
+      "types": "./dist/sagittarius_rails.d.ts",
+      "import": "./dist/sagittarius_rails.es.js",
+      "require": "./dist/sagittarius_rails.cjs.js"
     },
     "./velorum": {
       "types": "./dist/velorum.d.ts",

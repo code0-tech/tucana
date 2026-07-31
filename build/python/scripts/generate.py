@@ -66,7 +66,8 @@ def organize_generated_files(output_dir: Path) -> None:
     protocol_map = {
         "shared": output_dir / "shared",
         "aquila": output_dir / "aquila",
-        "sagittarius": output_dir / "sagittarius",
+        "sagittarius_gateway": output_dir / "sagittarius_gateway",
+        "sagittarius_rails": output_dir / "sagittarius_rails",
         "velorum": output_dir / "velorum",
     }
 
@@ -95,7 +96,7 @@ def organize_generated_files(output_dir: Path) -> None:
 
 
 def create_init_files(output_dir: Path) -> None:
-    for namespace in ["shared", "aquila", "sagittarius", "velorum"]:
+    for namespace in ["shared", "aquila", "sagittarius_gateway", "sagittarius_rails", "velorum"]:
         ns_dir = output_dir / namespace
         if ns_dir.exists():
             init_file = ns_dir / "__init__.py"
@@ -154,7 +155,7 @@ def main():
 
     print(f"\n✅ Generation complete!")
     print(f"   Output directory: {generated_dir}")
-    print(f"   Ready to import: from tucana.generated import shared, aquila, sagittarius, velorum")
+    print(f"   Ready to import: from tucana.generated import shared, aquila, sagittarius_gateway, sagittarius_rails, velorum")
 
 
 if __name__ == "__main__":
