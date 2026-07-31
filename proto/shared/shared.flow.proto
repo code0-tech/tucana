@@ -6,6 +6,7 @@ package shared;
 
 import "shared.struct.proto";
 import "shared.data_type.proto";
+import "shared.translation.proto";
 
 message ValidationFlow {
   // Database ID -> req. for Aquila to identify in FlowStore
@@ -21,6 +22,12 @@ message ValidationFlow {
   string project_slug = 8;
   optional string disable_reason = 9;
   string signature = 10;
+
+  optional string definition_source = 11;
+  shared.Struct input_schema = 12;
+  shared.Struct output_schema = 13;
+ 
+  string name = 14;
 }
 
 message ExecutionFlow {
