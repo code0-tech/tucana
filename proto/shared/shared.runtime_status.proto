@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package shared;
-
 option ruby_package = "Tucana::Shared";
+
+package shared;
 
 message ModuleStatus {
   enum StatusVariant {
@@ -16,7 +16,6 @@ message ModuleStatus {
   // Identifier of this module
   string identifier = 1;
   // epoch timestamp in seconds
-  int64 timestamp = 2; 
+  int64 timestamp = 2;
   StatusVariant status = 3;
 }
-

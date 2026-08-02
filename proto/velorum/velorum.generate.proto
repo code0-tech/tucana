@@ -34,7 +34,6 @@ message FlowResponse {
   int64 usage = 3; // in tokens
 }
 
-
 service GenerateService {
   rpc Prompt (PromptRequest) returns (FlowResponse) {}
   rpc Flow (FlowRequest) returns (FlowResponse) {}

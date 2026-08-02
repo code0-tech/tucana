@@ -7,8 +7,8 @@ package shared;
 import "shared.translation.proto";
 
 /*
-    A data type is a custom implementation that could be compared to an object
-    It could be as simple as a primitive but can be as complex as a structured object with rules
+ * A data type is a custom implementation that could be compared to an object
+ * It could be as simple as a primitive but can be as complex as a structured object with rules
  */
 message DefinitionDataType {
 

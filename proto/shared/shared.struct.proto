@@ -34,9 +34,9 @@
 
 syntax = "proto3";
 
-package shared;
-
 option ruby_package = "Tucana::Shared";
+
+package shared;
 
 // `Struct` represents a structured data value, consisting of fields
 // which map to dynamically typed values. In some languages, `Struct`
@@ -62,7 +62,7 @@ message Value {
   oneof kind {
     // Represents a null value.
     NullValue null_value = 1;
-    // Represents a numberic value.
+    // Represents a numeric value.
     NumberValue number_value = 2;
     // Represents a string value.
     string string_value = 3;

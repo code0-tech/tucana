@@ -10,18 +10,18 @@ import "shared.execution_result.proto";
 message Logon {}
 
 message TestExecutionRequest {
-    int64 flow_id = 1;
-    string execution_identifier = 2;
-    shared.Value body = 3;
+  int64 flow_id = 1;
+  string execution_identifier = 2;
+  shared.Value body = 3;
 }
 
 // Aquila sends a logon request to Sagittarius that initiates a stream
 // If the stream is initialized it will return the result after it received a request
 message ExecutionLogonRequest {
-    oneof data {
-        Logon logon = 1;
-        shared.ExecutionResult response = 2;
-    }
+  oneof data {
+    Logon logon = 1;
+    shared.ExecutionResult response = 2;
+  }
 }
 
 // Sagittarius sends execution requests

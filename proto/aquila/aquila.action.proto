@@ -59,7 +59,7 @@ message ActionExecutionRequest {
   int64 project_id = 4;
 }
 
-message ActionFlowExecutioRequest {
+message ActionFlowExecutionRequest {
   string execution_identifier = 1;
   string flow_id = 2;
   shared.Value payload = 3;
@@ -75,10 +75,10 @@ message ActionExecutionResponse {
 message ActionFlowExecutionResponse {
   // Execution identifier of execution
   string execution_identifier = 1;
-   oneof result {
+  oneof result {
     shared.Value success = 2;
     shared.Error failure = 3;
-   }
+  }
 }
 
 message ActionFlowUpdate {

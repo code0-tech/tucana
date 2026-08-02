@@ -8,7 +8,7 @@ import "shared.execution_result.proto";
 import "shared.errors.proto";
 
 message ExecutionRequest {
-    shared.ExecutionResult response = 1;
+  shared.ExecutionResult response = 1;
 }
 
 message ExecutionResponse {

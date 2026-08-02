@@ -27,7 +27,7 @@ message ModuleConfigurationRequest {
 }
 
 message ModuleConfigurationResponse {
-    shared.ModuleConfigurations module_configurations = 1;
+  shared.ModuleConfigurations module_configurations = 1;
 }
 
 message ModuleConfigurationPushRequest {

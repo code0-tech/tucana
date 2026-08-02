@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package shared;
-
 option ruby_package = "Tucana::Shared";
+
+package shared;
 
 import "shared.struct.proto";
 

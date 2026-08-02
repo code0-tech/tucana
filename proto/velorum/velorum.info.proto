@@ -23,7 +23,6 @@ message ModelsResponse {
   repeated Model models = 1;
 }
 
-
 service InfoService {
   rpc Models (ModelsRequest) returns (ModelsResponse) {}
 }
