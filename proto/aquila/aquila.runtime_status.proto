@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+option ruby_package = "Tucana::Aquila";
+
 package aquila;
 
 import "shared.runtime_status.proto";
-
-option ruby_package = "Tucana::Aquila";
 
 message RuntimeStatusUpdateRequest {
   shared.ModuleStatus status = 1;

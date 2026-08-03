@@ -95,7 +95,7 @@ message ActionSubFlowExecutionResponse {
   }
 }
 
-message ActionFlowExecutioRequest {
+message ActionFlowExecutionRequest {
   string execution_identifier = 1;
   string flow_id = 2;
   shared.Value payload = 3;

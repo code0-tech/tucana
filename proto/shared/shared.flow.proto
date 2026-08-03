@@ -26,7 +26,7 @@ message ValidationFlow {
   optional string definition_source = 11;
   shared.Struct input_schema = 12;
   shared.Struct output_schema = 13;
- 
+
   string name = 14;
 }
 
@@ -86,19 +86,18 @@ message ReferenceValue {
     FlowInput flow_input = 1;
     // Ref Value points to a Result of a node, the int is the id of the node
     int64 node_id = 2;
-    // Points to Value that is contained inside of a node 
+    // Points to Value that is contained inside of a node
     InputType input_type = 3;
   }
   repeated ReferencePath paths = 4;
 }
 
+message SubFlowFunction {
+  string function_identifier = 1;
+  optional string definition_source = 2;
+}
+
 message SubFlow {
-
-  message SubFlowFunction {
-    string function_identifier = 1;
-    optional string definition_source = 2;
-  }
-
   oneof execution_reference {
     int64 starting_node_id = 1;
     SubFlowFunction function = 2;
@@ -120,7 +119,7 @@ message SubFlowSetting {
 message FlowInput {}
 
 message InputType {
-  // Id of the node 
+  // Id of the node
   int64 node_id = 1;
   // Index of the parameter inside the function
   int64 parameter_index = 2;

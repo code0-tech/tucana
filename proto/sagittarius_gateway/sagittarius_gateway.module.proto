@@ -11,6 +11,8 @@ import "shared.module.proto";
 message ModuleUpdateRequest {
   // List of modules
   repeated shared.Module modules = 1;
+  // List of all available modules of this runtime
+  repeated string available_definition_sources = 2;
 }
 
 // Response of updating modules including data types, flow types and runtime function definitions
@@ -25,7 +27,7 @@ message ModuleConfigurationRequest {
 }
 
 message ModuleConfigurationResponse {
-    shared.ModuleConfigurations module_configurations = 1;
+  shared.ModuleConfigurations module_configurations = 1;
 }
 
 message ModuleConfigurationPushRequest {

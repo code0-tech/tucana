@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package shared;
-
 option ruby_package = "Tucana::Shared";
+
+package shared;
 
 import "shared.translation.proto";
 import "shared.data_type.proto";
@@ -64,7 +64,6 @@ message ModuleConfigurations {
   string module_identifier = 1; // links to Module.identifier
   repeated ModuleProjectConfigurations module_configurations = 2;
 }
-
 
 // Message sent by a module to define a configuration
 message ModuleConfigurationDefinition {
