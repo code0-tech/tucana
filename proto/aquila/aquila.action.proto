@@ -47,16 +47,52 @@ message ActionLogon {
   ScalingOption scaling_option = 2;
 }
 
+// Reference to a sub flow whose result is used as a parameter value
+message ActionNodeSubFlowValue {
+  // Execution identifier of the sub flow execution
+  string execution_identifier = 1;
+}
+
+// A single parameter value of a function
+message ActionNodeValue {
+  oneof value {
+    // A literal, already resolved value
+    shared.Value literal_value = 1;
+    // A value that is produced by executing a sub flow
+    ActionNodeSubFlowValue sub_flow = 2;
+  }
+}
+
 // Request to execute a request a flow
 message ActionExecutionRequest {
   // Execution identifier of execution
   string execution_identifier = 1;
   // Function identifier of flow to execute
   string function_identifier = 2;
-  // Parameters (JSON) of flow required to execute
-  shared.Struct parameters = 3;
+  // Parameters of functions required to execute
+  repeated ActionNodeValue parameters = 3;
   // Project Id that this function is emitted for
   int64 project_id = 4;
+}
+
+// Request to execute a sub flow
+message ActionSubFlowExecutionRequest {
+  // Execution identifier of execution
+  string execution_identifier = 1;
+  //parameters for the sub flow to inject
+  repeated shared.Value parameters = 2;
+}
+
+// Result of a sub flow execution
+message ActionSubFlowExecutionResponse {
+  // Execution identifier of execution
+  string execution_identifier = 1;
+  oneof result {
+    // Successful result of the sub flow execution
+    shared.Value success = 2;
+    // Error that occurred during the sub flow execution
+    shared.Error failure = 3;
+  }
 }
 
 message ActionFlowExecutionRequest {
@@ -100,8 +136,8 @@ message ActionTransferRequest {
     ActionEvent event = 2;
     // Result of execution that was triggered by a execution request
     ActionExecutionResponse result = 3;
-    // Result of an flow execution
-    ActionFlowExecutionResponse flow_execution_response = 4;
+    // Request to execute a sub flow
+    ActionSubFlowExecutionRequest sub_flow_execution = 4;
   }
 }
 
@@ -114,6 +150,10 @@ message ActionTransferResponse {
     shared.ModuleConfigurations module_configurations = 2;
     // An Action Flow update
     ActionFlowUpdate flow_update = 3;
+    // Result of an flow execution
+    ActionFlowExecutionResponse flow_execution_response = 4;
+    // Result of a sub flow execution
+    ActionSubFlowExecutionResponse sub_flow_execution_response = 5;
   }
 }
 
