@@ -138,6 +138,8 @@ message ActionTransferRequest {
     ActionExecutionResponse result = 3;
     // Request to execute a sub flow
     ActionSubFlowExecutionRequest sub_flow_execution = 4;
+    // Request to execute one of the action's own flows
+    ActionFlowExecutionRequest flow_execution = 5;
   }
 }
 
