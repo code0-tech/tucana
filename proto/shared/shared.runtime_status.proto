@@ -4,6 +4,11 @@ option ruby_package = "Tucana::Shared";
 
 package shared;
 
+message RuntimeStatus {
+  // epoch timestamp in seconds
+  int64 timestamp = 1;
+}
+
 message ModuleStatus {
   enum StatusVariant {
     UNKNOWN = 0;
