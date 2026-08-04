@@ -8,7 +8,10 @@ import "shared.errors.proto";
 import "shared.runtime_status.proto";
 
 message RuntimeStatusUpdateRequest {
-  shared.ModuleStatus status = 1;
+  oneof status {
+    shared.ModuleStatus module_status = 1;
+    shared.RuntimeStatus runtime_status = 2;
+  }
 }
 
 message RuntimeStatusUpdateResponse {
