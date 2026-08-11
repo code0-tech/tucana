@@ -75,14 +75,14 @@ message ActionLiteralValue {
   // are resolved from `references`.
   shared.Value value = 1;
   // Inline references addressable via `${signature}` inside `value`.
-  repeated ActionReference references = 2;
+  repeated ActionInlineReferenceValue references = 2;
 }
 
 // A single inline reference of an ActionLiteralValue.
 //
-// Mirrors shared.Reference, but the referenced value is an ActionNodeValue so
-// that any sub flow resolves to an ActionNodeSubFlowValue.
-message ActionReference {
+// Mirrors shared.InlineReferenceValue, but the referenced value is an
+// ActionNodeValue so that any sub flow resolves to an ActionNodeSubFlowValue.
+message ActionInlineReferenceValue {
   // The key addressed via `${signature}`.
   string signature = 1;
   // The value this reference resolves to.

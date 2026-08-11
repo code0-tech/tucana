@@ -83,7 +83,7 @@ message LiteralValue {
   // are resolved from `references`.
   shared.Value value = 1;
   // Inline references addressable via `${signature}` inside `value`.
-  repeated Reference references = 2;
+  repeated InlineReferenceValue references = 2;
 }
 
 // A single inline reference of a LiteralValue.
@@ -91,7 +91,7 @@ message LiteralValue {
 // `signature` is the key used inside `value` via the `${signature}` syntax.
 // The referenced value is again a NodeValue, so it can be a LiteralValue
 // (allowing nested references), a ReferenceValue or a SubFlow.
-message Reference {
+message InlineReferenceValue {
   // The key addressed via `${signature}`.
   string signature = 1;
   // The value this reference resolves to.
