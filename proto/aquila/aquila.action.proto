@@ -56,11 +56,37 @@ message ActionNodeSubFlowValue {
 // A single parameter value of a function
 message ActionNodeValue {
   oneof value {
-    // A literal, already resolved value
-    shared.Value literal_value = 1;
+    // A literal value that may contain inline references (`${signature}`)
+    ActionLiteralValue literal_value = 1;
     // A value that is produced by executing a sub flow
     ActionNodeSubFlowValue sub_flow = 2;
   }
+}
+
+// A literal value that may contain inline references.
+//
+// Mirrors shared.LiteralValue, but every sub flow in the tree is an
+// ActionNodeSubFlowValue instead of a shared.SubFlow. `value` behaves like a
+// template: any occurrence of `${signature}` inside a (possibly nested) string
+// value gets substituted with the resolved value of the reference whose
+// `signature` matches.
+message ActionLiteralValue {
+  // The raw value. String values may contain `${signature}` placeholders that
+  // are resolved from `references`.
+  shared.Value value = 1;
+  // Inline references addressable via `${signature}` inside `value`.
+  repeated ActionReference references = 2;
+}
+
+// A single inline reference of an ActionLiteralValue.
+//
+// Mirrors shared.Reference, but the referenced value is an ActionNodeValue so
+// that any sub flow resolves to an ActionNodeSubFlowValue.
+message ActionReference {
+  // The key addressed via `${signature}`.
+  string signature = 1;
+  // The value this reference resolves to.
+  ActionNodeValue value = 2;
 }
 
 // Request to execute a request a flow

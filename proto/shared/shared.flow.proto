@@ -66,10 +66,36 @@ message NodeFunction {
 
 message NodeValue {
   oneof value {
-    shared.Value literal_value = 1;
+    LiteralValue literal_value = 1;
     ReferenceValue reference_value = 2;
     SubFlow sub_flow = 3;
   }
+}
+
+// A literal value that may contain inline references.
+//
+// `value` behaves like a template: any occurrence of `${signature}` inside a
+// (possibly nested) string value gets substituted with the resolved value of
+// the reference whose `signature` matches. A single LiteralValue can hold as
+// many references as needed.
+message LiteralValue {
+  // The raw value. String values may contain `${signature}` placeholders that
+  // are resolved from `references`.
+  shared.Value value = 1;
+  // Inline references addressable via `${signature}` inside `value`.
+  repeated Reference references = 2;
+}
+
+// A single inline reference of a LiteralValue.
+//
+// `signature` is the key used inside `value` via the `${signature}` syntax.
+// The referenced value is again a NodeValue, so it can be a LiteralValue
+// (allowing nested references), a ReferenceValue or a SubFlow.
+message Reference {
+  // The key addressed via `${signature}`.
+  string signature = 1;
+  // The value this reference resolves to.
+  NodeValue value = 2;
 }
 
 message NodeParameter {
