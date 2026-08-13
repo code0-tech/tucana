@@ -23,16 +23,6 @@ message ActionFlow {
   string name = 7;
 }
 
-// Event that gets admitted by an action
-message ActionEvent {
-  // Id of Event type
-  string event_type = 1;
-  // Project Id that this event is emitted for
-  int64 project_id = 2;
-  // Payload (JSON) of event params
-  shared.Value payload = 3;
-}
-
 // Action flow/event configuration
 message ActionLogon {
   enum ScalingOption {
@@ -168,14 +158,12 @@ message ActionTransferRequest {
     // Expected behavior:
     // Aquila will abort if the first request is not an ActionLogon
     ActionLogon logon = 1;
-    // Event that got admitted
-    ActionEvent event = 2;
     // Result of execution that was triggered by a execution request
-    ActionExecutionResponse result = 3;
+    ActionExecutionResponse result = 2;
     // Request to execute a sub flow
-    ActionSubFlowExecutionRequest sub_flow_execution = 4;
+    ActionSubFlowExecutionRequest sub_flow_execution = 3;
     // Request to execute one of the action's own flows
-    ActionFlowExecutionRequest flow_execution = 5;
+    ActionFlowExecutionRequest flow_execution = 4;
   }
 }
 
