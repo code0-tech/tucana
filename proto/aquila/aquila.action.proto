@@ -51,6 +51,8 @@ message ActionLogon {
 message ActionNodeSubFlowValue {
   // Execution identifier of the sub flow execution
   string execution_identifier = 1;
+  shared.Struct input_schema = 2;
+  shared.Struct output_schema = 3;
 }
 
 // A single parameter value of a function
