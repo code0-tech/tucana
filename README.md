@@ -74,7 +74,7 @@ services that Aquila must implement as a server.
 │   ├── module - Module service to receive datatypes, functions and flow types from aquila
 │   ├── runtime_status - Service for runtime status (handles information about Draco and Taurus)
 │   ├── runtime_usage - Service for runtime usage (handles execution time of a flow)
-│   └── test_execution - Service and Types for the test execution├── sagittarius
+│   └── test_execution - Service and Types for the test execution
 ├── sagittarius_rails
 │   ├── flow - Flow service (handles flow updates)
 │   ├── module - Module service to receive datatypes, functions and flow types from aquila
