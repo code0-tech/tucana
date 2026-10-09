@@ -1,11 +1,11 @@
 syntax = "proto3";
 
+option ruby_package = "Tucana::Sagittarius::Rails";
+
 package sagittarius_rails;
 
 import "shared.errors.proto";
 import "shared.runtime_usage.proto";
-
-option ruby_package = "Tucana::Sagittarius::Rails";
 
 message RuntimeUsageRequest {
   repeated shared.RuntimeUsage runtime_usage = 1;
