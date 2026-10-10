@@ -6,9 +6,25 @@ package shared;
 
 import "shared.struct.proto";
 import "shared.errors.proto";
+import "shared.flow.proto";
 
-message NodeParameterNodeExecutionResult {
-  shared.Value value = 5;
+message SubFlowFunctionResult {
+
+  shared.SubFlowFunction function = 1;
+  shared.Struct input_schema = 2;
+  shared.Struct output_schema = 3;
+  string name = 4;
+  string description = 5;
+
+}
+
+message NodeValueExecutionResult {
+
+  oneof value {
+    shared.Value raw_value = 1;
+    SubFlowFunctionResult sub_flow_function_result = 2;
+  }
+
 }
 
 message NodeExecutionResult {
@@ -21,10 +37,10 @@ message NodeExecutionResult {
   int64 started_at = 3;
   int64 finished_at = 4;
 
-  repeated NodeParameterNodeExecutionResult parameter_results = 5;
+  repeated NodeValueExecutionResult parameter_results = 5;
 
   oneof result {
-    shared.Value success = 6;
+    NodeValueExecutionResult success = 6;
     shared.Error error = 7;
   }
 
