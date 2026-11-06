@@ -92,12 +92,12 @@ message LiteralValue {
 // The referenced value is again a NodeValue, so it can be a LiteralValue
 // (allowing nested references), a ReferenceValue or a SubFlow.
 message InlineReferenceValue {
-  // The database id from sagittarius
-  optional int64 database_id = 3;
   // The key addressed via `${signature}`.
   string signature = 1;
   // The value this reference resolves to.
   NodeValue value = 2;
+  // The database id from sagittarius
+  optional int64 database_id = 3;
 }
 
 message NodeParameter {
