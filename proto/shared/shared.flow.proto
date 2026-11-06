@@ -96,6 +96,8 @@ message InlineReferenceValue {
   string signature = 1;
   // The value this reference resolves to.
   NodeValue value = 2;
+  // The database id from sagittarius
+  optional int64 database_id = 3;
 }
 
 message NodeParameter {
