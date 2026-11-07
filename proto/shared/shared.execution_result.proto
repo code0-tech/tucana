@@ -10,11 +10,12 @@ import "shared.flow.proto";
 
 message SubFlowFunctionResult {
 
-  shared.SubFlowFunction function = 1;
-  shared.Struct input_schema = 2;
-  shared.Struct output_schema = 3;
-  string name = 4;
-  string description = 5;
+  string subflow_identifier = 1;
+  shared.SubFlowFunction function = 2;
+  shared.Struct input_schema = 3;
+  shared.Struct output_schema = 4;
+  string name = 5;
+  string description = 6;
 
 }
 
@@ -32,16 +33,17 @@ message NodeExecutionResult {
   oneof id {
     int64 node_id = 1;
     string function_identifier = 2;
+    string subflow_identifier = 3;
   }
 
-  int64 started_at = 3;
-  int64 finished_at = 4;
+  int64 started_at = 4;
+  int64 finished_at = 5;
 
-  repeated NodeValueExecutionResult parameter_results = 5;
+  repeated NodeValueExecutionResult parameter_results = 6;
 
   oneof result {
-    NodeValueExecutionResult success = 6;
-    shared.Error error = 7;
+    NodeValueExecutionResult success = 7;
+    shared.Error error = 8;
   }
 
 }
