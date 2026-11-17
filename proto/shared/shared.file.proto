@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Shared";
+
+package shared;
+
+// Metadata of a file stored as a storage object in Sagittarius
+message FileMetadata {
+  // Database id of the storage object
+  int64 id = 1;
+  string file_name = 2;
+  string content_type = 3;
+  int64 byte_size = 4;
+  string checksum = 5;
+}

@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+option ruby_package = "Tucana::Aquila";
+
+package aquila;
+
+import "shared.errors.proto";
+import "shared.file.proto";
+
+// Metadata declared by the action for a file it is about to upload
+message FileUploadMetadata {
+  string file_name = 1;
+  string content_type = 2;
+  // epoch timestamp in milliseconds
+  optional int64 expires_at = 3;
+  int64 project_id = 4;
+  string execution_identifier = 5;
+}
+
+message FileUploadRequest {
+  oneof data {
+    // Must be sent as the first message of the stream
+    FileUploadMetadata metadata = 1;
+    // Sent for every following message
+    bytes chunk = 2;
+  }
+}
+
+message FileUploadResponse {
+  oneof data {
+    // Authoritative metadata as committed by Sagittarius
+    shared.FileMetadata file = 1;
+    shared.Error failure = 2;
+  }
+}
+
+message FileDownloadRequest {
+  // Database id of the storage object
+  int64 id = 1;
+  int64 project_id = 2;
+  string execution_identifier = 3;
+}
+
+message FileDownloadResponse {
+  oneof data {
+    // Sent as the first message of the stream
+    shared.FileMetadata metadata = 1;
+    // Sent for every following message
+    bytes chunk = 2;
+    shared.Error failure = 3;
+  }
+}
+
+// Served by Aquila to actions. Bytes are streamed through Aquila, actions never access storage directly
+service ActionFileService {
+  // The first request message carries the metadata, all following ones carry byte chunks
+  rpc Upload (stream FileUploadRequest) returns (FileUploadResponse) {}
+
+  // The first response message carries the metadata, all following ones carry byte chunks
+  rpc Download (FileDownloadRequest) returns (stream FileDownloadResponse) {}
+}
