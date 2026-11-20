@@ -12,4 +12,6 @@ message FileMetadata {
   string content_type = 3;
   int64 byte_size = 4;
   string checksum = 5;
+  // epoch timestamp in milliseconds, unset when the file never expires
+  optional int64 expires_at = 6;
 }

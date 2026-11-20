@@ -7,6 +7,25 @@ package sagittarius_gateway;
 import "shared.errors.proto";
 import "shared.file.proto";
 
+message GetFileUploadUrlRequest {
+  string file_name = 1;
+  string content_type = 2;
+  // epoch timestamp in milliseconds, the file is deleted afterwards. Unset keeps the file forever
+  optional int64 expires_at = 3;
+  int64 project_id = 4;
+  string execution_identifier = 5;
+}
+
+message GetFileUploadUrlResponse {
+  // Database id of the storage object the upload is bound to
+  int64 id = 1;
+  // Short-lived signed URL accepting a single HTTP PUT of the raw file content
+  string url = 2;
+  // epoch timestamp in milliseconds after which the url is rejected
+  int64 url_expires_at = 3;
+  optional shared.ServiceError error = 4;
+}
+
 message GetFileDownloadUrlRequest {
   // Database id of the storage object
   int64 id = 1;
@@ -15,13 +34,18 @@ message GetFileDownloadUrlRequest {
 }
 
 message GetFileDownloadUrlResponse {
-  // Short-lived signed download URL
+  // Short-lived signed URL serving the file content via HTTP GET
   string url = 1;
-  shared.FileMetadata file = 2;
-  optional shared.ServiceError error = 3;
+  // epoch timestamp in milliseconds after which the url is rejected
+  int64 url_expires_at = 2;
+  shared.FileMetadata file = 3;
+  optional shared.ServiceError error = 4;
 }
 
 service FileService {
+  // Called by Aquila
+  rpc GetFileUploadUrl (GetFileUploadUrlRequest) returns (GetFileUploadUrlResponse) {}
+
   // Called by Aquila
   rpc GetFileDownloadUrl (GetFileDownloadUrlRequest) returns (GetFileDownloadUrlResponse) {}
 }
